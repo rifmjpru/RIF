@@ -1,0 +1,33 @@
+import { Link } from "react-router-dom";
+import { useSiteData } from "./SiteDataProvider.jsx";
+
+export const Footer = () => {
+  const { siteData } = useSiteData();
+  const siteSettings = siteData?.siteSettings;
+
+  return (
+    <footer className="site-footer">
+      <div className="footer-panel">
+        <div>
+          <p className="section-eyebrow">RIF</p>
+          <h3>{siteSettings?.fullName || "Rohilkhand Incubation Foundation"}</h3>
+          <p>{siteSettings?.tagline}</p>
+        </div>
+        <div>
+          <p className="footer-label">Contact</p>
+          <a href={`mailto:${siteSettings?.contactEmail}`}>{siteSettings?.contactEmail}</a>
+          <a href={`tel:${siteSettings?.contactPhone}`}>{siteSettings?.contactPhone}</a>
+          <p>{siteSettings?.location}</p>
+        </div>
+        <div>
+          <p className="footer-label">Quick Links</p>
+          <Link to="/apply">Apply Now</Link>
+          <Link to="/membership-register">Membership Form</Link>
+          <Link to="/incubitee-register">Incubitee Form</Link>
+        </div>
+      </div>
+      <p className="footer-note">{siteSettings?.footerNote}</p>
+    </footer>
+  );
+};
+

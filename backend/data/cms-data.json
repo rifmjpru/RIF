@@ -1,0 +1,639 @@
+{
+  "siteSettings": {
+    "name": "RIF",
+    "fullName": "Rohilkhand Incubation Foundation",
+    "tagline": "Building scalable ventures from research, regional insight, and founder grit.",
+    "location": "MJP Rohilkhand University, Bareilly, Uttar Pradesh",
+    "contactEmail": "hello@rif.org.in",
+    "contactPhone": "+91 98765 43210",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com",
+      "youtube": "https://www.youtube.com",
+      "instagram": "https://www.instagram.com"
+    },
+    "footerNote": "NSRCEL-inspired digital experience adapted for RIF with a modern content-managed architecture."
+  },
+  "homepage": {
+    "announcement": "Applications are live for the 2026 Venture Studio and community membership intake.",
+    "hero": {
+      "eyebrow": "Institutional Innovation Platform",
+      "title": "A startup launchpad for university-born ideas and market-ready ventures.",
+      "description": "RIF connects founders, mentors, researchers, and ecosystem partners through incubation, venture support, memberships, and startup services. The experience is modeled on the ambition and clarity of leading incubator websites while staying editable through a simple CMS.",
+      "primaryCtaLabel": "Apply Now",
+      "primaryCtaLink": "/apply",
+      "secondaryCtaLabel": "Explore Memberships",
+      "secondaryCtaLink": "/membership-plans",
+      "spotlightTitle": "What founders get inside the platform",
+      "spotlightItems": [
+        "Startup diagnostics and program matching",
+        "Mentor office hours and strategic reviews",
+        "Go-to-market support and visibility",
+        "Institutional documentation and reporting"
+      ]
+    },
+    "stats": [
+      {
+        "label": "Active incubatees",
+        "value": "42"
+      },
+      {
+        "label": "Mentors and experts",
+        "value": "68"
+      },
+      {
+        "label": "Programs and service tracks",
+        "value": "12"
+      },
+      {
+        "label": "Institutional partners",
+        "value": "18"
+      }
+    ],
+    "focusAreas": [
+      "Deeptech and research commercialization",
+      "Agri and rural innovation",
+      "Healthcare and social impact",
+      "Climate and circular systems",
+      "Digital transformation and AI"
+    ],
+    "featuredPrograms": [
+      {
+        "title": "Foundation Cohort",
+        "stage": "Idea Stage",
+        "mode": "8-week guided sprint",
+        "description": "Structured problem validation, user discovery, and early business model design for first-time founders."
+      },
+      {
+        "title": "Accelerate RIF",
+        "stage": "Validation Stage",
+        "mode": "16-week venture readiness track",
+        "description": "Hands-on support for traction, investor readiness, and product-market fit milestones."
+      },
+      {
+        "title": "Campus Venture Studio",
+        "stage": "Student Founders",
+        "mode": "Hybrid",
+        "description": "A year-round platform for student innovators to move from prototypes to scalable ventures."
+      }
+    ],
+    "startupStories": [
+      {
+        "name": "KrishiPulse",
+        "sector": "Agri Intelligence",
+        "highlight": "Scaled farmer advisory pilots across three districts with mentor-led market access support."
+      },
+      {
+        "name": "MedNerve Labs",
+        "sector": "Digital Health",
+        "highlight": "Refined clinical workflows and enterprise positioning through RIF's advisory network."
+      },
+      {
+        "name": "Circular Foundry",
+        "sector": "Climate Tech",
+        "highlight": "Built a materials recovery partnerships pipeline using RIF services and corporate connects."
+      }
+    ],
+    "timeline": [
+      {
+        "title": "Discover",
+        "description": "Map the problem, the market, and the founder's current readiness."
+      },
+      {
+        "title": "Build",
+        "description": "Design the venture narrative, support systems, and milestone roadmap."
+      },
+      {
+        "title": "Launch",
+        "description": "Move into pilots, partnerships, fundraising conversations, and ecosystem visibility."
+      }
+    ],
+    "partnerLogos": [
+      "Innovation Cell",
+      "State Startup Mission",
+      "Industry Network",
+      "Investor Circle",
+      "Research Labs"
+    ],
+    "cta": {
+      "title": "Designed for institutional credibility and founder momentum.",
+      "description": "Every major section is editable from the admin dashboard so the website can handle updates, applications, media, documents, and announcements without code changes.",
+      "primaryLabel": "Contact RIF",
+      "primaryLink": "/contact",
+      "secondaryLabel": "Contact RIF",
+      "secondaryLink": "/about"
+    }
+  },
+  "about": {
+    "overview": {
+      "title": "About RIF",
+      "body": "Rohilkhand Incubation Foundation is a university-linked innovation platform that supports venture creation, startup services, ecosystem partnerships, and entrepreneurial capability building. This website architecture is designed so institutional teams can update content quickly while maintaining a polished public presence.",
+      "mission": "To help ambitious founders turn ideas into responsible, scalable ventures through structured support and strong ecosystem access.",
+      "vision": "To become a high-trust regional hub for innovation, venture building, and research commercialization."
+    },
+    "pillars": [
+      {
+        "title": "Incubation",
+        "description": "Stage-specific venture support covering discovery, validation, and growth."
+      },
+      {
+        "title": "Community",
+        "description": "Membership programs that keep founders, experts, and institutional partners engaged."
+      },
+      {
+        "title": "Capability",
+        "description": "Mentor access, workshops, reviews, and operational guidance."
+      },
+      {
+        "title": "Visibility",
+        "description": "News, events, founder stories, and document publishing for institutional outreach."
+      }
+    ],
+    "galleryIntro": "A flexible image and document module supports institution updates, visits, demos, and events.",
+    "documents": [
+      {
+        "id": "rif-brochure",
+        "title": "Institution Profile",
+        "type": "PDF",
+        "url": "#",
+        "description": "Overview document introducing the foundation, focus areas, and support capabilities."
+      },
+      {
+        "id": "annual-report",
+        "title": "Annual Progress Report",
+        "type": "PDF",
+        "url": "#",
+        "description": "Highlights of incubated ventures, partnerships, and operational milestones."
+      },
+      {
+        "id": "policy-kit",
+        "title": "Startup Policies and Downloads",
+        "type": "ZIP",
+        "url": "#",
+        "description": "A consolidated repository of forms, guides, and onboarding documents."
+      }
+    ]
+  },
+  "team": {
+    "boardOfDirectors": [
+      {
+        "id": "board-1",
+        "name": "Prof. Ananya Sethi",
+        "role": "Chairperson",
+        "bio": "Leads institutional innovation strategy with a focus on entrepreneurial research ecosystems.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "board-2",
+        "name": "Dr. Raghav Bhatia",
+        "role": "Director",
+        "bio": "Works on academic-industry partnerships and startup capacity building.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      }
+    ],
+    "advisoryBoard": [
+      {
+        "id": "advisor-1",
+        "name": "Dr. Vipin Kumar",
+        "role": "Director and Chief Innovation Officer",
+        "bio": "Provides innovation strategy leadership for institutional and startup growth.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "advisor-2",
+        "name": "Mr. Ghanshyam Khandelwal",
+        "role": "Chief Advisor (Industry), RIF",
+        "bio": "Supports founder growth with practical industry advisory and strategic direction.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "advisor-3",
+        "name": "Mr. Dinesh Goyal",
+        "role": "Chief Advisor (Industry), RIF",
+        "bio": "Guides industry alignment and ecosystem collaboration across venture initiatives.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "advisor-4",
+        "name": "Dr. Swatantra Kumar",
+        "role": "Chief Advisor (Media and Marketing)",
+        "bio": "Leads media and outreach guidance for founder storytelling and visibility.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "advisor-5",
+        "name": "Mr. Ashish Saxena",
+        "role": "Chief Advisor (Finance), RIF",
+        "bio": "Advises on finance strategy, planning, and investment readiness pathways.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "advisor-6",
+        "name": "Ms. Tulika Agarwal",
+        "role": "Academic Advisor, RIF",
+        "bio": "Supports academic integration and institution-linked innovation programs.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      }
+    ],
+    "coreTeam": [
+      {
+        "id": "core-1",
+        "name": "Ira Singh",
+        "role": "Program Manager",
+        "bio": "Owns cohort operations, founder experience, and ecosystem coordination.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "core-2",
+        "name": "Zeeshan Khan",
+        "role": "Partnerships Lead",
+        "bio": "Builds relationships with institutions, corporates, and ecosystem collaborators.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      },
+      {
+        "id": "core-3",
+        "name": "Ritika Jain",
+        "role": "Community and Content Lead",
+        "bio": "Handles media updates, events, and narrative consistency across channels.",
+        "imageUrl": "",
+        "imageAssetId": ""
+      }
+    ]
+  },
+  "incubatees": [
+    {
+      "id": "incubatee-1",
+      "name": "KrishiPulse",
+      "sector": "AgriTech",
+      "stage": "Pilot Ready",
+      "summary": "Decision support tools for precision farming and rural advisory services.",
+      "founder": "Sanya Verma",
+      "location": "Bareilly",
+      "imageUrl": "",
+      "imageAssetId": ""
+    },
+    {
+      "id": "incubatee-2",
+      "name": "MedNerve Labs",
+      "sector": "HealthTech",
+      "stage": "Clinical Validation",
+      "summary": "Workflow automation tools for preventive care and patient follow-up.",
+      "founder": "Kush Arora",
+      "location": "Noida",
+      "imageUrl": "",
+      "imageAssetId": ""
+    },
+    {
+      "id": "incubatee-3",
+      "name": "Circular Foundry",
+      "sector": "ClimateTech",
+      "stage": "Go-to-Market",
+      "summary": "Circular materials recovery solutions for industrial and campus waste streams.",
+      "founder": "Muskan Ali",
+      "location": "Lucknow",
+      "imageUrl": "",
+      "imageAssetId": ""
+    }
+  ],
+  "mentors": [
+    {
+      "id": "mentor-1",
+      "name": "Rohit Wadhwa",
+      "expertise": "Growth and GTM",
+      "company": "Independent Advisor",
+      "focus": "Market validation, customer discovery, and early revenue planning.",
+      "imageUrl": "",
+      "imageAssetId": ""
+    },
+    {
+      "id": "mentor-2",
+      "name": "Dr. Kavya Menon",
+      "expertise": "Healthcare Product Strategy",
+      "company": "Health Systems Collective",
+      "focus": "Clinical workflows, product positioning, and pilot design.",
+      "imageUrl": "",
+      "imageAssetId": ""
+    },
+    {
+      "id": "mentor-3",
+      "name": "Sourabh Taneja",
+      "expertise": "Finance and Fundraising",
+      "company": "Venture Finance Partner",
+      "focus": "Financial models, readiness reviews, and investor communication.",
+      "imageUrl": "",
+      "imageAssetId": ""
+    }
+  ],
+  "services": [
+    {
+      "id": "service-1",
+      "title": "Incubation and Cohort Management",
+      "category": "Core Program",
+      "description": "Cohort design, founder diagnostics, milestone reviews, and structured venture support.",
+      "items": [
+        "Readiness assessment",
+        "Milestone planning",
+        "Mentor mapping"
+      ]
+    },
+    {
+      "id": "service-2",
+      "title": "Business Support Services",
+      "category": "Operations",
+      "description": "Brand positioning, GTM planning, operational playbooks, and business process support.",
+      "items": [
+        "Narrative design",
+        "Partnership outreach",
+        "Commercial readiness"
+      ]
+    },
+    {
+      "id": "service-3",
+      "title": "Investor and Partner Connects",
+      "category": "Ecosystem",
+      "description": "Structured exposure to investors, industry experts, and institutional collaborators.",
+      "items": [
+        "Pitch reviews",
+        "Network introductions",
+        "Demo day support"
+      ]
+    }
+  ],
+  "membershipPlans": [
+    {
+      "id": "plan-1",
+      "name": "Community",
+      "price": "Rs. 2,500",
+      "frequency": "per quarter",
+      "description": "For founders who want ecosystem access, events, and curated updates.",
+      "features": [
+        "Access to events",
+        "Monthly founder clinic",
+        "Resource library"
+      ]
+    },
+    {
+      "id": "plan-2",
+      "name": "Builder",
+      "price": "Rs. 9,000",
+      "frequency": "per quarter",
+      "description": "For active ventures that need reviews, advisory time, and structured support.",
+      "features": [
+        "Mentor reviews",
+        "Growth planning",
+        "Priority support"
+      ]
+    },
+    {
+      "id": "plan-3",
+      "name": "Institutional Partner",
+      "price": "Custom",
+      "frequency": "annual",
+      "description": "For colleges, labs, and ecosystem bodies that want a coordinated innovation interface.",
+      "features": [
+        "Custom engagements",
+        "Joint programming",
+        "Reporting support"
+      ]
+    }
+  ],
+  "rifServices": {
+    "pageEyebrow": "Our Services",
+    "pageTitle": "Custom IT solutions for your successful business",
+    "benefitsEyebrow": "Benefits",
+    "benefitsTitle": "Benefits to Choose RIF",
+    "benefits": [
+      {
+        "id": "benefit-1",
+        "title": "Physical Infrastructure",
+        "description": "Incubatees receive access to shared workspaces, internet, meeting areas, and essential infrastructure support."
+      },
+      {
+        "id": "benefit-2",
+        "title": "Quality Mentorship",
+        "description": "Guidance from industry experts, researchers, and practitioners to strengthen technical and business readiness."
+      },
+      {
+        "id": "benefit-3",
+        "title": "Technical Consultancy",
+        "description": "Support in product validation, technology choices, operations, and commercialization planning."
+      },
+      {
+        "id": "benefit-4",
+        "title": "Training and Workshops",
+        "description": "Programs and workshops focused on product, market, compliance, and growth capabilities."
+      },
+      {
+        "id": "benefit-5",
+        "title": "Financial Support",
+        "description": "Connects to grants, investor programs, and partner institutions where applicable."
+      }
+    ],
+    "otherServicesEyebrow": "Other Services",
+    "otherServicesTitle": "Custom IT solutions for your successful business",
+    "serviceTiles": [
+      {
+        "id": "tile-1",
+        "title": "Events",
+        "description": "Startup networking and ecosystem events that strengthen exposure and collaboration.",
+        "iconUrl": "",
+        "iconAssetId": "",
+        "iconAlt": "Events icon"
+      },
+      {
+        "id": "tile-2",
+        "title": "Shared Resources",
+        "description": "Shared facilities and common resources for participating founders and teams.",
+        "iconUrl": "",
+        "iconAssetId": "",
+        "iconAlt": "Shared resources icon"
+      },
+      {
+        "id": "tile-3",
+        "title": "Technical Support",
+        "description": "Technical advisory and execution support for product and operations readiness.",
+        "iconUrl": "",
+        "iconAssetId": "",
+        "iconAlt": "Technical support icon"
+      },
+      {
+        "id": "tile-4",
+        "title": "Mentorship",
+        "description": "Domain mentors and founder advisors to accelerate problem-solving and execution.",
+        "iconUrl": "",
+        "iconAssetId": "",
+        "iconAlt": "Mentorship icon"
+      }
+    ],
+    "supportCardTitle": "Call Us For Any Query",
+    "supportCardDescription": "Please connect with our team for guidance, support, and collaboration enquiries.",
+    "supportPhone": "+91 8979794345",
+    "eligibilityTitle": "Eligibility Criteria for Incubatees",
+    "eligibilityIntro": "Entrepreneurs and startups interested in applying for incubation at RIF should review the following criteria.",
+    "eligibilityPoints": [
+      "Startup or entrepreneur should be an innovative product/process/service candidate.",
+      "Entity can be a private limited company, LLP, registered partnership firm, or proprietorship.",
+      "The startup should be less than 10 years old from date of incorporation.",
+      "Annual turnover in any preceding financial year must not exceed INR 25 crore.",
+      "The venture should have potential for scaling and employment generation."
+    ],
+    "screeningTitle": "Screening Process for Incubatees",
+    "screeningSteps": [
+      {
+        "id": "step-1",
+        "title": "Step 1",
+        "description": "Submission of application in electronic format by entrepreneurs or startups."
+      },
+      {
+        "id": "step-2",
+        "title": "Step 2",
+        "description": "Review by the incubation evaluation committee and initial screening."
+      },
+      {
+        "id": "step-3",
+        "title": "Step 3",
+        "description": "Presentation by shortlisted applicants before the committee."
+      },
+      {
+        "id": "step-4",
+        "title": "Step 4",
+        "description": "Final recommendation and incubation agreement process for selected startups."
+      }
+    ]
+  },
+  "news": [
+    {
+      "id": "news-1",
+      "type": "News",
+      "title": "RIF opens the 2026 startup applications window",
+      "excerpt": "Applications are now open for founders working on early-stage, research-backed, or regionally relevant ventures.",
+      "publishedAt": "2026-03-05",
+      "link": "/apply",
+      "category": "Programs",
+      "author": "RIF Desk"
+    },
+    {
+      "id": "news-2",
+      "type": "Update",
+      "title": "Mentor network expands with sector specialists",
+      "excerpt": "New mentors join the network to support healthcare, agri innovation, and venture finance.",
+      "publishedAt": "2026-02-21",
+      "link": "/mentors",
+      "category": "Ecosystem",
+      "author": "RIF Desk"
+    }
+  ],
+  "events": [
+    {
+      "id": "event-1",
+      "title": "Founder Open House",
+      "location": "RIF Innovation Hub",
+      "date": "2026-03-22",
+      "status": "Upcoming",
+      "link": "/news-events",
+      "summary": "An open information session for founders exploring RIF's programs and membership tracks."
+    },
+    {
+      "id": "event-2",
+      "title": "Investor Readiness Clinic",
+      "location": "Hybrid",
+      "date": "2026-04-03",
+      "status": "Upcoming",
+      "link": "/news-events",
+      "summary": "A working clinic for founders preparing decks, metrics, and fundraising narratives."
+    }
+  ],
+  "heroSlider": [
+    {
+      "id": "hero-slide-1",
+      "title": "Empowering Startups",
+      "altText": "Founders collaborating in the RIF workspace",
+      "imageUrl": ""
+    },
+    {
+      "id": "hero-slide-2",
+      "title": "Mentor-Led Growth",
+      "altText": "Mentor session with startup founders",
+      "imageUrl": ""
+    },
+    {
+      "id": "hero-slide-3",
+      "title": "Innovation in Motion",
+      "altText": "Startup team planning their next milestone",
+      "imageUrl": ""
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gallery-1",
+      "title": "Demo Day Walkthrough",
+      "description": "Pitch practice, mentor reviews, and team coordination ahead of founder showcase day.",
+      "altText": "Demo day walkthrough",
+      "imageUrl": ""
+    },
+    {
+      "id": "gallery-2",
+      "title": "Campus Innovation Sprint",
+      "description": "Students, faculty, and founders collaborated on venture problem statements and prototypes.",
+      "altText": "Campus innovation sprint",
+      "imageUrl": ""
+    },
+    {
+      "id": "gallery-3",
+      "title": "Mentor Roundtable",
+      "description": "Sector specialists reviewed venture progress, partnerships, and founder priorities.",
+      "altText": "Mentor roundtable",
+      "imageUrl": ""
+    },
+    {
+      "id": "gallery-4",
+      "title": "Founder Office Hours",
+      "description": "Hands-on sessions for applications, milestone planning, and support workflows.",
+      "altText": "Founder office hours",
+      "imageUrl": ""
+    }
+  ],
+  "formsMeta": {
+    "apply": {
+      "title": "Apply to RIF",
+      "intro": "Use this form for incubation or program admission requests.",
+      "points": [
+        "Share your startup idea and stage",
+        "Explain the problem and traction so far",
+        "Mention the support you expect from RIF"
+      ]
+    },
+    "membership": {
+      "title": "Register for Membership",
+      "intro": "Choose a plan and tell us how you want to engage with the ecosystem.",
+      "points": [
+        "Select your membership track",
+        "Tell us your role and goals",
+        "Add your organization details"
+      ]
+    },
+    "incubitee": {
+      "title": "Incubitee Registration",
+      "intro": "For ventures entering the incubatee directory or program records.",
+      "points": [
+        "Add founder and venture details",
+        "Record sector, stage, and city",
+        "Capture support requirements"
+      ]
+    }
+  },
+  "submissions": {
+    "apply": [],
+    "membership": [],
+    "incubitee": []
+  }
+}
