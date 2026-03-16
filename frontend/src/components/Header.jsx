@@ -67,6 +67,12 @@ export const Header = () => {
     };
   }, [mobileOpen]);
 
+  const isAdmin = location.pathname.startsWith("/admin");
+
+  if (isAdmin) {
+    return null;
+  }
+
   return (
     <>
       <header className="site-header">

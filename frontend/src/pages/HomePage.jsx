@@ -138,10 +138,6 @@ export default function HomePage() {
         <div className="hero-spotlight home-copy-spotlight">
           <p className="hero-spotlight-title">Current Slide</p>
           <h3>{slides[activeSlide]?.title || "Hero Image"}</h3>
-          <p>
-            This carousel is now positioned directly below the navigation bar and controlled independently from the
-            homepage copy.
-          </p>
           <Link className="text-link" to="/gallery">
             View gallery highlights
           </Link>
@@ -150,11 +146,14 @@ export default function HomePage() {
             <div className="spotlight-partner-strip">
               {spotlightPartners.map((partner) => (
                 <div className="spotlight-partner-item spotlight-partner-image" key={partner.label}>
-                  <img alt={partner.label} src={partner.src} />
+                  {partner.src ? (
+                    <img alt={partner.label} src={partner.src} />
+                  ) : (
+                    <span className="spotlight-partner-fallback">{partner.label}</span>
+                  )}
                 </div>
               ))}
             </div>
-            <p className="detail-line">Quick credibility view: institutional, standards, and ecosystem readiness signals.</p>
           </div>
         </div>
       </section>
@@ -181,22 +180,6 @@ export default function HomePage() {
             <span className="focus-chip" key={item}>
               {item}
             </span>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <SectionHeading eyebrow="Programs" title="Founder tracks that match venture maturity." />
-        <div className="card-grid card-grid-3">
-          {homepage?.featuredPrograms?.map((program) => (
-            <article className="content-card" key={program.title}>
-              <p className="meta-line">
-                <span>{program.stage}</span>
-                <span>{program.mode}</span>
-              </p>
-              <h3>{program.title}</h3>
-              <p>{program.description}</p>
-            </article>
           ))}
         </div>
       </section>

@@ -27,7 +27,9 @@ const adminTabs = [
 const formMetaFields = [
   { key: "title", label: "Title", span: 2 },
   { key: "intro", label: "Intro", type: "textarea", span: 2, rows: 4 },
-  { key: "points", label: "Bullet Points", type: "array", span: 2, rows: 4 }
+  { key: "points", label: "Bullet Points", type: "array", span: 2, rows: 4 },
+  { key: "paymentAmount", label: "Apply Form Fee (₹)", type: "number" },
+  { key: "paymentModes", label: "Payment Modes (one per line)", type: "array", span: 2, rows: 3 }
 ];
 
 const createId = () => (crypto.randomUUID ? crypto.randomUUID() : `item-${Date.now()}`);
