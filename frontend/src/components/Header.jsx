@@ -10,6 +10,7 @@ export const Header = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
+  const [openMobileGroup, setOpenMobileGroup] = useState(null);
   const { siteData } = useSiteData();
   const tickerEntries = [
     ...(siteData?.news || []).map((item) => ({
@@ -39,10 +40,32 @@ export const Header = () => {
     return item.children?.some((child) => child.to.split("#")[0] === location.pathname);
   };
 
-  useEffect(() => {
+  const closeMobileNav = () => {
     setMobileOpen(false);
     setOpenMenu(null);
+    setOpenMobileGroup(null);
+  };
+
+  useEffect(() => {
+    closeMobileNav();
   }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (mobileOpen) {
+      root.classList.add("mobile-nav-open");
+      document.body.style.overflow = "hidden";
+    } else {
+      root.classList.remove("mobile-nav-open");
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      root.classList.remove("mobile-nav-open");
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   return (
     <>
@@ -98,21 +121,40 @@ export const Header = () => {
             {applyAction.label}
           </Link>
           <button className="menu-toggle" onClick={() => setMobileOpen((open) => !open)} type="button">
-            {mobileOpen ? "Close" : "Menu"}
+            <span className="menu-icon" aria-hidden>
+              {mobileOpen ? "✕" : "☰"}
+            </span>
+            <span>{mobileOpen ? "Close" : "Menu"}</span>
           </button>
         </div>
       </header>
       {mobileOpen ? (
+        <div className="mobile-nav-backdrop" onClick={closeMobileNav} role="presentation" />
+      ) : null}
+      {mobileOpen ? (
         <nav className="mobile-nav" aria-label="Mobile">
           {navigation.map((item) => (
             <div className="mobile-nav-group" key={item.id}>
-              <NavLink className={navClassName} to={item.to}>
-                {item.label}
-              </NavLink>
+              <div className="mobile-nav-head">
+                <NavLink className={navClassName} onClick={closeMobileNav} to={item.to}>
+                  {item.label}
+                </NavLink>
+                {item.children?.length ? (
+                  <button
+                    aria-expanded={openMobileGroup === item.id}
+                    aria-label={`Toggle ${item.label} links`}
+                    className="mobile-nav-toggle"
+                    onClick={() => setOpenMobileGroup((current) => (current === item.id ? null : item.id))}
+                    type="button"
+                  >
+                    {openMobileGroup === item.id ? "−" : "+"}
+                  </button>
+                ) : null}
+              </div>
               {item.children?.length ? (
-                <div className="mobile-subnav">
+                <div className={openMobileGroup === item.id ? "mobile-subnav mobile-subnav-open" : "mobile-subnav"}>
                   {item.children.map((child) => (
-                    <Link className="mobile-subnav-link" key={child.to} to={child.to}>
+                    <Link className="mobile-subnav-link" key={child.to} onClick={closeMobileNav} to={child.to}>
                       {child.label}
                     </Link>
                   ))}
@@ -120,7 +162,7 @@ export const Header = () => {
               ) : null}
             </div>
           ))}
-          <Link className="button mobile-admin-link" to={applyAction.to}>
+          <Link className="button mobile-admin-link" onClick={closeMobileNav} to={applyAction.to}>
             {applyAction.label}
           </Link>
         </nav>

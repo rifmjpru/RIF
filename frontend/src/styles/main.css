@@ -2,6 +2,7 @@
 
 :root {
   color-scheme: light;
+  --header-height: 88px;
   --bg: #eef2ff;
   --bg-secondary: #e5ecff;
   --surface: rgba(255, 255, 255, 0.94);
@@ -222,7 +223,8 @@ textarea:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  padding: 1rem clamp(1.1rem, 3vw, 2rem);
+  padding: 0.9rem clamp(1.1rem, 3vw, 2rem);
+  min-height: var(--header-height);
   background: #ffffff;
   border-bottom: 1px solid var(--line);
   box-shadow: 0 10px 24px rgba(30, 79, 178, 0.1);
@@ -391,12 +393,20 @@ textarea:focus-visible {
 
 .menu-toggle {
   display: none;
-  min-height: 46px;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--text);
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgba(47, 111, 219, 0.25);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #f8fbff, #eef3ff);
+  color: var(--primary-deep);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.menu-toggle .menu-icon {
+  font-size: 1.05rem;
 }
 
 .desktop-cta {
@@ -410,6 +420,36 @@ textarea:focus-visible {
 .mobile-nav-group {
   display: grid;
   gap: 0.25rem;
+}
+
+.mobile-nav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.mobile-nav-toggle {
+  min-width: 40px;
+  min-height: 38px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.mobile-subnav {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0 0 0.55rem 0.85rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 200ms ease;
+}
+
+.mobile-subnav-open {
+  max-height: 480px;
 }
 
 .mobile-subnav {
@@ -2078,14 +2118,24 @@ textarea:focus-visible {
   padding: 0.45rem;
   border: 2px solid #6a1f7b;
   background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 16px 32px rgba(17, 42, 88, 0.12);
 }
 
 .gallery-simple-image {
   display: block;
   width: 100%;
-  height: 240px;
-  object-fit: contain;
+  height: 220px;
+  object-fit: cover;
   object-position: center;
+  border-radius: 12px;
+}
+
+.gallery-note {
+  margin: 0.45rem 0 0;
+  color: var(--text-soft);
+  text-align: center;
+  font-size: 0.92rem;
 }
 
 .gallery-simple-caption {
@@ -2880,23 +2930,55 @@ textarea:focus-visible {
 }
 
 @media (max-width: 1080px) {
+  :root {
+    --header-height: 82px;
+  }
+
   .desktop-nav,
   .desktop-cta {
     display: none;
   }
 
-  .menu-toggle,
-  .mobile-nav {
-    display: block;
+  .menu-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .mobile-nav-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 38;
+    background: rgba(14, 32, 68, 0.55);
+    backdrop-filter: blur(2px);
+  }
+
+  .site-header {
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0.75rem clamp(1rem, 3vw, 1.6rem);
+    z-index: 50;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .mobile-nav {
-    margin: 0 clamp(1rem, 3vw, 2rem);
+    display: grid;
+    position: fixed;
+    inset: calc(var(--header-height) + 6px) clamp(0.7rem, 3vw, 1.35rem) auto clamp(0.7rem, 3vw, 1.35rem);
+    z-index: 40;
+    max-height: calc(100vh - var(--header-height) - 22px);
+    overflow: auto;
+    margin: 0;
     padding: 1rem;
     border: 1px solid rgba(47, 111, 219, 0.14);
     border-radius: var(--radius-xl);
-    background: #ffffff;
+    background: linear-gradient(180deg, #ffffff 60%, #f4f6ff 100%);
     box-shadow: var(--shadow-md);
+    gap: 0.65rem;
   }
 
   .ticker-shell {
@@ -3004,16 +3086,38 @@ textarea:focus-visible {
 }
 
 @media (max-width: 720px) {
+  :root {
+    --header-height: 74px;
+  }
+
   .site-main {
     padding-inline: 0.9rem;
   }
 
   .site-header {
-    gap: 0.8rem;
+    gap: 0.5rem;
+    padding: 0.7rem 0.9rem;
   }
 
   .brand-mark strong {
     font-size: 0.92rem;
+  }
+
+  .brand-badge {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.35rem;
+  }
+
+  .menu-toggle {
+    width: auto;
+    min-width: 120px;
+    justify-content: center;
   }
 
   .stats-grid,
