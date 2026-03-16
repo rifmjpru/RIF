@@ -839,14 +839,7 @@ textarea:focus-visible {
 .hero-spotlight::after,
 .page-hero-card::after,
 .cta-panel::after {
-  content: "";
-  position: absolute;
-  inset: auto 1.1rem 1.1rem auto;
-  width: 74px;
-  height: 74px;
-  border-radius: 20px;
-  background: rgba(31, 77, 167, 0.08);
-  animation: softFloat 7s ease-in-out infinite;
+  content: none;
 }
 
 .hero-spotlight-title {
@@ -2544,6 +2537,10 @@ textarea:focus-visible {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   padding: 1.45rem;
+}
+
+.footer-panel > div {
+  text-align: center;
 }
 
 .footer-panel a,
