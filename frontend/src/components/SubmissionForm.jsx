@@ -6,20 +6,33 @@ const defaultValueForField = (field) => field.defaultValue || "";
 const initialStateFromFields = (fields) =>
   Object.fromEntries(fields.map((field) => [field.name, defaultValueForField(field)]));
 
-export const SubmissionForm = ({ title, intro, points, fields, submitType }) => {
+export const SubmissionForm = ({ title, intro, points, fields, submitType, beforeSubmit, onChange, onSuccess }) => {
   const [formState, setFormState] = useState(() => initialStateFromFields(fields));
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
 
   const handleChange = (name, value) => {
-    setFormState((current) => ({
-      ...current,
-      [name]: value
-    }));
+    setFormState((current) => {
+      const next = {
+        ...current,
+        [name]: value
+      };
+      if (onChange) {
+        onChange(name, value, next, setFormState);
+      }
+      return next;
+    });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (beforeSubmit) {
+      const shouldContinue = await beforeSubmit({ formState, setFormState, setStatus, setMessage });
+      if (!shouldContinue) {
+        return;
+      }
+    }
 
     try {
       setStatus("loading");
@@ -27,6 +40,9 @@ export const SubmissionForm = ({ title, intro, points, fields, submitType }) => 
       setStatus("success");
       setMessage(result.message);
       setFormState(initialStateFromFields(fields));
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (error) {
       setStatus("error");
       setMessage(error.message);
@@ -67,11 +83,15 @@ export const SubmissionForm = ({ title, intro, points, fields, submitType }) => 
                   onChange={(event) => handleChange(field.name, event.target.value)}
                 >
                   <option value="">{field.placeholder || "Select"}</option>
-                  {field.options?.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  {field.options?.map((option) => {
+                    const value = typeof option === "object" ? option.value : option;
+                    const label = typeof option === "object" ? option.label : option;
+                    return (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    );
+                  })}
                 </select>
               ) : (
                 <input
@@ -94,4 +114,3 @@ export const SubmissionForm = ({ title, intro, points, fields, submitType }) => 
     </section>
   );
 };
-

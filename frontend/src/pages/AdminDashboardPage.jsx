@@ -24,13 +24,23 @@ const adminTabs = [
   { id: "submissions", label: "Submissions" }
 ];
 
-const formMetaFields = [
+const commonFormMetaFields = [
   { key: "title", label: "Title", span: 2 },
   { key: "intro", label: "Intro", type: "textarea", span: 2, rows: 4 },
-  { key: "points", label: "Bullet Points", type: "array", span: 2, rows: 4 },
-  { key: "paymentAmount", label: "Apply Form Fee (₹)", type: "number" },
-  { key: "paymentModes", label: "Payment Modes (one per line)", type: "array", span: 2, rows: 3 }
+  { key: "points", label: "Bullet Points", type: "array", span: 2, rows: 4 }
 ];
+
+const formMetaFieldSets = {
+  apply: [
+    ...commonFormMetaFields,
+    { key: "paymentAmount", label: "Form Fee (₹)", type: "number" }
+  ],
+  membership: [...commonFormMetaFields],
+  incubitee: [
+    ...commonFormMetaFields,
+    { key: "paymentAmount", label: "Form Fee (₹)", type: "number" }
+  ]
+};
 
 const createId = () => (crypto.randomUUID ? crypto.randomUUID() : `item-${Date.now()}`);
 const ensureItemsHaveIds = (items = [], baseKey = "item") =>
@@ -2507,7 +2517,7 @@ export default function AdminDashboardPage() {
       {activeFormMetaKey && activeFormMetaValue ? (
         <AdminDialog title={`Edit ${slugLabel(activeFormMetaKey)} Form`} onClose={() => setActiveFormMetaKey("")}>
           <div className="admin-form-grid">
-            {formMetaFields.map((field) => (
+            {(formMetaFieldSets[activeFormMetaKey] || commonFormMetaFields).map((field) => (
               <label className={field.span === 2 ? "field field-span-2" : "field"} key={field.key}>
                 <span>{field.label}</span>
                 <InputField

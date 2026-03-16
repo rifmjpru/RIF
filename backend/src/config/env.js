@@ -26,5 +26,11 @@ export const env = {
   cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
   cloudinaryApiKey: process.env.CLOUDINARY_API_KEY || "",
   cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
-  cloudinaryUploadFolder: process.env.CLOUDINARY_UPLOAD_FOLDER || ""
+  cloudinaryUploadFolder: process.env.CLOUDINARY_UPLOAD_FOLDER || "",
+  smtpHost: process.env.SMTP_HOST || "",
+  smtpPort: Number(process.env.SMTP_PORT || 587),
+  smtpUser: process.env.SMTP_USER || "",
+  smtpPass: process.env.SMTP_PASS || "",
+  smtpFrom: process.env.SMTP_FROM || process.env.SMTP_USER || "",
+  notifyAdminEmail: process.env.NOTIFY_ADMIN_EMAIL || process.env.ADMIN_USERNAME || ""
 };

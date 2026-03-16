@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { getSiteContentCollection, getSiteContentDocumentId, getSubmissionsCollection } from "../config/database.js";
 import { slugify } from "../utils/slugify.js";
+import { sendSubmissionEmails } from "./mailer.js";
 
 const editableSections = new Set([
   "siteSettings",
@@ -143,6 +144,9 @@ export const createSubmission = async (type, payload) => {
   };
 
   await getSubmissionsCollection().insertOne(entry);
+  sendSubmissionEmails(type, entry).catch((error) => {
+    console.error("[mail] Error sending submission emails", error);
+  });
 
   const { type: _type, ...submission } = entry;
   return submission;
