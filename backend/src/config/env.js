@@ -22,5 +22,9 @@ export const env = {
   adminUsername: process.env.ADMIN_USERNAME || "admin@rif.local",
   adminPassword: process.env.ADMIN_PASSWORD || "change-me",
   adminTokenSecret: process.env.ADMIN_TOKEN_SECRET || "replace-with-a-long-random-string",
-  backendRoot
+  backendRoot,
+  cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
+  cloudinaryApiKey: process.env.CLOUDINARY_API_KEY || "",
+  cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || "",
+  cloudinaryUploadFolder: process.env.CLOUDINARY_UPLOAD_FOLDER || ""
 };

@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { Readable } from "node:stream";
 import multer from "multer";
 import { requireAuth } from "../middleware/auth-middleware.js";
-import { getMediaBucket } from "../config/database.js";
+import { uploadImageBuffer } from "../config/cloudinary.js";
 import { deleteSubmission, getAdminData, getSubmissions, updateSection } from "../services/cms-service.js";
+import { Readable } from "node:stream";
+import { getMediaBucket } from "../config/database.js";
 
 const router = Router();
 const imageUpload = multer({
@@ -80,12 +81,26 @@ const handleAssetUpload = async (request, response, next, options) => {
   }
 };
 
-const handleImageUpload = async (request, response, next) =>
-  handleAssetUpload(request, response, next, {
-    purpose: "image",
-    requiredMessage: "Image file is required.",
-    urlKey: "imageUrl"
-  });
+const handleImageUpload = async (request, response, next) => {
+  try {
+    if (!request.file) {
+      response.status(400).json({ message: "Image file is required." });
+      return;
+    }
+
+    const result = await uploadImageBuffer(request.file.buffer, {
+      filename_override: request.file.originalname
+    });
+
+    response.status(201).json({
+      assetId: result.public_id,
+      imageUrl: result.secure_url,
+      filename: request.file.originalname
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const handleDocumentUpload = async (request, response, next) =>
   handleAssetUpload(request, response, next, {
