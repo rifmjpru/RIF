@@ -27,7 +27,13 @@ export const Footer = () => {
         </div>
       </div>
       <p className="footer-note">{siteSettings?.footerNote}</p>
+      <p className="footer-credit">
+        Developed by
+        {" "}
+        <a href="https://vuntech.online" target="_blank" rel="noreferrer">
+          vuntech.online
+        </a>
+      </p>
     </footer>
   );
 };
-

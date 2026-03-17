@@ -2574,6 +2574,22 @@ textarea:focus-visible {
   text-align: center;
 }
 
+.footer-credit {
+  margin: 0.35rem auto 0;
+  color: var(--text-soft);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.footer-credit a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.footer-credit a:hover {
+  color: var(--text-bold);
+}
+
 .admin-shell {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
