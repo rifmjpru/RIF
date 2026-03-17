@@ -7,6 +7,8 @@ export default function MembershipFormPage() {
   const siteData = useSiteData().siteData;
   const meta = siteData?.formsMeta?.membership;
   const paymentAmount = meta?.paymentAmount;
+  const offlinePaymentNote =
+    "For cheque or ECS payments, please contact the RIF team or visit the RIF office before proceeding.";
 
   const formatPrice = (price) => {
     if (!price && price !== 0) return "";
@@ -195,6 +197,7 @@ export default function MembershipFormPage() {
       points={meta?.points}
       submitType="membership"
       title={meta?.title}
+      note={offlinePaymentNote}
     />
   );
 }

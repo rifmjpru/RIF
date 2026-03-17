@@ -6,7 +6,17 @@ const defaultValueForField = (field) => field.defaultValue || "";
 const initialStateFromFields = (fields) =>
   Object.fromEntries(fields.map((field) => [field.name, defaultValueForField(field)]));
 
-export const SubmissionForm = ({ title, intro, points, fields, submitType, beforeSubmit, onChange, onSuccess }) => {
+export const SubmissionForm = ({
+  title,
+  intro,
+  points,
+  fields,
+  submitType,
+  beforeSubmit,
+  onChange,
+  onSuccess,
+  note
+}) => {
   const [formState, setFormState] = useState(() => initialStateFromFields(fields));
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
@@ -54,6 +64,7 @@ export const SubmissionForm = ({ title, intro, points, fields, submitType, befor
       <div className="form-copy">
         <p className="section-eyebrow">Forms Module</p>
         <h1>{title}</h1>
+        {note ? <p className="form-note form-note-alert">{note}</p> : null}
         <p>{intro}</p>
         <ul className="bullet-list">
           {points?.map((point) => (

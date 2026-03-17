@@ -2500,6 +2500,19 @@ textarea:focus-visible {
   min-width: 176px;
 }
 
+.form-note {
+  margin: 0.75rem 0 0.35rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(206, 32, 38, 0.2);
+  background: rgba(206, 32, 38, 0.08);
+  font-weight: 700;
+}
+
+.form-note-alert {
+  color: var(--red-accent);
+}
+
 .form-message {
   margin: 0;
   font-weight: 600;
