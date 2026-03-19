@@ -15,9 +15,12 @@ import MembershipPage from "./pages/MembershipPage.jsx";
 import MentorsPage from "./pages/MentorsPage.jsx";
 import NewsEventsPage from "./pages/NewsEventsPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage.jsx";
+import RefundPolicyPage from "./pages/RefundPolicyPage.jsx";
 import RifServicesPage from "./pages/RifServicesPage.jsx";
 import ServicesPage from "./pages/ServicesPage.jsx";
 import TeamPage from "./pages/TeamPage.jsx";
+import TermsConditionsPage from "./pages/TermsConditionsPage.jsx";
 
 export default function App() {
   return (
@@ -39,6 +42,9 @@ export default function App() {
         <Route element={<NewsEventsPage />} path="/news-events" />
         <Route element={<GalleryPage />} path="/gallery" />
         <Route element={<DocumentsPage />} path="/documents" />
+        <Route element={<PrivacyPolicyPage />} path="/privacy-policy" />
+        <Route element={<TermsConditionsPage />} path="/terms-and-conditions" />
+        <Route element={<RefundPolicyPage />} path="/refund-policy" />
         <Route element={<ApplyPage />} path="/apply" />
         <Route element={<MembershipFormPage />} path="/membership-register" />
         <Route element={<IncubiteeFormPage />} path="/incubitee-register" />

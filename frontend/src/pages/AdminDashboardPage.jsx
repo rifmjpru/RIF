@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { api } from "../api/client.js";
+import { buildPolicyContent } from "../components/PolicyPage.jsx";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
+import { legalPageDefaults } from "../data/legalPages.js";
 import { getByPath, setByPath } from "../utils/object-path.js";
 import { formatDate, slugLabel } from "../utils/formatters.js";
 import { resolveMediaUrl } from "../utils/media.js";
@@ -19,6 +21,7 @@ const adminTabs = [
   { id: "services", label: "Services" },
   { id: "membership", label: "Membership" },
   { id: "rif-services", label: "RIF Services" },
+  { id: "legal-pages", label: "Legal Pages" },
   { id: "news-events", label: "News & Events" },
   { id: "forms", label: "Forms" },
   { id: "submissions", label: "Submissions" }
@@ -108,6 +111,56 @@ const normalizeRifServicesData = (value) => {
     screeningSteps: ensureItemsHaveIds(value.screeningSteps || [], "rif-step")
   };
 };
+
+const legalPageKeys = [
+  { key: "privacyPolicy", label: "Privacy Policy" },
+  { key: "termsConditions", label: "Terms & Conditions" },
+  { key: "refundPolicy", label: "Refund Policy" }
+];
+
+const normalizeLegalPage = (value, baseKey) => {
+  const defaults = buildPolicyContent();
+
+  return {
+    ...defaults,
+    ...(value || {}),
+    sections: ensureItemsHaveIds(value?.sections || [], baseKey).map((section) => ({
+      ...section,
+      heading: section?.heading || "",
+      paragraphs: Array.isArray(section?.paragraphs) ? section.paragraphs : []
+    }))
+  };
+};
+
+const normalizeLegalPagesData = (value) => ({
+  privacyPolicy: normalizeLegalPage(
+    {
+      ...legalPageDefaults.privacyPolicy,
+      ...(value?.privacyPolicy || {})
+    },
+    "privacy-section"
+  ),
+  termsConditions: normalizeLegalPage(
+    {
+      ...legalPageDefaults.termsConditions,
+      ...(value?.termsConditions || {})
+    },
+    "terms-section"
+  ),
+  refundPolicy: normalizeLegalPage(
+    {
+      ...legalPageDefaults.refundPolicy,
+      ...(value?.refundPolicy || {})
+    },
+    "refund-section"
+  )
+});
+
+const buildBlankPolicySection = () => ({
+  id: createId(),
+  heading: "",
+  paragraphs: []
+});
 
 const withProfileImageDefaults = (item) => ({
   ...item,
@@ -392,6 +445,79 @@ const CollectionEditor = ({ title, fields, items, onChange }) => {
                   />
                 </label>
               ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const PolicySectionsEditor = ({ title, items, onChange }) => {
+  const safeItems = items || [];
+
+  const updateItem = (itemId, fieldKey, nextValue) => {
+    onChange(
+      safeItems.map((item) =>
+        item.id === itemId
+          ? {
+              ...item,
+              [fieldKey]: nextValue
+            }
+          : item
+      )
+    );
+  };
+
+  const addItem = () => {
+    onChange([...safeItems, buildBlankPolicySection()]);
+  };
+
+  const removeItem = (itemId) => {
+    onChange(safeItems.filter((item) => item.id !== itemId));
+  };
+
+  return (
+    <section className="admin-panel">
+      <div className="admin-panel-head">
+        <h3>{title}</h3>
+        <button className="button button-small" onClick={addItem} type="button">
+          Add Section
+        </button>
+      </div>
+      <div className="admin-collection">
+        {safeItems.map((item, index) => (
+          <article className="admin-card" key={item.id || index}>
+            <div className="admin-card-head">
+              <strong>{item.heading || `${title} ${index + 1}`}</strong>
+              <InlineConfirmButton message="Delete this policy section?" onConfirm={() => removeItem(item.id)} />
+            </div>
+            <div className="admin-form-grid">
+              <label className="field field-span-2">
+                <span>Section Heading</span>
+                <input
+                  type="text"
+                  value={item.heading || ""}
+                  onChange={(event) => updateItem(item.id, "heading", event.target.value)}
+                />
+              </label>
+              <label className="field field-span-2">
+                <span>Paragraphs</span>
+                <textarea
+                  rows={6}
+                  value={(item.paragraphs || []).join("\n")}
+                  onChange={(event) =>
+                    updateItem(
+                      item.id,
+                      "paragraphs",
+                      event.target.value
+                        .split("\n")
+                        .map((paragraph) => paragraph.trim())
+                        .filter(Boolean)
+                    )
+                  }
+                />
+              </label>
             </div>
           </article>
         ))}
@@ -1297,6 +1423,7 @@ export default function AdminDashboardPage() {
           pillars: normalizedPillars,
           documents: normalizedDocuments
         },
+        legalPages: normalizeLegalPagesData(baseData?.legalPages),
         rifServices: normalizeRifServicesData(baseData?.rifServices)
       });
     }
@@ -1686,7 +1813,7 @@ export default function AdminDashboardPage() {
           <h1>Manage every deliverable from one place.</h1>
           <p>
             The dashboard updates homepage content, about information, teams, incubatees, mentors, services, plans,
-            forms, news, events, hero slides, gallery images, and incoming submissions.
+            legal pages, forms, news, events, hero slides, gallery images, and incoming submissions.
           </p>
           <form className="admin-login-form" onSubmit={handleLogin}>
             <label className="field">
@@ -1810,7 +1937,7 @@ export default function AdminDashboardPage() {
               <ul className="bullet-list">
                 <li>Homepage hero, stats, programs, stories, timeline, and CTA.</li>
                 <li>About page overview, pillars, and documents.</li>
-                <li>Teams, incubatees, mentors, services, memberships, RIF services, news, events, hero slides, and gallery.</li>
+                <li>Teams, incubatees, mentors, services, memberships, RIF services, legal pages, news, events, hero slides, and gallery.</li>
                 <li>Apply, membership, and incubitee form copy plus incoming submission management.</li>
               </ul>
             </section>
@@ -2324,6 +2451,53 @@ export default function AdminDashboardPage() {
               type="button"
             >
               {saving === "rifServices" ? "Saving..." : "Save RIF Services"}
+            </button>
+          </div>
+        ) : null}
+
+        {activeTab === "legal-pages" ? (
+          <div className="admin-section-stack">
+            {legalPageKeys.map((page) => {
+              const policy = getByPath(draftData, ["legalPages", page.key]) || buildPolicyContent();
+
+              return (
+                <section className="admin-panel" key={page.key}>
+                  <div className="admin-panel-head">
+                    <h3>{page.label}</h3>
+                  </div>
+                  <div className="admin-section-stack">
+                    <ObjectEditor
+                      fields={[
+                        { key: "eyebrow", label: "Eyebrow" },
+                        { key: "title", label: "Page Title", span: 2 },
+                        { key: "description", label: "Description", type: "textarea", span: 2, rows: 4 },
+                        { key: "summary", label: "Summary", type: "textarea", span: 2, rows: 3 }
+                      ]}
+                      onChange={(nextValue) =>
+                        updatePath(["legalPages", page.key], {
+                          ...policy,
+                          ...nextValue
+                        })
+                      }
+                      title={`${page.label} Header Content`}
+                      value={policy}
+                    />
+                    <PolicySectionsEditor
+                      items={policy.sections}
+                      onChange={(nextValue) => updatePath(["legalPages", page.key, "sections"], nextValue)}
+                      title={`${page.label} Sections`}
+                    />
+                  </div>
+                </section>
+              );
+            })}
+            <button
+              className="button"
+              disabled={saving === "legalPages"}
+              onClick={() => saveSection("legalPages")}
+              type="button"
+            >
+              {saving === "legalPages" ? "Saving..." : "Save Legal Pages"}
             </button>
           </div>
         ) : null}

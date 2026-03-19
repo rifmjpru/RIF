@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
-
 :root {
   color-scheme: light;
   --header-height: 82px;
@@ -29,7 +27,7 @@
   --radius-lg: 20px;
   --radius-md: 14px;
   --radius-sm: 10px;
-  font-family: "DM Sans", "Avenir Next", "Helvetica Neue", sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 * {
@@ -967,6 +965,41 @@ textarea:focus-visible {
   font-size: clamp(1.95rem, 3vw, 3rem);
   line-height: 1.04;
   letter-spacing: -0.045em;
+}
+
+.legal-shell {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.legal-summary-card,
+.legal-section-card {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.legal-summary-card h2,
+.legal-section-card h3 {
+  margin: 0;
+  color: var(--primary-deep);
+}
+
+.legal-summary-card p:last-child,
+.legal-section-card p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-sections {
+  display: grid;
+  gap: 1rem;
+}
+
+.legal-section-card p {
+  color: var(--text-soft);
+  line-height: 1.7;
 }
 
 .section-eyebrow,
@@ -2547,7 +2580,7 @@ textarea:focus-visible {
 
 .footer-panel {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
   padding: 1.45rem;
 }

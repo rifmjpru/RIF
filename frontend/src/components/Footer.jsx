@@ -25,6 +25,12 @@ export const Footer = () => {
           <Link to="/membership-register">Membership Form</Link>
           <Link to="/incubitee-register">Incubitee Form</Link>
         </div>
+        <div>
+          <p className="footer-label">Legal</p>
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/terms-and-conditions">Terms & Conditions</Link>
+          <Link to="/refund-policy">Refund Policy</Link>
+        </div>
       </div>
       <p className="footer-note">{siteSettings?.footerNote}</p>
       <p className="footer-credit">

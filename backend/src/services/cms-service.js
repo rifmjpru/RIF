@@ -7,6 +7,7 @@ const editableSections = new Set([
   "siteSettings",
   "homepage",
   "about",
+  "legalPages",
   "team",
   "incubatees",
   "mentors",
@@ -21,6 +22,17 @@ const editableSections = new Set([
 ]);
 
 const submissionTypes = new Set(["apply", "membership", "incubitee"]);
+
+const normalizeLegalPage = (value, baseKey) => {
+  if (!value || typeof value !== "object") {
+    return value;
+  }
+
+  return {
+    ...value,
+    sections: ensureIds(value.sections, baseKey)
+  };
+};
 
 const ensureIds = (value, baseKey = "item") => {
   if (!Array.isArray(value)) {
@@ -83,6 +95,14 @@ const normalizeSection = (section, value) => {
       ...value,
       pillars: ensureIds(value.pillars, "pillar"),
       documents: ensureIds(value.documents, "document")
+    };
+  }
+
+  if (section === "legalPages" && value && typeof value === "object") {
+    return {
+      privacyPolicy: normalizeLegalPage(value.privacyPolicy, "privacy-section"),
+      termsConditions: normalizeLegalPage(value.termsConditions, "terms-section"),
+      refundPolicy: normalizeLegalPage(value.refundPolicy, "refund-section")
     };
   }
 
