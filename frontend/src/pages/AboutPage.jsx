@@ -1,10 +1,37 @@
+import { useState } from "react";
 import { PageHero } from "../components/PageHero.jsx";
 import { SectionHeading } from "../components/SectionHeading.jsx";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
 import { resolveMediaUrl } from "../utils/media.js";
+import { API_ORIGIN } from "../api/client.js";
+
+const resolveDocumentUrl = (value = "") => {
+  if (!value) return "";
+  if (value.startsWith("http://") || value.startsWith("https://")) return value;
+  if (value.startsWith("/")) return `${API_ORIGIN}${value}`;
+  return `${API_ORIGIN}/${value}`;
+};
+
+const truncateText = (value = "", limit = 340) => {
+  if (!value || value.length <= limit) return value;
+  return `${value.slice(0, limit).trim()}...`;
+};
 
 export default function AboutPage() {
   const about = useSiteData().siteData?.about;
+  const [expanded, setExpanded] = useState(new Set());
+
+  const toggleExpand = (key) => {
+    setExpanded((current) => {
+      const next = new Set(current);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  };
 
   return (
     <>
@@ -31,20 +58,29 @@ export default function AboutPage() {
 
       <section className="section">
         <SectionHeading eyebrow="Pillars" title="" />
-        <div className="pillar-message-list">
+        <div className="pillar-message-list pillar-message-featured">
           {about?.pillars?.map((pillar, index) => (
             <article className="pillar-message-card" key={pillar.title || index}>
-              <div className="pillar-message-avatar" aria-hidden>
-                {pillar?.imageUrl ? (
+              {pillar?.imageUrl ? (
+                <div className="pillar-feature-media">
                   <img alt={pillar.title || "Pillar"} src={resolveMediaUrl(pillar.imageUrl, pillar.title || "Pillar")} />
-                ) : (
-                  <span>{(pillar?.title || "P").charAt(0).toUpperCase()}</span>
-                )}
-              </div>
-              <div className="pillar-message-copy">
+                </div>
+              ) : (
+                <div className="pillar-feature-placeholder" aria-hidden>
+                  {(pillar?.title || "P").charAt(0).toUpperCase()}
+                </div>
+              )}
+              <div className="pillar-message-copy pillar-feature-copy">
                 <p className="pillar-message-role">{pillar?.eyebrow || "RIF Strategic Pillar"}</p>
                 <h3>{pillar.title}</h3>
-                <p>{pillar.description}</p>
+                <p className="pillar-feature-body">
+                  {expanded.has(index) ? pillar.description : truncateText(pillar.description, 360)}
+                </p>
+                {pillar?.description?.length > 360 ? (
+                  <button className="pillars-readmore" onClick={() => toggleExpand(index)} type="button">
+                    {expanded.has(index) ? "Show less" : "Read more"}
+                  </button>
+                ) : null}
               </div>
             </article>
           ))}

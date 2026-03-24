@@ -3,6 +3,8 @@ import { useSiteData } from "../components/SiteDataProvider.jsx";
 
 export default function ContactPage() {
   const siteSettings = useSiteData().siteData?.siteSettings;
+  const mapAddress = siteSettings?.location || "MJP Rohilkhand University, Pilibhit Bypass Road, Bareilly, Uttar Pradesh 243006";
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapAddress)}&output=embed`;
 
   return (
     <>
@@ -55,6 +57,26 @@ export default function ContactPage() {
             </div>
           </article>
         </div>
+      </section>
+
+      <section className="section">
+        <article className="content-card">
+          <p className="section-eyebrow">Google Map</p>
+          <h3>Find us easily</h3>
+          <p className="mb-4">Use the map below to get directions to our campus.</p>
+          <div style={{ position: "relative", overflow: "hidden", borderRadius: "16px", boxShadow: "0 10px 30px rgba(0,0,0,0.06)" }}>
+            <iframe
+              src={mapSrc}
+              title="Location map"
+              width="100%"
+              height="380"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </article>
       </section>
     </>
   );
