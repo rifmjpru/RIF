@@ -23,7 +23,7 @@ export const Footer = () => {
           <p className="footer-label">Quick Links</p>
           <Link to="/apply">Apply Now</Link>
           <Link to="/membership-register">Membership Form</Link>
-          <Link to="/incubitee-register">Incubitee Form</Link>
+          <Link to="/incubatee-register">incubatee Form</Link>
         </div>
         <div>
           <p className="footer-label">Legal</p>

@@ -65,7 +65,7 @@ export const sendSubmissionEmails = async (type, submission) => {
   const subjectLabel = {
     apply: "New Apply Submission",
     membership: "New Membership Request",
-    incubitee: "New Incubitee Registration"
+    incubatee: "New incubatee Registration"
   }[type];
 
   const summary = formatLines(submission);

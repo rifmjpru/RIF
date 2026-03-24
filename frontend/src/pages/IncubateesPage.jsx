@@ -28,7 +28,7 @@ export default function IncubateesPage() {
         eyebrow="Incubatees"
         title="A public directory of ventures being supported by RIF."
         description="Profiles can be updated from the admin dashboard, making it easy to keep the portfolio current."
-        primaryAction={{ label: "Register as Incubitee", to: "/incubitee-register" }}
+        primaryAction={{ label: "Register as incubatee", to: "/incubatee-register" }}
       />
       <section className="section">
         <div className="card-grid card-grid-3">

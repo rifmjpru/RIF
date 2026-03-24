@@ -743,8 +743,8 @@
         "Add your organization details"
       ]
     },
-    "incubitee": {
-      "title": "Incubitee Registration",
+    "incubatee": {
+      "title": "incubatee Registration",
       "intro": "For ventures entering the incubatee directory or program records.",
       "points": [
         "Add founder and venture details",
@@ -756,6 +756,6 @@
   "submissions": {
     "apply": [],
     "membership": [],
-    "incubitee": []
+    "incubatee": []
   }
 }

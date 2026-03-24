@@ -2,9 +2,9 @@ import { useState } from "react";
 import { SubmissionForm } from "../components/SubmissionForm.jsx";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
 
-export default function IncubiteeFormPage() {
+export default function incubateeFormPage() {
   const [paymentVerified, setPaymentVerified] = useState(false);
-  const meta = useSiteData().siteData?.formsMeta?.incubitee;
+  const meta = useSiteData().siteData?.formsMeta?.incubatee;
   const paymentAmount = meta?.paymentAmount ?? 750;
   const basePaymentModes = ["Online"];
   const normalizedPaymentModes = basePaymentModes.map((mode) => (mode === "Razorpay" ? "Online" : mode));
@@ -78,8 +78,8 @@ export default function IncubiteeFormPage() {
         key: razorpayKey,
         amount: amountPaise,
         currency: "INR",
-        name: "Incubitee Fee",
-        description: "Incubitee Registration",
+        name: "incubatee Fee",
+        description: "incubatee Registration",
         prefill: {
           name: formState.founderName,
           email: formState.email
@@ -148,7 +148,7 @@ export default function IncubiteeFormPage() {
       fields={fields}
       intro={meta?.intro}
       points={meta?.points}
-      submitType="incubitee"
+      submitType="incubatee"
       title={meta?.title}
     />
   );

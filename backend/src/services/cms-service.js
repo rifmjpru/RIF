@@ -21,7 +21,7 @@ const editableSections = new Set([
   "formsMeta"
 ]);
 
-const submissionTypes = new Set(["apply", "membership", "incubitee"]);
+const submissionTypes = new Set(["apply", "membership", "incubatee"]);
 
 const normalizeLegalPage = (value, baseKey) => {
   if (!value || typeof value !== "object") {
@@ -184,7 +184,7 @@ export const getSubmissions = async () => {
     {
       apply: [],
       membership: [],
-      incubitee: []
+      incubatee: []
     }
   );
 };

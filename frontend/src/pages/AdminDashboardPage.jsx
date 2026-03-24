@@ -39,7 +39,7 @@ const formMetaFieldSets = {
     { key: "paymentAmount", label: "Form Fee (₹)", type: "number" }
   ],
   membership: [...commonFormMetaFields],
-  incubitee: [
+  incubatee: [
     ...commonFormMetaFields,
     { key: "paymentAmount", label: "Form Fee (₹)", type: "number" }
   ]
@@ -1938,7 +1938,7 @@ export default function AdminDashboardPage() {
                 <li>Homepage hero, stats, programs, stories, timeline, and CTA.</li>
                 <li>About page overview, pillars, and documents.</li>
                 <li>Teams, incubatees, mentors, services, memberships, RIF services, legal pages, news, events, hero slides, and gallery.</li>
-                <li>Apply, membership, and incubitee form copy plus incoming submission management.</li>
+                <li>Apply, membership, and incubatee form copy plus incoming submission management.</li>
               </ul>
             </section>
           </div>
@@ -2627,7 +2627,7 @@ export default function AdminDashboardPage() {
                 <h3>Form Content</h3>
               </div>
               <div className="admin-collection">
-                {["apply", "membership", "incubitee"].map((formKey) => {
+                {["apply", "membership", "incubatee"].map((formKey) => {
                   const formMeta = getByPath(draftData, ["formsMeta", formKey]);
 
                   return (
@@ -2678,11 +2678,11 @@ export default function AdminDashboardPage() {
               type="membership"
             />
             <SubmissionTable
-              items={submissions?.incubitee}
+              items={submissions?.incubatee}
               
               onDelete={handleDeleteSubmission}
-              title="Incubitee Form Submissions"
-              type="incubitee"
+              title="incubatee Form Submissions"
+              type="incubatee"
             />
           </div>
         ) : null}

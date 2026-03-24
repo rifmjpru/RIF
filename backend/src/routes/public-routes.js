@@ -83,13 +83,13 @@ router.post("/forms/membership", async (request, response, next) => {
   }
 });
 
-router.post("/forms/incubitee", async (request, response, next) => {
+router.post("/forms/incubatee", async (request, response, next) => {
   try {
     const payload = sanitizePayload(request.body);
     requireFields(payload, ["founderName", "email", "ventureName", "sector", "stage"]);
-    const entry = await createSubmission("incubitee", payload);
+    const entry = await createSubmission("incubatee", payload);
     response.status(201).json({
-      message: "Incubitee registration submitted successfully.",
+      message: "incubatee registration submitted successfully.",
       entry
     });
   } catch (error) {

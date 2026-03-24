@@ -13,7 +13,7 @@ NSRCEL-inspired institutional website clone for **Rohilkhand Incubation Foundati
 - Incubatees and mentors directories
 - Services, membership plans, and RIF services pages
 - News and events module
-- Apply, membership, and incubitee forms
+- Apply, membership, and incubatee forms
 - Admin dashboard for managing all major content collections and submissions
 
 ## Project structure
