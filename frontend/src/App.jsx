@@ -9,7 +9,7 @@ import GalleryPage from "./pages/GalleryPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import IncubateesPage from "./pages/IncubateesPage.jsx";
 import IncubateeProfilePage from "./pages/IncubateeProfilePage.jsx";
-import incubateeFormPage from "./pages/incubateeFormPage.jsx";
+import IncubiteeFormPage from "./pages/IncubiteeFormPage.jsx";
 import MembershipFormPage from "./pages/MembershipFormPage.jsx";
 import MembershipPage from "./pages/MembershipPage.jsx";
 import MentorsPage from "./pages/MentorsPage.jsx";
@@ -47,7 +47,7 @@ export default function App() {
         <Route element={<RefundPolicyPage />} path="/refund-policy" />
         <Route element={<ApplyPage />} path="/apply" />
         <Route element={<MembershipFormPage />} path="/membership-register" />
-        <Route element={<incubateeFormPage />} path="/incubatee-register" />
+        <Route element={<IncubiteeFormPage />} path="/incubatee-register" />
         <Route element={<AdminDashboardPage />} path="/admin" />
         <Route element={<NotFoundPage />} path="*" />
       </Route>

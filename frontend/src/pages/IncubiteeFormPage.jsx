@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SubmissionForm } from "../components/SubmissionForm.jsx";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
 
-export default function incubateeFormPage() {
+export default function IncubiteeFormPage() {
   const [paymentVerified, setPaymentVerified] = useState(false);
   const meta = useSiteData().siteData?.formsMeta?.incubatee;
   const paymentAmount = meta?.paymentAmount ?? 750;
