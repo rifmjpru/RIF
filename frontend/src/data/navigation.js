@@ -22,8 +22,8 @@ export const navigation = [
       { label: "Board of Directors", to: "/team/board-of-directors" },
       { label: "Advisory Board Members", to: "/team/advisory-board" },
       { label: "Team", to: "/team/core-team" },
-      { label: "Incubatees Profiles", to: "/incubatees" },
-      { label: "Mentor's Profiles", to: "/mentors" }
+      { label: "Incubatees' Profiles", to: "/incubatees" },
+      { label: "Mentors' Profiles", to: "/mentors" }
     ]
   },
   {
