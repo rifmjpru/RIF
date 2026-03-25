@@ -1385,7 +1385,7 @@ export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState("overview");
   const [draftData, setDraftData] = useState(null);
   const [submissions, setSubmissions] = useState(null);
-  const [credentials, setCredentials] = useState({ username: "admin@rif.local", password: "change-me" });
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [feedback, setFeedback] = useState("");
   const [loginError, setLoginError] = useState("");
   const [saving, setSaving] = useState("");
@@ -1815,11 +1815,12 @@ export default function AdminDashboardPage() {
             The dashboard updates homepage content, about information, teams, incubatees, mentors, services, plans,
             legal pages, forms, news, events, hero slides, gallery images, and incoming submissions.
           </p>
-          <form className="admin-login-form" onSubmit={handleLogin}>
+          <form autoComplete="off" className="admin-login-form" onSubmit={handleLogin}>
             <label className="field">
               <span>Username</span>
               <input
                 type="text"
+                autoComplete="off"
                 value={credentials.username}
                 onChange={(event) =>
                   setCredentials((current) => ({
@@ -1833,6 +1834,7 @@ export default function AdminDashboardPage() {
               <span>Password</span>
               <input
                 type="password"
+                autoComplete="off"
                 value={credentials.password}
                 onChange={(event) =>
                   setCredentials((current) => ({

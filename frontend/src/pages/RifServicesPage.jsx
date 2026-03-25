@@ -63,26 +63,7 @@ export default function RifServicesPage() {
 
   return (
     <>
-      <section className="section rif-services-section">
-        <div className="rif-services-header">
-          <p className="section-eyebrow">{content.pageEyebrow}</p>
-          <h2>{content.pageTitle}</h2>
-        </div>
-
-        <article className="rif-benefits-card">
-          <p className="section-eyebrow">{content.benefitsEyebrow}</p>
-          <h3>{content.benefitsTitle}</h3>
-          <div className="rif-benefits-list">
-            {content.benefits.map((item) => (
-              <div className="rif-benefit-item" key={item.id || item.title}>
-                <h4>{item.title}</h4>
-                <p>{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
-
+     
       <section className="section rif-services-section">
         <div className="rif-services-subhead">
           <p className="section-eyebrow">{content.otherServicesEyebrow}</p>
@@ -114,6 +95,26 @@ export default function RifServicesPage() {
       </section>
 
       <section className="section rif-services-section">
+        <div className="rif-services-header">
+          <p className="section-eyebrow">{content.pageEyebrow}</p>
+          <h2>{content.pageTitle}</h2>
+        </div>
+
+        <article className="rif-benefits-card">
+          <p className="section-eyebrow">{content.benefitsEyebrow}</p>
+          <h3>{content.benefitsTitle}</h3>
+          <div className="rif-benefits-list">
+            {content.benefits.map((item) => (
+              <div className="rif-benefit-item" key={item.id || item.title}>
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
+      <section className="section rif-services-section">
         <article className="rif-criteria-card">
           <h3>{content.eligibilityTitle}</h3>
           <p>{content.eligibilityIntro}</p>
@@ -125,6 +126,7 @@ export default function RifServicesPage() {
         </article>
       </section>
 
+  
       <section className="section rif-services-section">
         <article className="rif-screening-card">
           <h3>{content.screeningTitle}</h3>
