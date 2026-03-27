@@ -195,6 +195,14 @@ export default function MembershipFormPage() {
       fields={fields}
       intro={meta?.intro}
       points={meta?.points}
+      qrCode={{
+        label: meta?.qrCodeLabel || "Scan to Pay",
+        title: meta?.qrCodeTitle || "Membership Payment QR",
+        note:
+          meta?.qrCodeNote ||
+          "Dummy QR for now. Replace this from the admin panel whenever the final membership payment QR is ready.",
+        imageUrl: meta?.qrCodeImageUrl || ""
+      }}
       submitType="membership"
       title={meta?.title}
       note={offlinePaymentNote}

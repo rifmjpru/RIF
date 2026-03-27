@@ -26,9 +26,10 @@ export default function IncubateesPage() {
     <>
       <PageHero
         eyebrow="Incubatees"
+        panelKey="incubatees"
         title="A public directory of ventures being supported by RIF."
         description="Profiles can be updated from the admin dashboard, making it easy to keep the portfolio current."
-        primaryAction={{ label: "Register as incubatee", to: "/incubatee-register" }}
+        primaryAction={{ label: "Send Enquiry", to: "/enquiry" }}
       />
       <section className="section">
         <div className="card-grid card-grid-3">

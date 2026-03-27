@@ -5,8 +5,14 @@ import { Header } from "./Header.jsx";
 import { useSiteData } from "./SiteDataProvider.jsx";
 
 export const SiteLayout = () => {
-  const { status, error } = useSiteData();
+  const { status, error, contentSource } = useSiteData();
   const location = useLocation();
+  const fallbackMessage =
+    error && contentSource === "cache"
+      ? "Live content is unavailable right now. Showing the last saved site content."
+      : error && contentSource === "fallback"
+        ? "Live content is unavailable right now. Showing bundled fallback content."
+        : "";
 
   useEffect(() => {
     const revealSelector = [
@@ -88,7 +94,7 @@ export const SiteLayout = () => {
   return (
     <div className="app-shell">
       <Header />
-      {status === "error" ? <div className="status-banner">Unable to load live content: {error}</div> : null}
+      {fallbackMessage ? <div className="status-banner">{fallbackMessage}</div> : null}
       <main className="site-main">
         <Outlet />
       </main>

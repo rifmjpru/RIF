@@ -12,20 +12,35 @@ const getInitials = (name = "") =>
     .join("")
     .toUpperCase();
 
-const teamSectionConfig = {
+const sectionConfig = {
   boardOfDirectors: {
     id: "board-of-directors",
+    panelKey: "boardOfDirectors",
     title: "Board of Directors",
+    eyebrow: "Leadership",
+    description: "Leadership pages now sit under About Us so governance and advisory information stay grouped together.",
+    primaryAction: { label: "Advisory Board", to: "/leadership/advisory-board" },
+    secondaryAction: { label: "Send Enquiry", to: "/enquiry" },
     style: "profile"
   },
   advisoryBoard: {
     id: "advisory-board",
+    panelKey: "advisoryBoard",
     title: "Advisory Board Members",
+    eyebrow: "Leadership",
+    description: "Leadership pages now sit under About Us so governance and advisory information stay grouped together.",
+    primaryAction: { label: "Board of Directors", to: "/leadership/board-of-directors" },
+    secondaryAction: { label: "Send Enquiry", to: "/enquiry" },
     style: "advisory"
   },
   coreTeam: {
     id: "core-team",
+    panelKey: "coreTeam",
     title: "Core Team",
+    eyebrow: "Team",
+    description: "Use the RIF Team menu to switch between the core team, incubatee profiles, and mentor profiles.",
+    primaryAction: { label: "Browse Mentors", to: "/mentors" },
+    secondaryAction: { label: "View Incubatees", to: "/incubatees" },
     style: "advisory"
   }
 };
@@ -67,19 +82,20 @@ const TeamSection = ({ id, title, items, style }) => (
   </section>
 );
 
-export default function TeamPage({ sectionKey = "boardOfDirectors" }) {
+export default function TeamPage({ sectionKey = "coreTeam" }) {
   const team = useSiteData().siteData?.team;
-  const activeSection = teamSectionConfig[sectionKey] || teamSectionConfig.boardOfDirectors;
-  const sectionItems = team?.[sectionKey] || team?.boardOfDirectors;
+  const activeSection = sectionConfig[sectionKey] || sectionConfig.coreTeam;
+  const sectionItems = team?.[sectionKey] || team?.coreTeam || [];
 
   return (
     <>
       <PageHero
-        eyebrow="Team"
+        eyebrow={activeSection.eyebrow}
+        panelKey={activeSection.panelKey}
         title={activeSection.title}
-        description="Each team group now has a dedicated page. Use the RIF Team menu to switch between sections."
-        primaryAction={{ label: "Browse Mentors", to: "/mentors" }}
-        secondaryAction={{ label: "View Incubatees", to: "/incubatees" }}
+        description={activeSection.description}
+        primaryAction={activeSection.primaryAction}
+        secondaryAction={activeSection.secondaryAction}
       />
       <TeamSection id={activeSection.id} items={sectionItems} style={activeSection.style} title={activeSection.title} />
     </>

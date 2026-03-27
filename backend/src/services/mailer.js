@@ -65,28 +65,27 @@ export const sendSubmissionEmails = async (type, submission) => {
   const subjectLabel = {
     apply: "New Apply Submission",
     membership: "New Membership Request",
-    incubatee: "New incubatee Registration"
-  }[type];
+    enquiry: "New General Enquiry"
+  }[type] || "New Website Submission";
 
   const summary = formatLines(submission);
 
-  // Notify admin
   await sendMail({
     to: env.notifyAdminEmail,
     subject: subjectLabel,
     text: `A new ${type} form was submitted:\n\n${summary}`
   });
 
-  // Acknowledge user
   if (submission.email) {
     await sendMail({
       to: submission.email,
       subject: "We received your submission",
-      text: `Hi ${submission.name || submission.founderName || "there"},\n\n` +
+      text:
+        `Hi ${submission.name || "there"},\n\n` +
         "Thanks for submitting your form. Our team will review and get back to you.\n\n" +
         "Summary:\n" +
         `${summary}\n\n` +
-        "— RIF Team"
+        "- RIF Team"
     });
   }
 };

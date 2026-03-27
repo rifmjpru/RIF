@@ -15,9 +15,23 @@ const spotlightPartners = [
   { label: "RIF", src: "/images/partners/logo.jpg" }
 ];
 
+const qrConnectUrl = "https://forms.gle/XTdecnwMjBqfrEvHA";
+
 export default function HomePage() {
   const { siteData } = useSiteData();
   const homepage = siteData?.homepage;
+  const testimonials =
+    homepage?.testimonials?.length
+      ? homepage.testimonials
+      : (homepage?.startupStories || []).map((story) => ({
+          id: story.id,
+          name: story.name,
+          role: story.sector,
+          quote: story.highlight
+        }));
+  const testimonialsSection = homepage?.testimonialsSection || {};
+  const previewCount = Number(testimonialsSection.previewCount) > 0 ? Number(testimonialsSection.previewCount) : 3;
+  const previewTestimonials = testimonials.slice(0, previewCount);
   const slides =
     siteData?.heroSlider?.length
       ? siteData.heroSlider
@@ -123,12 +137,45 @@ export default function HomePage() {
 
       <section className="hero-grid home-copy-shell">
         <div className="hero-copy home-copy-panel">
+          <div aria-hidden="true" className="home-copy-launch-bg">
+            <span className="home-copy-cloud home-copy-cloud-one" />
+            <span className="home-copy-cloud home-copy-cloud-two" />
+            <span className="home-copy-cloud home-copy-cloud-three" />
+            <span className="home-copy-star home-copy-star-one" />
+            <span className="home-copy-star home-copy-star-two" />
+            <span className="home-copy-star home-copy-star-three" />
+            <span className="home-copy-star home-copy-star-four" />
+            <span className="home-copy-launch-ring home-copy-launch-ring-one" />
+            <span className="home-copy-launch-ring home-copy-launch-ring-two" />
+            <div className="home-copy-launch-trail" />
+            <svg className="home-copy-launch-rocket" fill="none" viewBox="0 0 180 260" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="launchRocketBody" x1="63" x2="117" y1="35" y2="155" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FFF8F2" />
+                  <stop offset="1" stopColor="#FFD7CE" />
+                </linearGradient>
+                <linearGradient id="launchRocketFlame" x1="90" x2="90" y1="164" y2="248" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FFBC66" />
+                  <stop offset="1" stopColor="#FFF1DA" stopOpacity="0.06" />
+                </linearGradient>
+              </defs>
+              <path d="M90 26C117 47 134 79 136 117L90 153L44 117C46 79 63 47 90 26Z" fill="url(#launchRocketBody)" />
+              <path d="M90 26C117 47 134 79 136 117L90 153V26Z" fill="#FFD1C7" />
+              <path d="M90 26C117 47 134 79 136 117L90 153L44 117C46 79 63 47 90 26Z" stroke="#1F4DA7" strokeWidth="5" />
+              <circle cx="90" cy="93" fill="#1F4DA7" r="16" />
+              <circle cx="90" cy="93" fill="#8EC4FF" r="8.5" />
+              <path d="M61 118L37 142L61 145L77 128L61 118Z" fill="#CE2026" stroke="#1F4DA7" strokeWidth="5" />
+              <path d="M119 118L143 142L119 145L103 128L119 118Z" fill="#CE2026" stroke="#1F4DA7" strokeWidth="5" />
+              <path d="M72 150H108L90 182L72 150Z" fill="#1F4DA7" />
+              <path d="M90 152L60 248H120L90 152Z" fill="url(#launchRocketFlame)" />
+            </svg>
+          </div>
           <p className="section-eyebrow">{homepage?.hero?.eyebrow}</p>
           <h1>{homepage?.hero?.title}</h1>
           <p className="section-description">{homepage?.hero?.description}</p>
           <div className="hero-actions">
-            <Link className="button" to={homepage?.hero?.primaryCtaLink || "/apply"}>
-              {homepage?.hero?.primaryCtaLabel || "Apply Now"}
+            <Link className="button" to={homepage?.hero?.primaryCtaLink || "/enquiry"}>
+              {homepage?.hero?.primaryCtaLabel || "Send Enquiry"}
             </Link>
             <Link className="button button-ghost" to={homepage?.hero?.secondaryCtaLink || "/membership-plans"}>
               {homepage?.hero?.secondaryCtaLabel || "Explore Membership"}
@@ -185,18 +232,27 @@ export default function HomePage() {
       </section>
 
       <section className="section section-dark">
-        <SectionHeading eyebrow="Founder Stories" title="Signals of momentum across sectors." />
+        <SectionHeading
+          eyebrow={testimonialsSection.eyebrow || "Testimonials"}
+          title={testimonialsSection.title || "What founders, members, and ecosystem partners say about working with RIF."}
+          description={testimonialsSection.description || ""}
+        />
         <div className="card-grid card-grid-3">
-          {homepage?.startupStories?.map((story) => (
-            <article className="content-card content-card-dark" key={story.name}>
-              <p className="meta-line">
-                <span>{story.sector}</span>
-              </p>
-              <h3>{story.name}</h3>
-              <p>{story.highlight}</p>
+          {previewTestimonials.map((testimonial) => (
+            <article className="content-card content-card-dark testimonial-card" key={testimonial.id || testimonial.name}>
+              <p className="testimonial-quote">"{testimonial.quote}"</p>
+              <h3>{testimonial.name}</h3>
+              <p className="detail-line">{testimonial.role}</p>
             </article>
           ))}
         </div>
+        {testimonials.length > previewCount ? (
+          <div className="hero-actions">
+            <Link className="button" to={testimonialsSection.ctaLink || "/testimonials"}>
+              {testimonialsSection.ctaLabel || "View More Testimonials"}
+            </Link>
+          </div>
+        ) : null}
       </section>
 
       <section className="section">
@@ -231,6 +287,31 @@ export default function HomePage() {
             <p className="section-eyebrow">CMS and Admin</p>
             <h3>{homepage?.cta?.title}</h3>
             <p>{homepage?.cta?.description}</p>
+            {homepage?.cta?.qrTitle || homepage?.cta?.qrImageUrl ? (
+              <div className="home-cta-qr-card">
+                <div className="home-cta-qr-copy">
+                  <p className="home-cta-qr-label">{homepage?.cta?.qrLabel || "Quick Scan"}</p>
+                  <h4>{homepage?.cta?.qrTitle || "Connect with RIF"}</h4>
+                  {homepage?.cta?.qrNote ? <p>{homepage.cta.qrNote}</p> : null}
+                </div>
+                <div className="qr-action-stack">
+                  <div className="home-cta-qr-preview home-cta-qr-preview-large">
+                    {homepage?.cta?.qrImageUrl ? (
+                      <img
+                        alt={homepage?.cta?.qrTitle || "RIF QR code"}
+                        className="home-cta-qr-image"
+                        src={resolveMediaUrl(homepage.cta.qrImageUrl, homepage?.cta?.qrTitle || "RIF QR code")}
+                      />
+                    ) : (
+                      <div className="home-cta-qr-placeholder">QR</div>
+                    )}
+                  </div>
+                  <a className="button button-small qr-connect-action" href={qrConnectUrl} rel="noreferrer" target="_blank">
+                    Click to Connect
+                  </a>
+                </div>
+              </div>
+            ) : null}
             <div className="hero-actions">
               <Link className="button" to={sanitizePublicLink(homepage?.cta?.primaryLink, "/contact")}>
                 {homepage?.cta?.primaryLabel || "Contact RIF"}

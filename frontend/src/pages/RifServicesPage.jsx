@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
 import { resolveMediaUrl } from "../utils/media.js";
 
@@ -90,6 +91,11 @@ export default function RifServicesPage() {
             <a className="text-link" href={`tel:${content.supportPhone}`}>
               {content.supportPhone}
             </a>
+            <div className="hero-actions">
+              <Link className="button" to="/enquiry">
+                Send Enquiry
+              </Link>
+            </div>
           </article>
         </div>
       </section>

@@ -8,7 +8,7 @@ const formatUpdatedDate = () =>
     year: "numeric"
   }).format(new Date());
 
-export const PolicyPage = ({ eyebrow, title, description, summary, sections }) => {
+export const PolicyPage = ({ eyebrow, title, description, summary, sections, panelKey = "" }) => {
   const siteSettings = useSiteData().siteData?.siteSettings;
   const organisationName = siteSettings?.fullName || "Rohilkhand Incubation Foundation";
   const contactEmail = siteSettings?.contactEmail || "hello@rif.org.in";
@@ -28,10 +28,11 @@ export const PolicyPage = ({ eyebrow, title, description, summary, sections }) =
     <>
       <PageHero
         eyebrow={eyebrow}
+        panelKey={panelKey}
         title={title}
         description={description}
         primaryAction={{ label: "Contact Us", to: "/contact" }}
-        secondaryAction={{ label: "Apply Now", to: "/apply" }}
+        secondaryAction={{ label: "Send Enquiry", to: "/enquiry" }}
       />
 
       <section className="section">

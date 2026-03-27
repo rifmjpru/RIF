@@ -13,6 +13,7 @@ export default function RefundPolicyPage() {
     <PolicyPage
       description={policy.description}
       eyebrow={policy.eyebrow}
+      panelKey="refundPolicy"
       sections={policy.sections}
       summary={policy.summary}
       title={policy.title}

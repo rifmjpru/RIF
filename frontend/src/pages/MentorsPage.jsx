@@ -18,9 +18,10 @@ export default function MentorsPage() {
     <>
       <PageHero
         eyebrow="Mentors"
+        panelKey="mentors"
         title="Experts founders can rely on across product, growth, and finance."
         description="Mentor records are editable from the admin dashboard, so the team can keep expertise and company information up to date."
-        primaryAction={{ label: "Apply to Programs", to: "/apply" }}
+        primaryAction={{ label: "Send Enquiry", to: "/enquiry" }}
       />
       <section className="section">
         <div className="card-grid card-grid-3">

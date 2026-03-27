@@ -8,9 +8,11 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
+        panelKey="services"
         title="Incubation and business support services for founder momentum."
         description="This page captures core services as a structured, editable collection."
-        primaryAction={{ label: "Talk to RIF", to: "/about" }}
+        primaryAction={{ label: "Send Enquiry", to: "/enquiry" }}
+        secondaryAction={{ label: "View Leadership", to: "/leadership" }}
       />
       <section className="section">
         <div className="card-grid card-grid-3">
@@ -33,4 +35,3 @@ export default function ServicesPage() {
     </>
   );
 }
-

@@ -55,6 +55,7 @@ export default function NewsEventsPage() {
     <>
       <PageHero
         eyebrow="News and Events"
+        panelKey="newsEvents"
         title="A content publishing system for announcements, updates, and event visibility."
         description="Both content collections are editable from the admin dashboard and are designed for regular institutional updates."
         primaryAction={{ label: "Contact RIF", to: "/contact" }}

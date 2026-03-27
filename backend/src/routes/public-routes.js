@@ -83,18 +83,21 @@ router.post("/forms/membership", async (request, response, next) => {
   }
 });
 
-router.post("/forms/incubatee", async (request, response, next) => {
+const handleEnquirySubmission = async (request, response, next) => {
   try {
     const payload = sanitizePayload(request.body);
-    requireFields(payload, ["founderName", "email", "ventureName", "sector", "stage"]);
-    const entry = await createSubmission("incubatee", payload);
+    requireFields(payload, ["name", "email", "topic", "message"]);
+    const entry = await createSubmission("enquiry", payload);
     response.status(201).json({
-      message: "incubatee registration submitted successfully.",
+      message: "Enquiry submitted successfully.",
       entry
     });
   } catch (error) {
     next(error);
   }
-});
+};
+
+router.post("/forms/enquiry", handleEnquirySubmission);
+router.post("/forms/incubatee", handleEnquirySubmission);
 
 export default router;

@@ -10,9 +10,10 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Need Support"
+        panelKey="contact"
         title="Please Feel Free to Contact Us!"
         description="Reach out for incubation programs, partnerships, mentor engagement, memberships, or institutional collaborations."
-        primaryAction={{ label: "Apply Now", to: "/apply" }}
+        primaryAction={{ label: "Send Enquiry", to: "/enquiry" }}
         secondaryAction={{ label: "Membership Form", to: "/membership-register" }}
       />
 

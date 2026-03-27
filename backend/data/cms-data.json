@@ -19,8 +19,8 @@
       "eyebrow": "Institutional Innovation Platform",
       "title": "A startup launchpad for university-born ideas and market-ready ventures.",
       "description": "RIF connects founders, mentors, researchers, and ecosystem partners through incubation, venture support, memberships, and startup services. The experience is modeled on the ambition and clarity of leading incubator websites while staying editable through a simple CMS.",
-      "primaryCtaLabel": "Apply Now",
-      "primaryCtaLink": "/apply",
+      "primaryCtaLabel": "Send Enquiry",
+      "primaryCtaLink": "/enquiry",
       "secondaryCtaLabel": "Explore Memberships",
       "secondaryCtaLink": "/membership-plans",
       "spotlightTitle": "What founders get inside the platform",
@@ -76,21 +76,37 @@
         "description": "A year-round platform for student innovators to move from prototypes to scalable ventures."
       }
     ],
-    "startupStories": [
+    "testimonialsSection": {
+      "eyebrow": "Testimonials",
+      "title": "What founders, members, and ecosystem partners say about working with RIF.",
+      "description": "Show a short set of recent testimonials on the homepage and guide visitors to the full page when they want to read more.",
+      "previewCount": 3,
+      "ctaLabel": "View More Testimonials",
+      "ctaLink": "/testimonials",
+      "pageEyebrow": "Testimonials",
+      "pageTitle": "Voices from the RIF ecosystem",
+      "pageDescription": "A full list of testimonials that can be edited anytime from the admin dashboard."
+    },
+    "testimonials": [
       {
-        "name": "KrishiPulse",
-        "sector": "Agri Intelligence",
-        "highlight": "Scaled farmer advisory pilots across three districts with mentor-led market access support."
+        "name": "Sanya Verma",
+        "role": "Founder, KrishiPulse",
+        "quote": "RIF helped us move from field insight to structured pilots with the right mentor support at the right time."
       },
       {
-        "name": "MedNerve Labs",
-        "sector": "Digital Health",
-        "highlight": "Refined clinical workflows and enterprise positioning through RIF's advisory network."
+        "name": "Kush Arora",
+        "role": "Founder, MedNerve Labs",
+        "quote": "The advisory access and review cadence gave us much more clarity on positioning, pilots, and next-stage conversations."
       },
       {
-        "name": "Circular Foundry",
-        "sector": "Climate Tech",
-        "highlight": "Built a materials recovery partnerships pipeline using RIF services and corporate connects."
+        "name": "Muskan Ali",
+        "role": "Founder, Circular Foundry",
+        "quote": "RIF made our growth journey feel organized. We had useful feedback loops, stronger visibility, and better partner outreach."
+      },
+      {
+        "name": "Ritika Jain",
+        "role": "Community Member",
+        "quote": "From events to practical startup guidance, the experience feels warm, responsive, and genuinely helpful for early founders."
       }
     ],
     "timeline": [
@@ -117,10 +133,15 @@
     "cta": {
       "title": "Designed for institutional credibility and founder momentum.",
       "description": "Every major section is editable from the admin dashboard so the website can handle updates, applications, media, documents, and announcements without code changes.",
-      "primaryLabel": "Contact RIF",
-      "primaryLink": "/contact",
-      "secondaryLabel": "Contact RIF",
-      "secondaryLink": "/about"
+      "primaryLabel": "Send Enquiry",
+      "primaryLink": "/enquiry",
+      "secondaryLabel": "View Leadership",
+      "secondaryLink": "/leadership",
+      "qrLabel": "Quick Scan",
+      "qrTitle": "",
+      "qrNote": "",
+      "qrImageUrl": "",
+      "qrAssetId": ""
     }
   },
   "about": {
@@ -173,10 +194,129 @@
       }
     ]
   },
+  "pageHeroPanels": {
+    "about": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "leadership": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "boardOfDirectors": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "advisoryBoard": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "coreTeam": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "contact": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": "",
+      "qrLabel": "",
+      "qrTitle": "",
+      "qrNote": "",
+      "qrImageUrl": "",
+      "qrAssetId": ""
+    },
+    "services": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "incubatees": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "mentors": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "newsEvents": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "testimonials": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "privacyPolicy": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "termsConditions": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    },
+    "refundPolicy": {
+      "eyebrow": "",
+      "title": "",
+      "description": "",
+      "imageUrl": "",
+      "imageAssetId": "",
+      "imageAlt": ""
+    }
+  },
   "legalPages": {
     "privacyPolicy": {
       "eyebrow": "Legal",
-      "title": "Privacy Policy",
+      "title": "Privacy Policy", 
       "description": "How we collect, use, and safeguard the information shared through the RIF website and related forms.",
       "summary": "We respect personal information and use it only for legitimate platform, program, and communication purposes.",
       "sections": [
@@ -296,6 +436,18 @@
     }
   },
   "team": {
+    "leadershipContent": {
+      "eyebrow": "Leadership",
+      "title": "Leadership that guides governance, direction, and founder confidence.",
+      "description": "Explore the strategic pillars behind RIF along with the board and advisory leaders who shape institutional momentum.",
+      "primaryCtaLabel": "Board of Directors",
+      "primaryCtaLink": "/leadership/board-of-directors",
+      "secondaryCtaLabel": "Send Enquiry",
+      "secondaryCtaLink": "/enquiry",
+      "pillarsEyebrow": "Leadership Pillars",
+      "pillarsTitle": "The principles guiding how RIF builds trust and momentum.",
+      "pillarsDescription": "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together."
+    },
     "boardOfDirectors": [
       {
         "id": "board-1",
@@ -724,6 +876,22 @@
       "imageUrl": ""
     }
   ],
+  "mediaCoverage": [
+    {
+      "id": "media-1",
+      "title": "RIF featured in regional startup coverage",
+      "description": "A press clipping covering founder support and university-linked innovation efforts.",
+      "altText": "Regional newspaper coverage",
+      "imageUrl": ""
+    },
+    {
+      "id": "media-2",
+      "title": "Newspaper spotlight on ecosystem outreach",
+      "description": "Coverage highlighting RIF events, mentoring support, and local innovation visibility.",
+      "altText": "Media coverage highlight",
+      "imageUrl": ""
+    }
+  ],
   "formsMeta": {
     "apply": {
       "title": "Apply to RIF",
@@ -732,7 +900,12 @@
         "Share your startup idea and stage",
         "Explain the problem and traction so far",
         "Mention the support you expect from RIF"
-      ]
+      ],
+      "qrCodeLabel": "Scan to Pay",
+      "qrCodeTitle": "Application Payment QR",
+      "qrCodeNote": "Dummy QR for now. Replace this from the admin panel whenever the final payment QR is ready.",
+      "qrCodeImageUrl": "",
+      "qrCodeAssetId": ""
     },
     "membership": {
       "title": "Register for Membership",
@@ -741,21 +914,31 @@
         "Select your membership track",
         "Tell us your role and goals",
         "Add your organization details"
-      ]
+      ],
+      "qrCodeLabel": "Scan to Pay",
+      "qrCodeTitle": "Membership Payment QR",
+      "qrCodeNote": "Dummy QR for now. Replace this from the admin panel whenever the final membership payment QR is ready.",
+      "qrCodeImageUrl": "",
+      "qrCodeAssetId": ""
     },
-    "incubatee": {
-      "title": "incubatee Registration",
-      "intro": "For ventures entering the incubatee directory or program records.",
+    "enquiry": {
+      "title": "General Enquiry",
+      "intro": "Use this form for general questions, collaboration requests, startup support queries, or follow-up conversations with the RIF team.",
       "points": [
-        "Add founder and venture details",
-        "Record sector, stage, and city",
-        "Capture support requirements"
-      ]
+        "Share your basic contact details",
+        "Tell us the topic of your enquiry",
+        "Explain how the RIF team can help"
+      ],
+      "qrCodeLabel": "Quick Connect",
+      "qrCodeTitle": "General Enquiry QR",
+      "qrCodeNote": "Dummy QR for now. Replace it later from the admin panel with the final enquiry QR or a WhatsApp/contact QR.",
+      "qrCodeImageUrl": "",
+      "qrCodeAssetId": ""
     }
   },
   "submissions": {
     "apply": [],
     "membership": [],
-    "incubatee": []
+    "enquiry": []
   }
 }

@@ -10,18 +10,31 @@ export const navigation = [
     to: "/about",
     children: [
       { label: "About RIF", to: "/about" },
-      { label: "Image Gallery", to: "/gallery" },
+      {
+        label: "Leadership",
+        to: "/leadership",
+        children: [
+          { label: "Board of Directors", to: "/leadership/board-of-directors" },
+          { label: "Advisory Board Members", to: "/leadership/advisory-board" }
+        ]
+      },
+      {
+        label: "Gallery",
+        to: "/gallery",
+        children: [
+          { label: "Image Gallery", to: "/gallery" },
+          { label: "Media Coverage", to: "/media-coverage" }
+        ]
+      },
       { label: "Documents", to: "/documents" }
     ]
   },
   {
     id: "team",
     label: "RIF Team",
-    to: "/team/board-of-directors",
+    to: "/team/core-team",
     children: [
-      { label: "Board of Directors", to: "/team/board-of-directors" },
-      { label: "Advisory Board Members", to: "/team/advisory-board" },
-      { label: "Team", to: "/team/core-team" },
+      { label: "Core Team", to: "/team/core-team" },
       { label: "Incubatees' Profiles", to: "/incubatees" },
       { label: "Mentors' Profiles", to: "/mentors" }
     ]
@@ -48,6 +61,6 @@ export const navigation = [
 ];
 
 export const applyAction = {
-  label: "Apply Now",
-  to: "/apply"
+  label: "Enquiry",
+  to: "/enquiry"
 };

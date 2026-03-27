@@ -13,6 +13,7 @@ export default function TermsConditionsPage() {
     <PolicyPage
       description={policy.description}
       eyebrow={policy.eyebrow}
+      panelKey="termsConditions"
       sections={policy.sections}
       summary={policy.summary}
       title={policy.title}

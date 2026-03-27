@@ -1,46 +1,19 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { PageHero } from "../components/PageHero.jsx";
-import { SectionHeading } from "../components/SectionHeading.jsx";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
-import { resolveMediaUrl } from "../utils/media.js";
-import { API_ORIGIN } from "../api/client.js";
-
-const resolveDocumentUrl = (value = "") => {
-  if (!value) return "";
-  if (value.startsWith("http://") || value.startsWith("https://")) return value;
-  if (value.startsWith("/")) return `${API_ORIGIN}${value}`;
-  return `${API_ORIGIN}/${value}`;
-};
-
-const truncateText = (value = "", limit = 340) => {
-  if (!value || value.length <= limit) return value;
-  return `${value.slice(0, limit).trim()}...`;
-};
 
 export default function AboutPage() {
   const about = useSiteData().siteData?.about;
-  const [expanded, setExpanded] = useState(new Set());
-
-  const toggleExpand = (key) => {
-    setExpanded((current) => {
-      const next = new Set(current);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      return next;
-    });
-  };
 
   return (
     <>
       <PageHero
         eyebrow="About"
+        panelKey="about"
         title={about?.overview?.title || "About RIF"}
         description={about?.overview?.body || ""}
-        primaryAction={{ label: "View Documents", to: "/documents" }}
-        secondaryAction={{ label: "Meet the Team", to: "/team" }}
+        primaryAction={{ label: "Explore Leadership", to: "/leadership" }}
+        secondaryAction={{ label: "View Documents", to: "/documents" }}
       />
 
       <section className="section">
@@ -57,33 +30,33 @@ export default function AboutPage() {
       </section>
 
       <section className="section">
-        <SectionHeading eyebrow="Pillars" title="" />
-        <div className="pillar-message-list pillar-message-featured">
-          {about?.pillars?.map((pillar, index) => (
-            <article className="pillar-message-card" key={pillar.title || index}>
-              {pillar?.imageUrl ? (
-                <div className="pillar-feature-media">
-                  <img alt={pillar.title || "Pillar"} src={resolveMediaUrl(pillar.imageUrl, pillar.title || "Pillar")} />
-                </div>
-              ) : (
-                <div className="pillar-feature-placeholder" aria-hidden>
-                  {(pillar?.title || "P").charAt(0).toUpperCase()}
-                </div>
-              )}
-              <div className="pillar-message-copy pillar-feature-copy">
-                <p className="pillar-message-role">{pillar?.eyebrow || "RIF Strategic Pillar"}</p>
-                <h3>{pillar.title}</h3>
-                <p className="pillar-feature-body">
-                  {expanded.has(index) ? pillar.description : truncateText(pillar.description, 360)}
-                </p>
-                {pillar?.description?.length > 360 ? (
-                  <button className="pillars-readmore" onClick={() => toggleExpand(index)} type="button">
-                    {expanded.has(index) ? "Show less" : "Read more"}
-                  </button>
-                ) : null}
-              </div>
-            </article>
-          ))}
+        <div className="split-grid">
+          <article className="cta-panel">
+            <p className="section-eyebrow">Leadership</p>
+            <h3>Meet the board and advisory leaders shaping RIF.</h3>
+            <p>The leadership section now brings strategic pillars, board oversight, and advisory guidance together in one place.</p>
+            <div className="hero-actions">
+              <Link className="button" to="/leadership">
+                View Leadership
+              </Link>
+              <Link className="button button-ghost" to="/leadership/board-of-directors">
+                Board of Directors
+              </Link>
+            </div>
+          </article>
+          <article className="cta-panel">
+            <p className="section-eyebrow">Resources</p>
+            <h3>Browse RIF documents and public materials.</h3>
+            <p>Institution profiles, reports, and downloadable resources stay centrally managed through the admin panel.</p>
+            <div className="hero-actions">
+              <Link className="button" to="/documents">
+                View Documents
+              </Link>
+              <Link className="button button-ghost" to="/enquiry">
+                Send Enquiry
+              </Link>
+            </div>
+          </article>
         </div>
       </section>
     </>

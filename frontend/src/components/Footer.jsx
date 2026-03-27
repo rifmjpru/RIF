@@ -6,7 +6,16 @@ export const Footer = () => {
   const { siteData } = useSiteData();
   const siteSettings = siteData?.siteSettings;
   const baseCount = siteSettings?.visitCount ?? 50000;
-  const [visitCount, setVisitCount] = useState(baseCount);
+  const [visitCount, setVisitCount] = useState(() => {
+    try {
+      const storageKey = "rif_visit_counter";
+      const stored = Number.parseInt(window.localStorage.getItem(storageKey) || "", 10);
+      const safeStored = Number.isFinite(stored) ? stored : 0;
+      return Math.max(baseCount, safeStored) + 1;
+    } catch (error) {
+      return baseCount + 1;
+    }
+  });
 
   useEffect(() => {
     try {
@@ -27,42 +36,53 @@ export const Footer = () => {
   return (
     <footer className="site-footer">
       <div className="footer-panel">
-        <div>
-          <p className="section-eyebrow">RIF</p>
-          <h3>{siteSettings?.fullName || "Rohilkhand Incubation Foundation"}</h3>
-          <p>{siteSettings?.tagline}</p>
+        <div className="footer-top-grid">
+          <div>
+            <p className="section-eyebrow">RIF</p>
+            <h3>{siteSettings?.fullName || "Rohilkhand Incubation Foundation"}</h3>
+            <p>{siteSettings?.tagline}</p>
+          </div>
+          <div>
+            <p className="footer-label">Contact</p>
+            <a href={`mailto:${siteSettings?.contactEmail}`}>{siteSettings?.contactEmail}</a>
+            <a href={`tel:${siteSettings?.contactPhone}`}>{siteSettings?.contactPhone}</a>
+            <p>{siteSettings?.location}</p>
+          </div>
+          <div>
+            <p className="footer-label">Quick Links</p>
+            <Link to="/apply">Apply Now</Link>
+            <Link to="/membership-register">Membership Form</Link>
+            <Link to="/enquiry">Enquiry Form</Link>
+            <Link to="/testimonials">Testimonials</Link>
+          </div>
+          <div>
+            <p className="footer-label">Legal</p>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/terms-and-conditions">Terms & Conditions</Link>
+            <Link to="/refund-policy">Refund Policy</Link>
+          </div>
         </div>
-        <div>
-          <p className="footer-label">Contact</p>
-          <a href={`mailto:${siteSettings?.contactEmail}`}>{siteSettings?.contactEmail}</a>
-          <a href={`tel:${siteSettings?.contactPhone}`}>{siteSettings?.contactPhone}</a>
-          <p>{siteSettings?.location}</p>
-        </div>
-        <div>
-          <p className="footer-label">Quick Links</p>
-          <Link to="/apply">Apply Now</Link>
-          <Link to="/membership-register">Membership Form</Link>
-          <Link to="/incubatee-register">incubatee Form</Link>
-        </div>
-        <div>
-          <p className="footer-label">Legal</p>
-          <Link to="/privacy-policy">Privacy Policy</Link>
-          <Link to="/terms-and-conditions">Terms & Conditions</Link>
-          <Link to="/refund-policy">Refund Policy</Link>
-        </div>
-      </div>
-      <p className="footer-note">{siteSettings?.footerNote || "RIF © | All Rights Reserved."}</p>
-      <p className="footer-credit">
-        Developed by{" "}
-        <a href="https://vuntech.online" target="_blank" rel="noreferrer">
-          vuntech.online
-        </a>
-      </p>
-      <div className="footer-bottom">
-        <div className="footer-visit-mini" title="Website visits">
-          {visitDigits.map((digit, idx) => (
-            <span key={`visit-digit-${idx}`}>{digit}</span>
-          ))}
+        <div className="footer-bottom">
+          <div className="footer-counter-shell" title="Website visits">
+            <div className="footer-counter-copy">
+              <span className="footer-counter-label">Visitor Counter</span>
+              <p className="footer-counter-note">Tracking the growing RIF community</p>
+            </div>
+            <div className="footer-visit-mini" aria-label={`Website visits ${visitCount.toLocaleString()}`}>
+              {visitDigits.map((digit, idx) => (
+                <span key={`visit-digit-${idx}`}>{digit}</span>
+              ))}
+            </div>
+          </div>
+          <div className="footer-meta-row">
+            <p className="footer-note">{siteSettings?.footerNote || "RIF © | All Rights Reserved."}</p>
+            <p className="footer-credit">
+              Developed by{" "}
+              <a href="https://vuntech.online" target="_blank" rel="noreferrer">
+                VUN Tech
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

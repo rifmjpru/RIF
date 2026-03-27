@@ -13,6 +13,7 @@ export default function PrivacyPolicyPage() {
     <PolicyPage
       description={policy.description}
       eyebrow={policy.eyebrow}
+      panelKey="privacyPolicy"
       sections={policy.sections}
       summary={policy.summary}
       title={policy.title}

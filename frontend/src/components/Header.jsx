@@ -6,11 +6,22 @@ import { useSiteData } from "./SiteDataProvider.jsx";
 const navClassName = ({ isActive }) => (isActive ? "nav-link nav-link-active" : "nav-link");
 const isExternalLink = (value = "") => /^https?:\/\//i.test(value);
 
+const hasMatchingPath = (entries = [], pathname = "") =>
+  entries.some((entry) => {
+    if (entry.to?.split("#")[0] === pathname) {
+      return true;
+    }
+
+    return hasMatchingPath(entry.children || [], pathname);
+  });
+
 export const Header = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
+  const [openSubMenu, setOpenSubMenu] = useState(null);
   const [openMobileGroup, setOpenMobileGroup] = useState(null);
+  const [openMobileSubGroup, setOpenMobileSubGroup] = useState(null);
   const { siteData } = useSiteData();
   const tickerEntries = [
     ...(siteData?.news || []).map((item) => ({
@@ -37,13 +48,15 @@ export const Header = () => {
       return true;
     }
 
-    return item.children?.some((child) => child.to.split("#")[0] === location.pathname);
+    return hasMatchingPath(item.children || [], location.pathname);
   };
 
   const closeMobileNav = () => {
     setMobileOpen(false);
     setOpenMenu(null);
+    setOpenSubMenu(null);
     setOpenMobileGroup(null);
+    setOpenMobileSubGroup(null);
   };
 
   useEffect(() => {
@@ -77,20 +90,20 @@ export const Header = () => {
     <>
       <header className="site-header">
         <Link className="brand-mark" to="/">
-        <img className="brand-badge" src="/images/partners/logo.jpg" alt="rif logo" />
-          <span>
-            {/* <strong>{siteData?.siteSettings?.fullName || "Rohilkhand Incubation Foundation"}</strong> */}
-            {/* <small>{siteData?.siteSettings?.location || "Innovation Platform"}</small> */}
-          </span>
+          <img className="brand-badge" src="/images/partners/logo.jpg" alt="rif logo" />
+          <span />
         </Link>
         <nav className="site-nav desktop-nav" aria-label="Primary">
-          {navigation.map((item) => (
+          {navigation.map((item) =>
             item.children?.length ? (
               <div
                 className="nav-group"
                 key={item.id}
                 onMouseEnter={() => setOpenMenu(item.id)}
-                onMouseLeave={() => setOpenMenu(null)}
+                onMouseLeave={() => {
+                  setOpenMenu(null);
+                  setOpenSubMenu(null);
+                }}
               >
                 <div className={isGroupActive(item) ? "nav-group-head nav-group-head-active" : "nav-group-head"}>
                   <NavLink className={navClassName} to={item.to}>
@@ -100,7 +113,10 @@ export const Header = () => {
                     aria-expanded={openMenu === item.id}
                     aria-label={`Toggle ${item.label}`}
                     className="nav-chevron"
-                    onClick={() => setOpenMenu((current) => (current === item.id ? null : item.id))}
+                    onClick={() => {
+                      setOpenMenu((current) => (current === item.id ? null : item.id));
+                      setOpenSubMenu(null);
+                    }}
                     type="button"
                   >
                     ▾
@@ -108,11 +124,52 @@ export const Header = () => {
                 </div>
                 <div className={openMenu === item.id ? "dropdown-panel dropdown-panel-open" : "dropdown-panel"}>
                   <div className="dropdown-accent" />
-                  {item.children.map((child) => (
-                    <Link className="dropdown-link" key={child.to} to={child.to}>
-                      {child.label}
-                    </Link>
-                  ))}
+                  {item.children.map((child) => {
+                    if (!child.children?.length) {
+                      return (
+                        <Link className="dropdown-link" key={child.to} to={child.to}>
+                          {child.label}
+                        </Link>
+                      );
+                    }
+
+                    const childKey = `${item.id}:${child.to}`;
+
+                    return (
+                      <div
+                        className="dropdown-subgroup"
+                        key={child.to}
+                        onMouseEnter={() => setOpenSubMenu(childKey)}
+                        onMouseLeave={() => setOpenSubMenu((current) => (current === childKey ? null : current))}
+                      >
+                        <div className="dropdown-subgroup-head">
+                          <Link className="dropdown-link dropdown-link-parent" to={child.to}>
+                            {child.label}
+                          </Link>
+                          <button
+                            aria-expanded={openSubMenu === childKey}
+                            aria-label={`Toggle ${child.label}`}
+                            className="dropdown-subtoggle"
+                            onClick={() => setOpenSubMenu((current) => (current === childKey ? null : childKey))}
+                            type="button"
+                          >
+                            ▸
+                          </button>
+                        </div>
+                        <div
+                          className={
+                            openSubMenu === childKey ? "dropdown-subpanel dropdown-subpanel-open" : "dropdown-subpanel"
+                          }
+                        >
+                          {child.children.map((grandChild) => (
+                            <Link className="dropdown-sublink" key={grandChild.to} to={grandChild.to}>
+                              {grandChild.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ) : (
@@ -120,7 +177,7 @@ export const Header = () => {
                 {item.label}
               </NavLink>
             )
-          ))}
+          )}
         </nav>
         <div className="header-actions">
           <Link className="button desktop-cta" to={applyAction.to}>
@@ -128,15 +185,13 @@ export const Header = () => {
           </Link>
           <button className="menu-toggle" onClick={() => setMobileOpen((open) => !open)} type="button">
             <span className="menu-icon" aria-hidden>
-              {mobileOpen ? "✕" : "☰"}
+              {mobileOpen ? "X" : "☰"}
             </span>
             <span>{mobileOpen ? "Close" : "Menu"}</span>
           </button>
         </div>
       </header>
-      {mobileOpen ? (
-        <div className="mobile-nav-backdrop" onClick={closeMobileNav} role="presentation" />
-      ) : null}
+      {mobileOpen ? <div className="mobile-nav-backdrop" onClick={closeMobileNav} role="presentation" /> : null}
       {mobileOpen ? (
         <nav className="mobile-nav" aria-label="Mobile">
           {navigation.map((item) => (
@@ -153,17 +208,47 @@ export const Header = () => {
                     onClick={() => setOpenMobileGroup((current) => (current === item.id ? null : item.id))}
                     type="button"
                   >
-                    {openMobileGroup === item.id ? "−" : "+"}
+                    {openMobileGroup === item.id ? "-" : "+"}
                   </button>
                 ) : null}
               </div>
               {item.children?.length ? (
                 <div className={openMobileGroup === item.id ? "mobile-subnav mobile-subnav-open" : "mobile-subnav"}>
-                  {item.children.map((child) => (
-                    <Link className="mobile-subnav-link" key={child.to} onClick={closeMobileNav} to={child.to}>
-                      {child.label}
-                    </Link>
-                  ))}
+                  {item.children.map((child) =>
+                    child.children?.length ? (
+                      <div className="mobile-subnav-group" key={child.to}>
+                        <div className="mobile-subnav-head">
+                          <Link className="mobile-subnav-link" onClick={closeMobileNav} to={child.to}>
+                            {child.label}
+                          </Link>
+                          <button
+                            aria-expanded={openMobileSubGroup === child.to}
+                            aria-label={`Toggle ${child.label} links`}
+                            className="mobile-nav-toggle"
+                            onClick={() => setOpenMobileSubGroup((current) => (current === child.to ? null : child.to))}
+                            type="button"
+                          >
+                            {openMobileSubGroup === child.to ? "-" : "+"}
+                          </button>
+                        </div>
+                        <div
+                          className={
+                            openMobileSubGroup === child.to ? "mobile-subnav mobile-subnav-open" : "mobile-subnav"
+                          }
+                        >
+                          {child.children.map((grandChild) => (
+                            <Link className="mobile-subnav-link mobile-subnav-link-nested" key={grandChild.to} onClick={closeMobileNav} to={grandChild.to}>
+                              {grandChild.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <Link className="mobile-subnav-link" key={child.to} onClick={closeMobileNav} to={child.to}>
+                        {child.label}
+                      </Link>
+                    )
+                  )}
                 </div>
               ) : null}
             </div>
