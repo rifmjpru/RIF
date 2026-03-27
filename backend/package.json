@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node server.js",
+    "start": "node src/server.js",
     "check": "node --check src/server.js && node --check src/app.js && node --check src/config/env.js && node --check src/config/database.js && node --check src/middleware/auth-middleware.js && node --check src/middleware/error-handler.js && node --check src/middleware/not-found.js && node --check src/routes/admin-routes.js && node --check src/routes/auth-routes.js && node --check src/routes/public-routes.js && node --check src/services/cms-service.js && node --check src/utils/token.js && node --check src/utils/password.js && node --check src/utils/slugify.js && node --check src/utils/validation.js",
     "build": "echo Build complete"
   },
