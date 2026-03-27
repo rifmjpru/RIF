@@ -4,8 +4,9 @@ export const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, "");
 
 const request = async (path, options = {}) => {
   const isFormData = options.body instanceof FormData;
+  const hasJsonBody = !isFormData && options.body !== undefined;
   const headers = {
-    ...(isFormData ? {} : { "Content-Type": "application/json" }),
+    ...(hasJsonBody ? { "Content-Type": "application/json" } : {}),
     ...(options.headers || {})
   };
 
