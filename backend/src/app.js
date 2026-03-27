@@ -8,13 +8,16 @@ import { notFound } from "./middleware/not-found.js";
 import { errorHandler } from "./middleware/error-handler.js";
 
 const allowedOrigins = new Set(env.frontendOrigins);
+const normalizeOrigin = (value) => value?.replace(/\/+$/, "");
 
 export const app = express();
 
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.has(origin)) {
+      const normalizedOrigin = normalizeOrigin(origin);
+
+      if (!normalizedOrigin || allowedOrigins.has(normalizedOrigin)) {
         callback(null, true);
         return;
       }
@@ -38,4 +41,3 @@ app.use("/api/admin", adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
-
