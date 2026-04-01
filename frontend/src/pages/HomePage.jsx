@@ -16,8 +16,8 @@ const spotlightPartners = [
 ];
 
 const qrConnectUrl = "https://forms.gle/XTdecnwMjBqfrEvHA";
-const heroVideoSrc = "public/videos/rif-hero-logo.mp4";
-const miniVideoSrc = "public/videos/Video_Generation_With_Logo.mp4";
+const heroVideoSrc = "/videos/rif-hero-logo.mp4";
+const miniVideoSrc = "/videos/Video_Generation_With_Logo.mp4";
 
 
 export default function HomePage() {
@@ -93,11 +93,7 @@ export default function HomePage() {
                     className="home-slide-video"
                     loop
                     muted
-                    onLoadedData={(event) => {
-                      event.currentTarget.play().catch(() => {});
-                    }}
                     playsInline
-                    preload="auto"
                   >
                     <source src={slide.src} type="video/mp4" />
                   </video>
@@ -203,11 +199,7 @@ export default function HomePage() {
               className="home-spotlight-video"
               loop
               muted
-              onLoadedData={(event) => {
-                event.currentTarget.play().catch(() => {});
-              }}
               playsInline
-              preload="auto"
             >
               <source src={miniVideoSrc} type="video/mp4" />
             </video>
