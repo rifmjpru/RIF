@@ -40,6 +40,13 @@ export const SiteLayout = () => {
 
     const elements = Array.from(document.querySelectorAll(revealSelector));
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isElementInView = (element) => {
+      const rect = element.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+      return rect.bottom > 0 && rect.right > 0 && rect.top < viewportHeight && rect.left < viewportWidth;
+    };
 
     if (prefersReducedMotion) {
       elements.forEach((element) => element.classList.add("reveal-visible"));
@@ -62,6 +69,12 @@ export const SiteLayout = () => {
     );
 
     elements.forEach((element, index) => {
+      if (isElementInView(element)) {
+        element.classList.add("reveal-visible");
+        element.classList.remove("reveal-ready");
+        return;
+      }
+
       element.classList.add("reveal-ready");
       element.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 70}ms`);
       observer.observe(element);

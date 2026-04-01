@@ -3,9 +3,9 @@ import { resolveMediaUrl } from "../utils/media.js";
 
 export default function GalleryPage() {
   const { siteData } = useSiteData();
-  const gallery = siteData?.gallery;
+  const gallery = (siteData?.gallery || []).filter((item) => item?.imageUrl);
   const fallbackGallery =
-    !gallery?.length && siteData?.heroSlider?.length
+    !gallery.length && siteData?.heroSlider?.length
       ? siteData.heroSlider
           .filter((slide) => slide?.imageUrl)
           .map((slide, index) => ({
@@ -15,8 +15,8 @@ export default function GalleryPage() {
           }))
       : [];
 
-  const galleryItems = gallery?.length ? gallery : fallbackGallery;
-  const usingFallback = !gallery?.length && galleryItems?.length;
+  const galleryItems = gallery.length ? gallery : fallbackGallery;
+  const usingFallback = !gallery.length && galleryItems?.length;
 
   const handleImageError = (event, title) => {
     event.target.src = resolveMediaUrl("", title);
@@ -37,7 +37,7 @@ export default function GalleryPage() {
         <>
           <div className="gallery-simple-grid">
             {galleryItems.map((item) => (
-              <article className="gallery-simple-card" key={item.id}>
+              <article className="gallery-simple-card" key={item.id || item.imageUrl}>
                 <img
                   alt={item.altText || item.title}
                   className="gallery-simple-image"
