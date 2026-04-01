@@ -5,6 +5,7 @@ import { useSiteData } from "./SiteDataProvider.jsx";
 
 const navClassName = ({ isActive }) => (isActive ? "nav-link nav-link-active" : "nav-link");
 const isExternalLink = (value = "") => /^https?:\/\//i.test(value);
+const isClickOnlySubmenu = (item) => item?.id === "about";
 
 const hasMatchingPath = (entries = [], pathname = "") =>
   entries.some((entry) => {
@@ -99,7 +100,9 @@ export const Header = () => {
               <div
                 className="nav-group"
                 key={item.id}
-                onMouseEnter={() => setOpenMenu(item.id)}
+                onMouseEnter={() => {
+                  setOpenMenu(item.id);
+                }}
                 onMouseLeave={() => {
                   setOpenMenu(null);
                   setOpenSubMenu(null);
@@ -139,8 +142,16 @@ export const Header = () => {
                       <div
                         className="dropdown-subgroup"
                         key={child.to}
-                        onMouseEnter={() => setOpenSubMenu(childKey)}
-                        onMouseLeave={() => setOpenSubMenu((current) => (current === childKey ? null : current))}
+                        onMouseEnter={() => {
+                          if (!isClickOnlySubmenu(item)) {
+                            setOpenSubMenu(childKey);
+                          }
+                        }}
+                        onMouseLeave={() => {
+                          if (!isClickOnlySubmenu(item)) {
+                            setOpenSubMenu((current) => (current === childKey ? null : current));
+                          }
+                        }}
                       >
                         <div className="dropdown-subgroup-head">
                           <Link className="dropdown-link dropdown-link-parent" to={child.to}>

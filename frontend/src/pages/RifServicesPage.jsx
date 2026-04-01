@@ -22,6 +22,29 @@ const defaultRifServices = {
   screeningSteps: []
 };
 
+const normalizeEligibilityPoints = (items = []) =>
+  (Array.isArray(items) ? items : [])
+    .map((item, index) => {
+      if (typeof item === "string") {
+        return {
+          id: `eligibility-${index + 1}`,
+          title: `Criteria ${index + 1}`,
+          description: item
+        };
+      }
+
+      if (item && typeof item === "object") {
+        return {
+          id: item.id || `eligibility-${index + 1}`,
+          title: item.title || `Criteria ${index + 1}`,
+          description: item.description || ""
+        };
+      }
+
+      return null;
+    })
+    .filter((item) => item?.description);
+
 const normalizeRifServices = (value) => {
   if (Array.isArray(value)) {
     return {
@@ -45,7 +68,7 @@ const normalizeRifServices = (value) => {
     ...value,
     benefits: Array.isArray(value.benefits) ? value.benefits : [],
     serviceTiles: Array.isArray(value.serviceTiles) ? value.serviceTiles : [],
-    eligibilityPoints: Array.isArray(value.eligibilityPoints) ? value.eligibilityPoints : [],
+    eligibilityPoints: normalizeEligibilityPoints(value.eligibilityPoints),
     screeningSteps: Array.isArray(value.screeningSteps) ? value.screeningSteps : []
   };
 };
@@ -123,12 +146,20 @@ export default function RifServicesPage() {
       <section className="section rif-services-section">
         <article className="rif-criteria-card">
           <h3>{content.eligibilityTitle}</h3>
-          <p>{content.eligibilityIntro}</p>
-          <ul className="bullet-list">
+          <p className="rif-criteria-intro">{content.eligibilityIntro}</p>
+          <div className="rif-criteria-grid">
             {content.eligibilityPoints.map((point, index) => (
-              <li key={`${index}-${point}`}>{point}</li>
+              <article className="rif-criteria-item" key={point.id || `${index}-${point.title}`}>
+                <div className="rif-criteria-item-marker" aria-hidden>
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="rif-criteria-item-copy">
+                  <h4>{point.title}</h4>
+                  <p>{point.description}</p>
+                </div>
+              </article>
             ))}
-          </ul>
+          </div>
         </article>
       </section>
 

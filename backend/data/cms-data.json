@@ -754,11 +754,31 @@
     "eligibilityTitle": "Eligibility Criteria for Incubatees",
     "eligibilityIntro": "Entrepreneurs and startups interested in applying for incubation at RIF should review the following criteria.",
     "eligibilityPoints": [
-      "Startup or entrepreneur should be an innovative product/process/service candidate.",
-      "Entity can be a private limited company, LLP, registered partnership firm, or proprietorship.",
-      "The startup should be less than 10 years old from date of incorporation.",
-      "Annual turnover in any preceding financial year must not exceed INR 25 crore.",
-      "The venture should have potential for scaling and employment generation."
+      {
+        "id": "eligibility-1",
+        "title": "Innovation Focus",
+        "description": "Startup or entrepreneur should be an innovative product, process, or service candidate."
+      },
+      {
+        "id": "eligibility-2",
+        "title": "Entity Type",
+        "description": "Entity can be a private limited company, LLP, registered partnership firm, or proprietorship."
+      },
+      {
+        "id": "eligibility-3",
+        "title": "Startup Age",
+        "description": "The startup should be less than 10 years old from the date of incorporation."
+      },
+      {
+        "id": "eligibility-4",
+        "title": "Turnover Limit",
+        "description": "Annual turnover in any preceding financial year must not exceed INR 25 crore."
+      },
+      {
+        "id": "eligibility-5",
+        "title": "Scalability",
+        "description": "The venture should have potential for scaling and employment generation."
+      }
     ],
     "screeningTitle": "Screening Process for Incubatees",
     "screeningSteps": [

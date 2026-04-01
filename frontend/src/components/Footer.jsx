@@ -76,8 +76,8 @@ export const Footer = () => {
           </div>
           <div className="footer-meta-row">
             <p className="footer-note">{siteSettings?.footerNote || "RIF © | All Rights Reserved."}</p>
+            <p className="footer-credit-label">Developed by</p>
             <p className="footer-credit">
-              Developed by{" "}
               <a href="https://vuntech.online" target="_blank" rel="noreferrer">
                 VUN Tech
               </a>

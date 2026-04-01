@@ -291,10 +291,10 @@ export default function ApplyPage() {
     { name: "industry", label: "Industry", required: true },
     { name: "sector", label: "Sector" },
     { name: "category", label: "Category" },
-    { name: "dpittNumber", label: "DPIIT No. (optional)" },
-    { name: "incorporationNumber", label: "Incorporation Reg. No." },
-    { name: "incorporationDate", label: "Incorporation Reg. Date", type: "date" },
-    { name: "address", label: "Official Address", span: 2 },
+    { name: "dpittNumber", label: "DPIIT No. ", required: true },
+    { name: "incorporationNumber", label: "Incorporation Reg. No." , required:true },
+    { name: "incorporationDate", label: "Incorporation Reg. Date", type: "date" , required:true },
+    { name: "address", label: "Official Address", span: 2 , required:true },
     { name: "funding", label: "Funding / Grants (if any)", span: 2 },
     {
       name: "stage",
@@ -319,9 +319,9 @@ export default function ApplyPage() {
       span: 2,
       rows: 5
     },
-    { name: "teamSize", label: "Team Size" },
-    { name: "traction", label: "Traction So Far", type: "textarea", span: 2, rows: 4 },
-    { name: "supportNeeded", label: "Support Needed", type: "textarea", span: 2, rows: 4 },
+    { name: "teamSize", label: "Team Size" , type:"number",required:true},
+    { name: "traction", label: "Traction So Far (optional)", type: "textarea", span: 2, rows: 4 },
+    { name: "supportNeeded", label: "Support Needed (optional)", type: "textarea", span: 2, rows: 4 },
     {
       name: "paymentMode",
       label: paymentAmount ? `Mode of Payment (Fee: ₹${paymentAmount})` : "Mode of Payment",

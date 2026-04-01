@@ -19,24 +19,24 @@ export const navigation = [
         ]
       },
       {
-        label: "Gallery",
-        to: "/gallery",
+        label: "RIF Team",
+        to: "/team/core-team",
         children: [
-          { label: "Image Gallery", to: "/gallery" },
-          { label: "Media Coverage", to: "/media-coverage" }
+          { label: "Core Team", to: "/team/core-team" },
+          { label: "Mentors' Profiles", to: "/mentors" },
+          { label: "Incubatees' Profiles", to: "/incubatees" }
         ]
-      },
-      { label: "Documents", to: "/documents" }
+      }
     ]
   },
   {
-    id: "team",
-    label: "RIF Team",
-    to: "/team/core-team",
+    id: "gallery-documents",
+    label: "Gallery & Documents",
+    to: "/gallery",
     children: [
-      { label: "Core Team", to: "/team/core-team" },
-      { label: "Incubatees' Profiles", to: "/incubatees" },
-      { label: "Mentors' Profiles", to: "/mentors" }
+      { label: "Gallery", to: "/gallery" },
+      { label: "Media Coverage", to: "/media-coverage" },
+      { label: "Documents", to: "/documents" }
     ]
   },
   {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SectionHeading } from "../components/SectionHeading.jsx";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
@@ -16,6 +16,9 @@ const spotlightPartners = [
 ];
 
 const qrConnectUrl = "https://forms.gle/XTdecnwMjBqfrEvHA";
+const heroVideoSrc = "public/videos/rif-hero-logo.mp4";
+const miniVideoSrc = "public/videos/Video_Generation_With_Logo.mp4";
+
 
 export default function HomePage() {
   const { siteData } = useSiteData();
@@ -32,53 +35,34 @@ export default function HomePage() {
   const testimonialsSection = homepage?.testimonialsSection || {};
   const previewCount = Number(testimonialsSection.previewCount) > 0 ? Number(testimonialsSection.previewCount) : 3;
   const previewTestimonials = testimonials.slice(0, previewCount);
-  const slides =
+  const imageSlides =
     siteData?.heroSlider?.length
-      ? siteData.heroSlider
-      : [
-          {
-            id: "hero-fallback",
-            title: "Home Hero Slide",
-            imageUrl: ""
-          }
-        ];
+      ? siteData.heroSlider.map((slide, index) => ({
+          ...slide,
+          mediaType: "image",
+          key: slide.id || `hero-image-${index}`
+        }))
+      : [];
+  const heroSlides = [
+    {
+      key: "hero-video",
+      title: "RIF Hero Video",
+      mediaType: "video",
+      src: heroVideoSrc
+    },
+    ...imageSlides
+  ];
   const [activeSlide, setActiveSlide] = useState(0);
-
-  useEffect(() => {
-    if (slides.length < 2) {
-      return undefined;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
-    }, 5000);
-
-    return () => window.clearInterval(intervalId);
-  }, [slides.length]);
-
-  useEffect(() => {
-    if (!slides.length) {
-      setActiveSlide(0);
-      return;
-    }
-
-    setActiveSlide((current) => current % slides.length);
-  }, [slides.length]);
-
-  const goToSlide = (index) => {
-    if (!slides.length) {
-      return;
-    }
-
-    setActiveSlide((index + slides.length) % slides.length);
-  };
-
   const sanitizePublicLink = (value, fallback) => {
     if (!value) {
       return fallback;
     }
 
     return value.startsWith("/admin") ? fallback : value;
+  };
+
+  const goToSlide = (index) => {
+    setActiveSlide((index + heroSlides.length) % heroSlides.length);
   };
 
   const getSlideObjectPosition = (slide) => {
@@ -92,36 +76,65 @@ export default function HomePage() {
       <section className="home-slider-shell">
         <div className="home-slider-stage">
           <div className="home-slider-media">
-            {slides.map((slide, index) => (
+            {heroSlides.map((slide, index) => (
               <div
                 aria-hidden={index !== activeSlide}
-                className={index === activeSlide ? "home-slide home-slide-active" : "home-slide"}
-                key={slide.id || index}
+                className={
+                  index === activeSlide
+                    ? `home-slide home-slide-active ${slide.mediaType === "video" ? "home-slide-video-panel" : ""}`.trim()
+                    : `home-slide ${slide.mediaType === "video" ? "home-slide-video-panel" : ""}`.trim()
+                }
+                key={slide.key}
               >
-                <div
-                  aria-hidden
-                  className="home-slide-image-backdrop"
-                  style={{ backgroundImage: `url(${resolveMediaUrl(slide.imageUrl, slide.title)})` }}
-                />
-                <img
-                  alt={slide.title || `Slide ${index + 1}`}
-                  className="home-slide-image"
-                  style={{ objectPosition: getSlideObjectPosition(slide) }}
-                  src={resolveMediaUrl(slide.imageUrl, slide.title)}
-                />
+                {slide.mediaType === "video" ? (
+                  <video
+                    aria-label={slide.title}
+                    autoPlay
+                    className="home-slide-video"
+                    loop
+                    muted
+                    onLoadedData={(event) => {
+                      event.currentTarget.play().catch(() => {});
+                    }}
+                    playsInline
+                    preload="auto"
+                  >
+                    <source src={slide.src} type="video/mp4" />
+                  </video>
+                ) : (
+                  <>
+                    <div
+                      aria-hidden
+                      className="home-slide-image-backdrop"
+                      style={{ backgroundImage: `url(${resolveMediaUrl(slide.imageUrl, slide.title)})` }}
+                    />
+                    <img
+                      alt={slide.title || `Slide ${index + 1}`}
+                      className="home-slide-image"
+                      style={{ objectPosition: getSlideObjectPosition(slide) }}
+                      src={resolveMediaUrl(slide.imageUrl, slide.title)}
+                    />
+                  </>
+                )}
               </div>
             ))}
-            <div className="home-slide-overlay" />
+            <div
+              className={
+                heroSlides[activeSlide]?.mediaType === "video"
+                  ? "home-slide-overlay home-slide-overlay-hidden"
+                  : "home-slide-overlay"
+              }
+            />
             <div className="home-slide-controls">
               <button className="slider-arrow" onClick={() => goToSlide(activeSlide - 1)} type="button">
                 ←
               </button>
               <div className="slider-dots">
-                {slides.map((slide, index) => (
+                {heroSlides.map((slide, index) => (
                   <button
-                    aria-label={`Go to slide ${index + 1}`}
+                    aria-label={`Go to ${slide.mediaType === "video" ? "video" : `slide ${index + 1}`}`}
                     className={index === activeSlide ? "slider-dot slider-dot-active" : "slider-dot"}
-                    key={slide.id || index}
+                    key={slide.key}
                     onClick={() => goToSlide(index)}
                     type="button"
                   />
@@ -183,11 +196,22 @@ export default function HomePage() {
           </div>
         </div>
         <div className="hero-spotlight home-copy-spotlight">
-          <p className="hero-spotlight-title">Current Slide</p>
-          <h3>{slides[activeSlide]?.title || "Hero Image"}</h3>
-          <Link className="text-link" to="/gallery">
-            View gallery highlights
-          </Link>
+          <div className="home-spotlight-video-wrap">
+            <video
+              aria-label="RIF Hero Video"
+              autoPlay
+              className="home-spotlight-video"
+              loop
+              muted
+              onLoadedData={(event) => {
+                event.currentTarget.play().catch(() => {});
+              }}
+              playsInline
+              preload="auto"
+            >
+              <source src={miniVideoSrc} type="video/mp4" />
+            </video>
+          </div>
           <div className="spotlight-partner-wrap">
             <p className="hero-spotlight-title">Affiliations and Standards</p>
             <div className="spotlight-partner-strip">

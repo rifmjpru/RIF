@@ -99,6 +99,29 @@ const createDefaultRifServicesData = (legacyItems = []) => ({
   screeningSteps: []
 });
 
+const normalizeEligibilityEntries = (items = []) =>
+  (Array.isArray(items) ? items : [])
+    .map((item, index) => {
+      if (typeof item === "string") {
+        return {
+          id: `rif-eligibility-${index + 1}`,
+          title: `Criteria ${index + 1}`,
+          description: item
+        };
+      }
+
+      if (item && typeof item === "object") {
+        return {
+          id: item.id || `rif-eligibility-${index + 1}`,
+          title: item.title || `Criteria ${index + 1}`,
+          description: item.description || ""
+        };
+      }
+
+      return null;
+    })
+    .filter((item) => item?.description);
+
 const defaultTestimonialsSection = {
   eyebrow: "Testimonials",
   title: "What founders, members, and ecosystem partners say about working with RIF.",
@@ -242,7 +265,7 @@ const normalizeRifServicesData = (value) => {
     ...value,
     benefits: ensureItemsHaveIds(value.benefits || [], "rif-benefit"),
     serviceTiles: ensureItemsHaveIds(value.serviceTiles || [], "rif-tile"),
-    eligibilityPoints: Array.isArray(value.eligibilityPoints) ? value.eligibilityPoints : [],
+    eligibilityPoints: normalizeEligibilityEntries(value.eligibilityPoints),
     screeningSteps: ensureItemsHaveIds(value.screeningSteps || [], "rif-step")
   };
 };
@@ -3240,16 +3263,26 @@ export default function AdminDashboardPage() {
                   id: "eligibility",
                   label: "Eligibility",
                   content: (
-                    <ObjectEditor
-                      fields={[
-                        { key: "eligibilityTitle", label: "Eligibility Title", span: 2 },
-                        { key: "eligibilityIntro", label: "Eligibility Intro", type: "textarea", span: 2, rows: 4 },
-                        { key: "eligibilityPoints", label: "Eligibility Points", type: "array", span: 2, rows: 6 }
-                      ]}
-                      onChange={(nextValue) => updatePath(["rifServices"], nextValue)}
-                      title="Eligibility Section"
-                      value={draftData.rifServices}
-                    />
+                    <div className="admin-section-stack">
+                      <ObjectEditor
+                        fields={[
+                          { key: "eligibilityTitle", label: "Eligibility Title", span: 2 },
+                          { key: "eligibilityIntro", label: "Eligibility Intro", type: "textarea", span: 2, rows: 4 }
+                        ]}
+                        onChange={(nextValue) => updatePath(["rifServices"], nextValue)}
+                        title="Eligibility Section"
+                        value={draftData.rifServices}
+                      />
+                      <CollectionEditor
+                        fields={[
+                          { key: "title", label: "Bullet Title" },
+                          { key: "description", label: "Bullet Description", type: "textarea", span: 2, rows: 3 }
+                        ]}
+                        items={draftData.rifServices?.eligibilityPoints || []}
+                        onChange={(nextValue) => updatePath(["rifServices", "eligibilityPoints"], nextValue)}
+                        title="Eligibility Bullets"
+                      />
+                    </div>
                   )
                 },
                 {
