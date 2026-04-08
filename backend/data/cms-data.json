@@ -446,7 +446,61 @@
       "secondaryCtaLink": "/enquiry",
       "pillarsEyebrow": "Leadership Pillars",
       "pillarsTitle": "The principles guiding how RIF builds trust and momentum.",
-      "pillarsDescription": "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together."
+      "pillarsDescription": "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together.",
+      "governorMessage": {
+        "eyebrow": "Governor, Uttar Pradesh",
+        "name": "Anandiben Patel",
+        "buttonLabel": "Message from Governor",
+        "buttonLink": "/leadership/message-from-governor",
+        "pageEyebrow": "Leadership Message",
+        "pageTitle": "Message from Governor",
+        "imageUrl": "",
+        "imageAssetId": "",
+        "imageAlt": "Governor of Uttar Pradesh",
+        "letterSectionLabel": "Official Letter",
+        "letterSectionTitle": "View the signed governor message",
+        "letterSectionDescription": "Upload the scanned hard-copy letter here so visitors can preview it in full screen or download it directly.",
+        "letterImageUrl": "",
+        "letterImageAssetId": "",
+        "letterImageAlt": "Signed governor message letter",
+        "message": "I feel extremely proud to know that Mahatma Jyotiba Phule Rohilkhand University, Bareilly, is sharing the promotional brochure of the Rohilkhand Incubation Foundation, established under the State Government of Uttar Pradesh to promote entrepreneurship."
+      },
+      "chiefMinisterMessage": {
+        "eyebrow": "Chief Minister, Uttar Pradesh",
+        "name": "Yogi Adityanath",
+        "buttonLabel": "Message from Chief Minister",
+        "buttonLink": "/leadership/message-from-chief-minister",
+        "pageEyebrow": "Leadership Message",
+        "pageTitle": "Message from Chief Minister",
+        "imageUrl": "",
+        "imageAssetId": "",
+        "imageAlt": "Chief Minister of Uttar Pradesh",
+        "letterSectionLabel": "Official Letter",
+        "letterSectionTitle": "View the signed chief minister message",
+        "letterSectionDescription": "Upload the scanned hard-copy letter here so visitors can preview it in full screen or download it directly.",
+        "letterImageUrl": "",
+        "letterImageAssetId": "",
+        "letterImageAlt": "Signed chief minister message letter",
+        "message": "Innovation, entrepreneurship, and institutional collaboration can create transformative opportunities for young founders across Uttar Pradesh. Initiatives that connect education, incubation, and industry help build a stronger startup ecosystem for the state."
+      },
+      "viceChancellorMessage": {
+        "eyebrow": "Vice Chancellor",
+        "name": "Vice Chancellor",
+        "buttonLabel": "Message from Vice Chancellor",
+        "buttonLink": "/leadership/message-from-vice-chancellor",
+        "pageEyebrow": "Leadership Message",
+        "pageTitle": "Message from Vice Chancellor",
+        "imageUrl": "",
+        "imageAssetId": "",
+        "imageAlt": "Vice Chancellor message",
+        "letterSectionLabel": "Official Letter",
+        "letterSectionTitle": "View the signed vice chancellor message",
+        "letterSectionDescription": "Upload the scanned hard-copy letter here so visitors can preview it in full screen or download it directly.",
+        "letterImageUrl": "",
+        "letterImageAssetId": "",
+        "letterImageAlt": "Signed vice chancellor message letter",
+        "message": "Rohilkhand Incubation Foundation reflects our commitment to nurture research, innovation, and entrepreneurship together. We aim to support students, researchers, and founders with an ecosystem that helps promising ideas become impactful ventures."
+      }
     },
     "boardOfDirectors": [
       {
@@ -603,6 +657,35 @@
       "expertise": "Finance and Fundraising",
       "company": "Venture Finance Partner",
       "focus": "Financial models, readiness reviews, and investor communication.",
+      "imageUrl": "",
+      "imageAssetId": ""
+    }
+  ],
+  "facultyMembers": [
+    {
+      "id": "faculty-1",
+      "name": "Prof. Shalini Verma",
+      "designation": "Professor, Computer Science",
+      "department": "MJP Rohilkhand University",
+      "focus": "Innovation mentoring, applied research translation, and startup problem validation.",
+      "imageUrl": "",
+      "imageAssetId": ""
+    },
+    {
+      "id": "faculty-2",
+      "name": "Dr. Arvind Kumar Singh",
+      "designation": "Associate Professor, Management Studies",
+      "department": "MJP Rohilkhand University",
+      "focus": "Business model refinement, founder readiness, and institutional entrepreneurship programs.",
+      "imageUrl": "",
+      "imageAssetId": ""
+    },
+    {
+      "id": "faculty-3",
+      "name": "Dr. Neha Saxena",
+      "designation": "Assistant Professor, Biotechnology",
+      "department": "MJP Rohilkhand University",
+      "focus": "Research commercialization, domain guidance, and early-stage solution review.",
       "imageUrl": "",
       "imageAssetId": ""
     }

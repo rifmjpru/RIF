@@ -38,9 +38,9 @@ const sectionConfig = {
     panelKey: "coreTeam",
     title: "Core Team",
     eyebrow: "Team",
-    description: "Use the RIF Team menu to switch between the core team, incubatee profiles, and mentor profiles.",
-    primaryAction: { label: "Browse Mentors", to: "/mentors" },
-    secondaryAction: { label: "View Incubatees", to: "/incubatees" },
+    description: "Use the RIF Team menu to switch between the core team, faculty members, incubatee profiles, and mentor profiles.",
+    primaryAction: { label: "Faculty Members", to: "/faculty-members" },
+    secondaryAction: { label: "Browse Mentors", to: "/mentors" },
     style: "advisory"
   }
 };
@@ -66,6 +66,7 @@ const TeamSection = ({ id, title, items, style }) => (
             <>
               <h3>{member.name}</h3>
               <p>{member.role}</p>
+              {member.bio ? <p>{member.bio}</p> : null}
             </>
           ) : (
             <>

@@ -5,6 +5,9 @@ import { useSiteData } from "./SiteDataProvider.jsx";
 export const Footer = () => {
   const { siteData } = useSiteData();
   const siteSettings = siteData?.siteSettings;
+  const mapAddress =
+    siteSettings?.location || "MJP Rohilkhand University, Pilibhit Bypass Road, Bareilly, Uttar Pradesh 243006";
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapAddress)}`;
   const baseCount = siteSettings?.visitCount ?? 50000;
   const [visitCount, setVisitCount] = useState(() => {
     try {
@@ -46,7 +49,20 @@ export const Footer = () => {
             <p className="footer-label">Contact</p>
             <a href={`mailto:${siteSettings?.contactEmail}`}>{siteSettings?.contactEmail}</a>
             <a href={`tel:${siteSettings?.contactPhone}`}>{siteSettings?.contactPhone}</a>
-            <p>{siteSettings?.location}</p>
+            <a className="footer-map-link" href={mapLink} rel="noreferrer" target="_blank">
+              <span className="footer-map-text">
+                {siteSettings?.location}
+                <span aria-hidden="true" className="footer-map-icon">
+                  <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z"
+                      fill="currentColor"
+                    />
+                    <circle cx="12" cy="10" fill="#ffffff" r="2.2" />
+                  </svg>
+                </span>
+              </span>
+            </a>
           </div>
           <div>
             <p className="footer-label">Quick Links</p>

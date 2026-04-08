@@ -15,6 +15,7 @@ import LeadershipPage from "./pages/LeadershipPage.jsx";
 import MediaCoveragePage from "./pages/MediaCoveragePage.jsx";
 import MembershipFormPage from "./pages/MembershipFormPage.jsx";
 import MembershipPage from "./pages/MembershipPage.jsx";
+import FacultyMembersPage from "./pages/FacultyMembersPage.jsx";
 import MentorsPage from "./pages/MentorsPage.jsx";
 import NewsEventsPage from "./pages/NewsEventsPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
@@ -23,6 +24,7 @@ import RefundPolicyPage from "./pages/RefundPolicyPage.jsx";
 import RifServicesPage from "./pages/RifServicesPage.jsx";
 import ServicesPage from "./pages/ServicesPage.jsx";
 import TeamPage from "./pages/TeamPage.jsx";
+import LeadershipMessagePage from "./pages/LeadershipMessagePage.jsx";
 import TermsConditionsPage from "./pages/TermsConditionsPage.jsx";
 import TestimonialsPage from "./pages/TestimonialsPage.jsx";
 
@@ -33,6 +35,9 @@ export default function App() {
         <Route element={<HomePage />} path="/" />
         <Route element={<AboutPage />} path="/about" />
         <Route element={<LeadershipPage />} path="/leadership" />
+        <Route element={<LeadershipMessagePage messageKey="governorMessage" />} path="/leadership/message-from-governor" />
+        <Route element={<LeadershipMessagePage messageKey="chiefMinisterMessage" />} path="/leadership/message-from-chief-minister" />
+        <Route element={<LeadershipMessagePage messageKey="viceChancellorMessage" />} path="/leadership/message-from-vice-chancellor" />
         <Route element={<ContactPage />} path="/contact" />
         <Route element={<TeamPage sectionKey="coreTeam" />} path="/team" />
         <Route element={<TeamPage sectionKey="boardOfDirectors" />} path="/leadership/board-of-directors" />
@@ -42,6 +47,7 @@ export default function App() {
         <Route element={<TeamPage sectionKey="coreTeam" />} path="/team/core-team" />
         <Route element={<IncubateesPage />} path="/incubatees" />
         <Route element={<IncubateeProfilePage />} path="/incubatees/:incubateeId" />
+        <Route element={<FacultyMembersPage />} path="/faculty-members" />
         <Route element={<MentorsPage />} path="/mentors" />
         <Route element={<ServicesPage />} path="/services" />
         <Route element={<MembershipPage />} path="/membership-plans" />

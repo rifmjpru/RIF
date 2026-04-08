@@ -156,28 +156,8 @@ export default function HomePage() {
             <span className="home-copy-star home-copy-star-four" />
             <span className="home-copy-launch-ring home-copy-launch-ring-one" />
             <span className="home-copy-launch-ring home-copy-launch-ring-two" />
-            <div className="home-copy-launch-trail" />
-            <svg className="home-copy-launch-rocket" fill="none" viewBox="0 0 180 260" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="launchRocketBody" x1="63" x2="117" y1="35" y2="155" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#FFF8F2" />
-                  <stop offset="1" stopColor="#FFD7CE" />
-                </linearGradient>
-                <linearGradient id="launchRocketFlame" x1="90" x2="90" y1="164" y2="248" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#FFBC66" />
-                  <stop offset="1" stopColor="#FFF1DA" stopOpacity="0.06" />
-                </linearGradient>
-              </defs>
-              <path d="M90 26C117 47 134 79 136 117L90 153L44 117C46 79 63 47 90 26Z" fill="url(#launchRocketBody)" />
-              <path d="M90 26C117 47 134 79 136 117L90 153V26Z" fill="#FFD1C7" />
-              <path d="M90 26C117 47 134 79 136 117L90 153L44 117C46 79 63 47 90 26Z" stroke="#1F4DA7" strokeWidth="5" />
-              <circle cx="90" cy="93" fill="#1F4DA7" r="16" />
-              <circle cx="90" cy="93" fill="#8EC4FF" r="8.5" />
-              <path d="M61 118L37 142L61 145L77 128L61 118Z" fill="#CE2026" stroke="#1F4DA7" strokeWidth="5" />
-              <path d="M119 118L143 142L119 145L103 128L119 118Z" fill="#CE2026" stroke="#1F4DA7" strokeWidth="5" />
-              <path d="M72 150H108L90 182L72 150Z" fill="#1F4DA7" />
-              <path d="M90 152L60 248H120L90 152Z" fill="url(#launchRocketFlame)" />
-            </svg>
+            <span className="home-copy-glow home-copy-glow-one" />
+            <span className="home-copy-glow home-copy-glow-two" />
           </div>
           <p className="section-eyebrow">{homepage?.hero?.eyebrow}</p>
           <h1>{homepage?.hero?.title}</h1>
@@ -208,12 +188,14 @@ export default function HomePage() {
             <p className="hero-spotlight-title">Affiliations and Standards</p>
             <div className="spotlight-partner-strip">
               {spotlightPartners.map((partner) => (
-                <div className="spotlight-partner-item spotlight-partner-image" key={partner.label}>
-                  {partner.src ? (
-                    <img alt={partner.label} src={partner.src} />
-                  ) : (
-                    <span className="spotlight-partner-fallback">{partner.label}</span>
-                  )}
+                <div className="spotlight-partner-item" key={partner.label}>
+                  <div className="spotlight-partner-card spotlight-partner-image">
+                    {partner.src ? (
+                      <img alt={partner.label} src={partner.src} />
+                    ) : (
+                      <span className="spotlight-partner-fallback">{partner.label}</span>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -256,9 +238,14 @@ export default function HomePage() {
         <div className="card-grid card-grid-3">
           {previewTestimonials.map((testimonial) => (
             <article className="content-card content-card-dark testimonial-card" key={testimonial.id || testimonial.name}>
-              <p className="testimonial-quote">"{testimonial.quote}"</p>
-              <h3>{testimonial.name}</h3>
-              <p className="detail-line">{testimonial.role}</p>
+              <div className="testimonial-head">
+                <span aria-hidden="true" className="testimonial-accent" />
+              </div>
+              <p className="testimonial-quote">{testimonial.quote}</p>
+              <div className="testimonial-meta">
+                <h3>{testimonial.name}</h3>
+                <p className="detail-line">{testimonial.role}</p>
+              </div>
             </article>
           ))}
         </div>

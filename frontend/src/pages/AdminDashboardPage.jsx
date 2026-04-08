@@ -18,6 +18,7 @@ const adminTabs = [
   { id: "gallery", label: "Gallery" },
   { id: "team", label: "Leadership & Team" },
   { id: "incubatees", label: "Incubatees" },
+  { id: "faculty-members", label: "Faculty Members" },
   { id: "mentors", label: "Mentors" },
   { id: "services", label: "Services" },
   { id: "membership", label: "Membership" },
@@ -149,6 +150,35 @@ const defaultHomepageCta = {
   qrAssetId: ""
 };
 
+const createDefaultLeadershipMessage = ({
+  eyebrow,
+  name,
+  buttonLabel,
+  buttonLink,
+  pageTitle,
+  imageAlt,
+  letterSectionTitle,
+  letterImageAlt,
+  message
+}) => ({
+  eyebrow,
+  name,
+  buttonLabel,
+  buttonLink,
+  pageEyebrow: "Leadership Message",
+  pageTitle,
+  imageUrl: "",
+  imageAssetId: "",
+  imageAlt,
+  letterSectionLabel: "Official Letter",
+  letterSectionTitle,
+  letterSectionDescription: "Upload the scanned hard-copy letter here so visitors can preview it in full screen or download it directly.",
+  letterImageUrl: "",
+  letterImageAssetId: "",
+  letterImageAlt,
+  message
+});
+
 const defaultLeadershipContent = {
   eyebrow: "Leadership",
   title: "Leadership that guides governance, direction, and founder confidence.",
@@ -159,7 +189,43 @@ const defaultLeadershipContent = {
   secondaryCtaLink: "/enquiry",
   pillarsEyebrow: "Leadership Pillars",
   pillarsTitle: "The principles guiding how RIF builds trust and momentum.",
-  pillarsDescription: "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together."
+  pillarsDescription: "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together.",
+  governorMessage: createDefaultLeadershipMessage({
+    eyebrow: "Governor, Uttar Pradesh",
+    name: "Anandiben Patel",
+    buttonLabel: "Message from Governor",
+    buttonLink: "/leadership/message-from-governor",
+    pageTitle: "Message from Governor",
+    imageAlt: "Governor of Uttar Pradesh",
+    letterSectionTitle: "View the signed governor message",
+    letterImageAlt: "Signed governor message letter",
+    message:
+      "I feel extremely proud to know that Mahatma Jyotiba Phule Rohilkhand University, Bareilly, is sharing the promotional brochure of the Rohilkhand Incubation Foundation, established under the State Government of Uttar Pradesh to promote entrepreneurship."
+  }),
+  chiefMinisterMessage: createDefaultLeadershipMessage({
+    eyebrow: "Chief Minister, Uttar Pradesh",
+    name: "Yogi Adityanath",
+    buttonLabel: "Message from Chief Minister",
+    buttonLink: "/leadership/message-from-chief-minister",
+    pageTitle: "Message from Chief Minister",
+    imageAlt: "Chief Minister of Uttar Pradesh",
+    letterSectionTitle: "View the signed chief minister message",
+    letterImageAlt: "Signed chief minister message letter",
+    message:
+      "Innovation, entrepreneurship, and institutional collaboration can create transformative opportunities for young founders across Uttar Pradesh. Initiatives that connect education, incubation, and industry help build a stronger startup ecosystem for the state."
+  }),
+  viceChancellorMessage: createDefaultLeadershipMessage({
+    eyebrow: "Vice Chancellor",
+    name: "Vice Chancellor",
+    buttonLabel: "Message from Vice Chancellor",
+    buttonLink: "/leadership/message-from-vice-chancellor",
+    pageTitle: "Message from Vice Chancellor",
+    imageAlt: "Vice Chancellor message",
+    letterSectionTitle: "View the signed vice chancellor message",
+    letterImageAlt: "Signed vice chancellor message letter",
+    message:
+      "Rohilkhand Incubation Foundation reflects our commitment to nurture research, innovation, and entrepreneurship together. We aim to support students, researchers, and founders with an ecosystem that helps promising ideas become impactful ventures."
+  })
 };
 
 const normalizeHomepageData = (value) => {
@@ -243,7 +309,19 @@ const normalizeTeamData = (value) => ({
   ...(value || {}),
   leadershipContent: {
     ...defaultLeadershipContent,
-    ...(value?.leadershipContent || {})
+    ...(value?.leadershipContent || {}),
+    governorMessage: {
+      ...defaultLeadershipContent.governorMessage,
+      ...(value?.leadershipContent?.governorMessage || {})
+    },
+    chiefMinisterMessage: {
+      ...defaultLeadershipContent.chiefMinisterMessage,
+      ...(value?.leadershipContent?.chiefMinisterMessage || {})
+    },
+    viceChancellorMessage: {
+      ...defaultLeadershipContent.viceChancellorMessage,
+      ...(value?.leadershipContent?.viceChancellorMessage || {})
+    }
   },
   boardOfDirectors: ensureItemsHaveIds(value?.boardOfDirectors, "board"),
   advisoryBoard: ensureItemsHaveIds(value?.advisoryBoard, "advisor"),
@@ -285,6 +363,7 @@ const pageHeroPanelDefinitions = [
   { key: "contact", label: "Contact Page" },
   { key: "services", label: "Services Page" },
   { key: "incubatees", label: "Incubatees Page" },
+  { key: "facultyMembers", label: "Faculty Members Page" },
   { key: "mentors", label: "Mentors Page" },
   { key: "newsEvents", label: "News & Events" },
   { key: "testimonials", label: "Testimonials Page" },
@@ -682,6 +761,181 @@ const PageHeroPanelEditor = ({ title, value, onChange, onSelectImage, onRemoveIm
             )}
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+);
+
+const LeadershipMessageEditor = ({
+  panelTitle,
+  value,
+  onChange,
+  onSelectImage,
+  onRemoveImage,
+  onSelectLetterImage,
+  onRemoveLetterImage,
+  uploading,
+  letterUploading
+}) => (
+  <section className="admin-panel">
+    <div className="admin-panel-head">
+      <div>
+        <h3>{panelTitle}</h3>
+        <p className="muted-copy">
+          This controls the leadership page message card and the dedicated message page image section.
+        </p>
+      </div>
+    </div>
+    <div className="page-hero-panel-admin page-hero-panel-admin-governor">
+      <div className="page-hero-panel-admin-visual">
+        <div className="page-hero-panel-admin-preview">
+          {value?.imageUrl ? (
+            <img
+              alt={value.imageAlt || value.name || "Governor message"}
+              className="page-hero-panel-admin-image"
+              src={resolveMediaUrl(value.imageUrl, value.imageAlt || value.name || "Governor message")}
+            />
+          ) : (
+            <div className="page-hero-panel-admin-empty">No message image uploaded yet</div>
+          )}
+        </div>
+        <p className="detail-line">Recommended crop: portrait image at 4:5 ratio for the governor hero visual and leadership card.</p>
+      </div>
+      <div className="page-hero-panel-admin-visual">
+        <div className="page-hero-panel-admin-preview">
+          {value?.letterImageUrl ? (
+            <img
+              alt={value.letterImageAlt || value.name || "Governor letter"}
+              className="page-hero-panel-admin-image"
+              src={resolveMediaUrl(value.letterImageUrl, value.letterImageAlt || value.name || "Governor letter")}
+            />
+          ) : (
+            <div className="page-hero-panel-admin-empty">No hard-copy message image uploaded yet</div>
+          )}
+        </div>
+        <p className="detail-line">Recommended crop: a clear full-page scan of the signed letter for preview and download.</p>
+      </div>
+      <div className="admin-section-stack">
+        <div className="admin-form-grid">
+          <label className="field">
+            <span>Eyebrow</span>
+            <input type="text" value={value?.eyebrow || ""} onChange={(event) => onChange({ ...value, eyebrow: event.target.value })} />
+          </label>
+          <label className="field">
+            <span>Name</span>
+            <input type="text" value={value?.name || ""} onChange={(event) => onChange({ ...value, name: event.target.value })} />
+          </label>
+          <label className="field">
+            <span>Button Label</span>
+            <input
+              type="text"
+              value={value?.buttonLabel || ""}
+              onChange={(event) => onChange({ ...value, buttonLabel: event.target.value })}
+            />
+          </label>
+          <label className="field">
+            <span>Button Link</span>
+            <input
+              type="text"
+              value={value?.buttonLink || ""}
+              onChange={(event) => onChange({ ...value, buttonLink: event.target.value })}
+            />
+          </label>
+          <label className="field">
+            <span>Page Eyebrow</span>
+            <input
+              type="text"
+              value={value?.pageEyebrow || ""}
+              onChange={(event) => onChange({ ...value, pageEyebrow: event.target.value })}
+            />
+          </label>
+          <label className="field">
+            <span>Page Title</span>
+            <input type="text" value={value?.pageTitle || ""} onChange={(event) => onChange({ ...value, pageTitle: event.target.value })} />
+          </label>
+          <label className="field field-span-2">
+            <span>Image Alt Text</span>
+            <input type="text" value={value?.imageAlt || ""} onChange={(event) => onChange({ ...value, imageAlt: event.target.value })} />
+          </label>
+          <label className="field field-span-2">
+            <span>Upload Image</span>
+            <input
+              accept="image/*"
+              type="file"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+
+                if (file) {
+                  onSelectImage(file);
+                }
+
+                event.target.value = "";
+              }}
+            />
+          </label>
+          <label className="field field-span-2">
+            <span>Message</span>
+            <textarea rows="8" value={value?.message || ""} onChange={(event) => onChange({ ...value, message: event.target.value })} />
+          </label>
+          <label className="field">
+            <span>Letter Section Label</span>
+            <input
+              type="text"
+              value={value?.letterSectionLabel || ""}
+              onChange={(event) => onChange({ ...value, letterSectionLabel: event.target.value })}
+            />
+          </label>
+          <label className="field">
+            <span>Letter Image Alt Text</span>
+            <input
+              type="text"
+              value={value?.letterImageAlt || ""}
+              onChange={(event) => onChange({ ...value, letterImageAlt: event.target.value })}
+            />
+          </label>
+          <label className="field field-span-2">
+            <span>Letter Section Title</span>
+            <input
+              type="text"
+              value={value?.letterSectionTitle || ""}
+              onChange={(event) => onChange({ ...value, letterSectionTitle: event.target.value })}
+            />
+          </label>
+          <label className="field field-span-2">
+            <span>Letter Section Description</span>
+            <textarea
+              rows="3"
+              value={value?.letterSectionDescription || ""}
+              onChange={(event) => onChange({ ...value, letterSectionDescription: event.target.value })}
+            />
+          </label>
+          <label className="field field-span-2">
+            <span>Upload Hard-Copy Letter Image</span>
+            <input
+              accept="image/*"
+              type="file"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+
+                if (file) {
+                  onSelectLetterImage(file);
+                }
+
+                event.target.value = "";
+              }}
+            />
+          </label>
+        </div>
+        <div className="page-hero-panel-admin-actions">
+          <button className="button button-ghost button-small" onClick={onRemoveImage} type="button">
+            Remove Image
+          </button>
+          <button className="button button-ghost button-small" onClick={onRemoveLetterImage} type="button">
+            Remove Letter Image
+          </button>
+        </div>
+        {uploading ? <p className="form-message">Uploading image...</p> : null}
+        {letterUploading ? <p className="form-message">Uploading letter image...</p> : null}
       </div>
     </div>
   </section>
@@ -1826,6 +2080,7 @@ export default function AdminDashboardPage() {
           documents: normalizedDocuments
         },
         team: normalizeTeamData(baseData?.team),
+        facultyMembers: ensureItemsHaveIds(baseData?.facultyMembers, "faculty"),
         legalPages: normalizeLegalPagesData(baseData?.legalPages),
         pageHeroPanels: normalizePageHeroPanelsData(baseData?.pageHeroPanels),
         rifServices: normalizeRifServicesData(baseData?.rifServices),
@@ -1856,6 +2111,7 @@ export default function AdminDashboardPage() {
     () => ({
       programs: draftData?.homepage?.featuredPrograms?.length || 0,
       team: (draftData?.team?.boardOfDirectors?.length || 0) + (draftData?.team?.advisoryBoard?.length || 0) + (draftData?.team?.coreTeam?.length || 0),
+      facultyMembers: draftData?.facultyMembers?.length || 0,
       mentors: draftData?.mentors?.length || 0,
       incubatees: draftData?.incubatees?.length || 0,
       heroSlider: draftData?.heroSlider?.length || 0,
@@ -2183,6 +2439,76 @@ export default function AdminDashboardPage() {
       qrAssetId: ""
     });
     setFeedback("Homepage CTA QR image removed. Click Save Homepage to publish.");
+  };
+
+  const handleLeadershipMessageImageUpload = async (messageKey, uploadTargetKey, feedbackLabel, file) => {
+    if (!file?.type?.startsWith("image/")) {
+      setFeedback("Please upload a valid image file.");
+      return;
+    }
+
+    try {
+      setUploadingTarget(uploadTargetKey);
+      const uploadResult = await api.uploadImageAsset(file, authToken);
+      const currentMessage = getByPath(draftData, ["team", "leadershipContent", messageKey]) || defaultLeadershipContent[messageKey];
+
+      updatePath(["team", "leadershipContent", messageKey], {
+        ...currentMessage,
+        imageUrl: uploadResult.imageUrl,
+        imageAssetId: uploadResult.assetId
+      });
+      setFeedback(`${feedbackLabel} image uploaded. Click Save Leadership & Team to publish.`);
+    } catch (error) {
+      setFeedback(error.message);
+    } finally {
+      setUploadingTarget("");
+    }
+  };
+
+  const handleLeadershipMessageImageRemove = (messageKey, feedbackLabel) => {
+    const currentMessage = getByPath(draftData, ["team", "leadershipContent", messageKey]) || defaultLeadershipContent[messageKey];
+
+    updatePath(["team", "leadershipContent", messageKey], {
+      ...currentMessage,
+      imageUrl: "",
+      imageAssetId: ""
+    });
+    setFeedback(`${feedbackLabel} image removed. Click Save Leadership & Team to publish.`);
+  };
+
+  const handleLeadershipLetterImageUpload = async (messageKey, uploadTargetKey, feedbackLabel, file) => {
+    if (!file?.type?.startsWith("image/")) {
+      setFeedback("Please upload a valid image file.");
+      return;
+    }
+
+    try {
+      setUploadingTarget(uploadTargetKey);
+      const uploadResult = await api.uploadImageAsset(file, authToken);
+      const currentMessage = getByPath(draftData, ["team", "leadershipContent", messageKey]) || defaultLeadershipContent[messageKey];
+
+      updatePath(["team", "leadershipContent", messageKey], {
+        ...currentMessage,
+        letterImageUrl: uploadResult.imageUrl,
+        letterImageAssetId: uploadResult.assetId
+      });
+      setFeedback(`${feedbackLabel} letter image uploaded. Click Save Leadership & Team to publish.`);
+    } catch (error) {
+      setFeedback(error.message);
+    } finally {
+      setUploadingTarget("");
+    }
+  };
+
+  const handleLeadershipLetterImageRemove = (messageKey, feedbackLabel) => {
+    const currentMessage = getByPath(draftData, ["team", "leadershipContent", messageKey]) || defaultLeadershipContent[messageKey];
+
+    updatePath(["team", "leadershipContent", messageKey], {
+      ...currentMessage,
+      letterImageUrl: "",
+      letterImageAssetId: ""
+    });
+    setFeedback(`${feedbackLabel} letter image removed. Click Save Leadership & Team to publish.`);
   };
 
   const handleAboutDocumentUpload = async (itemRef, file) => {
@@ -2896,6 +3222,67 @@ export default function AdminDashboardPage() {
                   )
                 },
                 {
+                  id: "governor-message",
+                  label: "Governor Message",
+                  content: (
+                    <LeadershipMessageEditor
+                      panelTitle="Governor Message"
+                      onChange={(nextValue) => updatePath(["team", "leadershipContent", "governorMessage"], nextValue)}
+                      onRemoveImage={() => handleLeadershipMessageImageRemove("governorMessage", "Governor message")}
+                      onRemoveLetterImage={() => handleLeadershipLetterImageRemove("governorMessage", "Governor")}
+                      onSelectImage={(file) => handleLeadershipMessageImageUpload("governorMessage", "governorMessageImage", "Governor message", file)}
+                      onSelectLetterImage={(file) =>
+                        handleLeadershipLetterImageUpload("governorMessage", "governorLetterImage", "Governor", file)
+                      }
+                      letterUploading={uploadingTarget === "governorLetterImage"}
+                      uploading={uploadingTarget === "governorMessageImage"}
+                      value={draftData.team.leadershipContent?.governorMessage}
+                    />
+                  )
+                },
+                {
+                  id: "chief-minister-message",
+                  label: "Chief Minister Message",
+                  content: (
+                    <LeadershipMessageEditor
+                      panelTitle="Chief Minister Message"
+                      onChange={(nextValue) => updatePath(["team", "leadershipContent", "chiefMinisterMessage"], nextValue)}
+                      onRemoveImage={() => handleLeadershipMessageImageRemove("chiefMinisterMessage", "Chief minister message")}
+                      onRemoveLetterImage={() => handleLeadershipLetterImageRemove("chiefMinisterMessage", "Chief minister")}
+                      onSelectImage={(file) =>
+                        handleLeadershipMessageImageUpload("chiefMinisterMessage", "chiefMinisterMessageImage", "Chief minister message", file)
+                      }
+                      onSelectLetterImage={(file) =>
+                        handleLeadershipLetterImageUpload("chiefMinisterMessage", "chiefMinisterLetterImage", "Chief minister", file)
+                      }
+                      letterUploading={uploadingTarget === "chiefMinisterLetterImage"}
+                      uploading={uploadingTarget === "chiefMinisterMessageImage"}
+                      value={draftData.team.leadershipContent?.chiefMinisterMessage}
+                    />
+                  )
+                },
+                {
+                  id: "vice-chancellor-message",
+                  label: "Vice Chancellor Message",
+                  content: (
+                    <LeadershipMessageEditor
+                      panelTitle="Vice Chancellor Message"
+                      onChange={(nextValue) => updatePath(["team", "leadershipContent", "viceChancellorMessage"], nextValue)}
+                      onRemoveImage={() => handleLeadershipMessageImageRemove("viceChancellorMessage", "Vice chancellor message")}
+                      onRemoveLetterImage={() => handleLeadershipLetterImageRemove("viceChancellorMessage", "Vice chancellor")}
+                      onSelectImage={(file) =>
+                        handleLeadershipMessageImageUpload("viceChancellorMessage", "viceChancellorMessageImage", "Vice chancellor message", file)
+                      }
+                      onSelectLetterImage={(file) =>
+                        handleLeadershipLetterImageUpload("viceChancellorMessage", "viceChancellorLetterImage", "Vice chancellor", file)
+                      }
+                      letterUploading={uploadingTarget === "viceChancellorLetterImage"}
+                      uploading={uploadingTarget === "viceChancellorMessageImage"}
+                      value={draftData.team.leadershipContent?.viceChancellorMessage}
+                    />
+                  )
+                },
+                {
                   id: "leadership-pillars",
                   label: "Leadership Pillars",
                   content: (
@@ -3140,6 +3527,43 @@ export default function AdminDashboardPage() {
             />
             <button className="button" disabled={saving === "mentors"} onClick={() => saveSection("mentors")} type="button">
               {saving === "mentors" ? "Saving..." : "Save Mentors"}
+            </button>
+          </div>
+        ) : null}
+
+        {activeTab === "faculty-members" ? (
+          <div className="admin-section-stack">
+            <ProfileCollectionEditor
+              fields={[
+                { key: "name", label: "Name" },
+                { key: "designation", label: "Designation" },
+                { key: "department", label: "Department" },
+                { key: "focus", label: "Focus", type: "textarea", span: 2, rows: 4 }
+              ]}
+              helper="Upload and crop profile photos for faculty members."
+              items={(draftData.facultyMembers || []).map(withProfileImageDefaults)}
+              onSelectImage={(itemId, file) =>
+                openCropDialog({
+                  mode: "profile",
+                  sectionPath: ["facultyMembers"],
+                  itemId,
+                  file,
+                  aspectRatio: 1,
+                  outputWidth: 800,
+                  outputHeight: 800,
+                  helperText: "Adjust zoom and position, then upload a square profile image."
+                })
+              }
+              onChange={(nextValue) => updatePath(["facultyMembers"], nextValue)}
+              title="Faculty Member Profiles"
+              uploadingKey={
+                uploadingTarget.startsWith("profile:facultyMembers:")
+                  ? uploadingTarget.replace("profile:facultyMembers:", "")
+                  : ""
+              }
+            />
+            <button className="button" disabled={saving === "facultyMembers"} onClick={() => saveSection("facultyMembers")} type="button">
+              {saving === "facultyMembers" ? "Saving..." : "Save Faculty Members"}
             </button>
           </div>
         ) : null}

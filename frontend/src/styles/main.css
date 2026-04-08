@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
   --header-height: 82px;
-  --bg: #f7f9fb;
-  --bg-secondary: #eef2ff;
+  --bg: #edf3fb;
+  --bg-secondary: #dfeafb;
   --surface: #ffffff;
   --surface-solid: #ffffff;
   --surface-soft: #f2f4f8;
@@ -40,11 +40,17 @@ html {
 }
 
 body {
+  position: relative;
   margin: 0;
   color: var(--text);
   overflow-x: clip;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(129, 182, 255, 0.34), transparent 26%),
+    radial-gradient(circle at 82% 12%, rgba(255, 215, 154, 0.32), transparent 22%),
+    radial-gradient(circle at 50% 100%, rgba(206, 32, 38, 0.08), transparent 26%),
+    linear-gradient(180deg, #f7fbff 0%, #edf4fb 38%, #e7eef8 100%);
   font-size: 16px;
+  background-attachment: fixed;
 }
 
 @media (min-width: 1024px) {
@@ -55,7 +61,33 @@ body {
 
 body::before,
 body::after {
-  display: none;
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+}
+
+body::before {
+  background:
+    linear-gradient(90deg, rgba(31, 77, 167, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(31, 77, 167, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 56%, transparent 100%);
+  opacity: 0.5;
+}
+
+body::after {
+  inset: auto;
+  top: 9rem;
+  right: -9rem;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(86, 149, 255, 0.2), rgba(86, 149, 255, 0));
+  filter: blur(18px);
+  opacity: 0.85;
+  z-index: -1;
 }
 
 a {
@@ -93,7 +125,22 @@ textarea:focus-visible {
 }
 
 .app-shell {
+  position: relative;
   min-height: 100vh;
+}
+
+.app-shell::before {
+  content: "";
+  position: fixed;
+  left: -8rem;
+  bottom: -8rem;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 205, 118, 0.22), rgba(255, 205, 118, 0));
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .announcement-bar {
@@ -596,21 +643,24 @@ textarea:focus-visible {
 .home-slider-shell {
   display: grid;
   gap: 1.1rem;
-  padding: 0.4rem 0 0.6rem;
-  max-width: 1260px;
-  margin: 0 auto;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 0.2rem 0 0.45rem;
 }
 
 .home-slider-stage {
   display: grid;
   gap: 1rem;
+  width: 100%;
 }
 
 .home-slider-media {
   position: relative;
-  min-height: min(62vh, 640px);
+  min-height: clamp(360px, 68vh, 780px);
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: clamp(18px, 1.8vw, 30px);
   background: #0f1f4a;
   box-shadow: 0 32px 90px rgba(15, 23, 42, 0.18);
 }
@@ -649,8 +699,8 @@ textarea:focus-visible {
 }
 
 .home-slide-image {
-  width: calc(100% - clamp(1.4rem, 4vw, 3.6rem));
-  height: calc(100% - clamp(1.4rem, 4vw, 3.6rem));
+  width: calc(100% - clamp(1rem, 2.8vw, 2.8rem));
+  height: calc(100% - clamp(1rem, 2.8vw, 2.8rem));
   filter: brightness(1.08) saturate(1.08);
 }
 
@@ -768,8 +818,7 @@ textarea:focus-visible {
 .home-copy-cloud,
 .home-copy-star,
 .home-copy-launch-ring,
-.home-copy-launch-trail,
-.home-copy-launch-rocket {
+.home-copy-glow {
   position: absolute;
 }
 
@@ -862,29 +911,26 @@ textarea:focus-visible {
   animation-delay: -2s;
 }
 
-.home-copy-launch-trail {
-  right: 16%;
-  bottom: -12%;
-  width: 16px;
-  height: 54%;
+.home-copy-glow {
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 196, 119, 0) 0%, rgba(255, 179, 80, 0.8) 45%, rgba(255, 236, 201, 0.06) 100%);
-  filter: blur(0.6px);
+  filter: blur(4px);
   opacity: 0.72;
-  transform: rotate(16deg);
-  transform-origin: bottom center;
-  animation: rocketTrail 9.5s ease-in-out infinite;
 }
 
-.home-copy-launch-rocket {
-  right: 8%;
-  bottom: -28%;
-  width: min(30%, 170px);
-  height: auto;
-  opacity: 0.92;
-  filter: drop-shadow(0 18px 30px rgba(31, 77, 167, 0.16));
-  transform-origin: center center;
-  animation: rocketLaunch 9.5s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+.home-copy-glow-one {
+  right: 6%;
+  bottom: 10%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 199, 118, 0.26) 0%, rgba(255, 199, 118, 0.08) 42%, rgba(255, 199, 118, 0) 72%);
+}
+
+.home-copy-glow-two {
+  right: 18%;
+  top: 16%;
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(88, 148, 255, 0.2) 0%, rgba(88, 148, 255, 0.05) 46%, rgba(88, 148, 255, 0) 76%);
 }
 
 .home-copy-spotlight {
@@ -933,27 +979,77 @@ textarea:focus-visible {
 .spotlight-partner-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.8rem;
+  gap: 1rem;
   margin-top: 0.85rem;
 }
 
 .spotlight-partner-item {
+  display: flex;
+}
+
+.spotlight-partner-card {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   min-height: 72px;
-  border-radius: 14px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  background: #ffffff;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(239, 245, 255, 0.9)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 16px 34px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 0 -10px 24px rgba(170, 194, 238, 0.12);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.spotlight-partner-card::before {
+  content: "";
+  position: absolute;
+  inset: 1px 1px auto auto;
+  width: 42%;
+  height: 56%;
+  border-radius: 0 20px 0 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.spotlight-partner-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 10% 8% 10%;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(84, 124, 208, 0.18), rgba(84, 124, 208, 0));
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.spotlight-partner-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(170, 201, 255, 0.95);
+  box-shadow:
+    0 24px 44px rgba(22, 52, 112, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 -10px 24px rgba(170, 194, 238, 0.16);
 }
 
 .spotlight-partner-image {
-  width: 100%;
-  padding: 0.48rem 0.7rem;
+  padding: 0.85rem 0.95rem;
 }
 
 .spotlight-partner-image img {
+  position: relative;
+  z-index: 1;
   max-width: 100%;
   max-height: 56px;
   object-fit: contain;
@@ -1161,6 +1257,26 @@ textarea:focus-visible {
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 247, 255, 0.96));
   border: 1px solid rgba(31, 77, 167, 0.12);
   box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+}
+
+.governor-message-hero-visual {
+  margin-top: 1.25rem;
+}
+
+.governor-message-hero-visual-media {
+  max-width: 360px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #edf3ff 0%, #dfe9fb 100%);
+  border: 1px solid rgba(31, 77, 167, 0.12);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.1);
+}
+
+.governor-message-hero-visual-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
 }
 
 .page-hero-qr-copy {
@@ -1964,14 +2080,82 @@ textarea:focus-visible {
 
 .testimonial-card {
   display: grid;
-  gap: 0.9rem;
+  gap: 1.15rem;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 44%),
+    linear-gradient(180deg, #f7faff 0%, #edf3ff 100%);
+  border: 1px solid rgba(136, 174, 247, 0.22);
+  box-shadow: 0 20px 38px rgba(20, 48, 102, 0.14);
+}
+
+.testimonial-head {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.testimonial-accent {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.6rem;
+  height: 3.7rem;
+  flex: 0 0 auto;
+  border: 4px solid #212121;
+  border-radius: 1.2rem;
+  background: #ffffff;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+}
+
+.testimonial-accent::before {
+  content: "";
+  position: absolute;
+  left: 0.95rem;
+  bottom: -0.72rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-right: 4px solid #212121;
+  border-bottom: 4px solid #212121;
+  border-bottom-right-radius: 0.32rem;
+  background: #ffffff;
+  transform: rotate(45deg);
+}
+
+.testimonial-accent::after {
+  content: "\201C\201D";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  color: #18aef5;
+  font-size: 1.95rem;
+  font-weight: 900;
+  letter-spacing: -0.3rem;
+  line-height: 1;
+  transform: translate(-50%, -48%);
 }
 
 .testimonial-quote {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: 1.14rem;
+  font-weight: 700;
   line-height: 1.7;
-  color: inherit;
+  letter-spacing: -0.01em;
+  color: #203044;
+}
+
+.testimonial-meta {
+  display: grid;
+  gap: 0.15rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(47, 111, 219, 0.16);
+}
+
+.testimonial-meta h3 {
+  margin-bottom: 0.2rem;
+}
+
+.testimonial-card .detail-line {
+  margin-bottom: 0;
 }
 
 .pillar-message-role {
@@ -1997,6 +2181,57 @@ textarea:focus-visible {
 
 .pillar-message-featured {
   gap: 0;
+}
+
+.leadership-messages-section {
+  position: relative;
+  padding: clamp(1.4rem, 2.2vw, 2rem);
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.88), transparent 28%),
+    radial-gradient(circle at 85% 20%, rgba(77, 118, 214, 0.1), transparent 22%),
+    linear-gradient(180deg, rgba(244, 247, 253, 0.95), rgba(233, 239, 249, 0.88));
+  border: 1px solid rgba(196, 210, 235, 0.78);
+  box-shadow:
+    0 24px 56px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  overflow: hidden;
+}
+
+.leadership-messages-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.24), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(206, 32, 38, 0.06), transparent 20%);
+  pointer-events: none;
+}
+
+.leadership-messages-section .section-heading {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin-bottom: 1.8rem;
+}
+
+.leadership-messages-section .section-eyebrow {
+  color: var(--accent);
+}
+
+.leadership-messages-section .section-heading h2 {
+  font-size: clamp(2.35rem, 5vw, 4.35rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+  color: #111b35;
+  text-wrap: balance;
+}
+
+.leadership-messages-section .section-description {
+  max-width: 980px;
+  color: #53637b;
+  font-size: clamp(1.02rem, 2vw, 1.18rem);
+  line-height: 1.7;
 }
 
 .pillar-message-featured .pillar-message-card {
@@ -2078,6 +2313,8 @@ textarea:focus-visible {
 
 /* Spacing overrides for crystal cards */
 .pillar-message-list.pillar-message-featured {
+  position: relative;
+  z-index: 1;
   gap: 1.4rem;
   padding: 0.6rem;
   border: none;
@@ -2089,7 +2326,547 @@ textarea:focus-visible {
   padding: 1.6rem 1.4rem;
 }
 
+.governor-message-card {
+  position: relative;
+}
+
+.governor-message-media,
+.governor-message-placeholder {
+  max-width: 340px;
+}
+
+.message-link-button {
+  margin-top: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: #244a9a;
+  font-weight: 800;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  line-height: 1;
+  width: fit-content;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.message-link-button span:last-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: #e6ebf7;
+  color: inherit;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.message-link-button:hover {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+.message-link-button:hover span:last-child {
+  background: rgba(206, 32, 38, 0.12);
+  transform: translateX(2px);
+}
+
+.governor-message-page-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+  gap: 2rem;
+  padding: clamp(1.5rem, 2.4vw, 2.2rem);
+  border-radius: 34px;
+  background:
+    linear-gradient(135deg, rgba(233, 240, 252, 0.84), rgba(213, 225, 246, 0.62)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.54), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(90, 135, 255, 0.16), transparent 36%);
+  box-shadow:
+    0 26px 70px rgba(15, 23, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(197, 214, 243, 0.78);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  align-items: start;
+  overflow: hidden;
+}
+
+.governor-message-page-card-copy-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.governor-message-page-card::before,
+.governor-message-page-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.governor-message-page-card::before {
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08) 34%, rgba(255, 255, 255, 0.03) 66%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.4), transparent 26%);
+}
+
+.governor-message-page-card::after {
+  width: 250px;
+  height: 250px;
+  top: -90px;
+  right: -76px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(124, 170, 255, 0.18), rgba(124, 170, 255, 0));
+  filter: blur(10px);
+}
+
+.governor-message-page-media {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  padding: 0.8rem;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(240, 245, 255, 0.78), rgba(210, 223, 248, 0.48)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.48), transparent 36%);
+  border: 1px solid rgba(203, 217, 242, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.66),
+    0 22px 46px rgba(15, 23, 42, 0.16);
+  align-self: center;
+}
+
+.governor-message-page-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: 0 16px 32px rgba(20, 34, 68, 0.16);
+}
+
+.governor-message-page-media::after {
+  content: "";
+  position: absolute;
+  inset: 0.8rem;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 34%, rgba(255, 255, 255, 0.08));
+  pointer-events: none;
+}
+
+.governor-message-page-media-placeholder {
+  display: grid;
+  place-items: end start;
+  min-height: 420px;
+  padding: 1.5rem;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(29, 47, 69, 0.08), rgba(29, 47, 69, 0.24)),
+    linear-gradient(145deg, #eef3fb, #dce7f8);
+}
+
+.governor-message-page-media-placeholder span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #1d2f45;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.governor-message-page-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: clamp(1rem, 1.8vw, 1.45rem);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(231, 239, 252, 0.72), rgba(210, 223, 245, 0.42));
+  border: 1px solid rgba(197, 214, 243, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.governor-message-page-body {
+  overflow: hidden;
+}
+
+.governor-message-page-body-expanded {
+  overflow: visible;
+}
+
+.governor-message-page-quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(241, 246, 255, 0.78), rgba(214, 228, 252, 0.48));
+  color: #3157a8;
+  border: 1px solid rgba(202, 217, 243, 0.76);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 14px 28px rgba(41, 74, 150, 0.12);
+}
+
+.governor-message-page-quote svg {
+  width: 2rem;
+  height: 2rem;
+  fill: currentColor;
+}
+
+.governor-message-page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.governor-message-page-meta span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(231, 239, 252, 0.76);
+  border: 1px solid rgba(199, 214, 241, 0.82);
+  color: #2f4a76;
+  font-size: 0.86rem;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+.governor-message-page-copy h2 {
+  margin: 0;
+  font-size: clamp(2.15rem, 4vw, 3.35rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  color: #20314d;
+  text-wrap: balance;
+}
+
+.governor-message-page-paragraph {
+  position: relative;
+  padding: 1.15rem 1.4rem;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(236, 243, 255, 0.82), rgba(214, 227, 248, 0.5));
+  border: 1px solid rgba(201, 216, 243, 0.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 16px 34px rgba(24, 46, 88, 0.12);
+  overflow: hidden;
+}
+
+.governor-message-page-paragraph::before,
+.governor-message-page-paragraph::after {
+  position: absolute;
+  color: rgba(31, 77, 167, 0.28);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.governor-message-page-paragraph::before {
+  content: "\201C";
+  top: 0.35rem;
+  left: 0.7rem;
+}
+
+.governor-message-page-paragraph::after {
+  content: "\201D";
+  right: 0.85rem;
+  bottom: 0.1rem;
+}
+
+.governor-message-page-text {
+  margin: 0;
+  padding: 0.65rem 2.25rem 0.2rem 1.9rem;
+  color: #39506b;
+  font-size: 1.06rem;
+  line-height: 1.9;
+  text-align: left;
+  white-space: pre-line;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.governor-message-page-body-expanded .governor-message-page-text {
+  display: block;
+  overflow: visible;
+}
+
+.governor-message-readmore {
+  width: fit-content;
+  min-height: 50px;
+  padding-inline: 1.05rem;
+  border-radius: 999px;
+  background: rgba(230, 238, 252, 0.82);
+  border: 1px solid rgba(197, 214, 243, 0.82);
+  color: #274f9d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    0 14px 28px rgba(41, 74, 150, 0.1);
+}
+
+.governor-message-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.governor-message-backlink {
+  min-height: 50px;
+  padding-inline: 1.05rem;
+  border-radius: 999px;
+  background: rgba(230, 238, 252, 0.82);
+  border: 1px solid rgba(197, 214, 243, 0.82);
+  color: #274f9d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    0 14px 28px rgba(41, 74, 150, 0.1);
+}
+
+.governor-message-readmore:hover,
+.governor-message-backlink:hover {
+  transform: translateY(-2px);
+  background: rgba(238, 244, 255, 0.94);
+}
+
+.governor-letter-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, 390px) minmax(0, 1fr);
+  gap: 1.6rem;
+  padding: clamp(1.5rem, 2.4vw, 2.2rem);
+  border-radius: 34px;
+  background:
+    linear-gradient(135deg, rgba(233, 240, 252, 0.84), rgba(213, 225, 246, 0.62)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.54), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(88, 134, 255, 0.16), transparent 34%);
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  box-shadow:
+    0 26px 70px rgba(15, 23, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(197, 214, 243, 0.78);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  align-items: center;
+  overflow: hidden;
+}
+
+.governor-letter-card::before,
+.governor-letter-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.governor-letter-card::before {
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.08) 34%, rgba(255, 255, 255, 0.02) 62%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.42), transparent 24%);
+  opacity: 0.95;
+}
+
+.governor-letter-card::after {
+  width: 240px;
+  height: 240px;
+  top: -88px;
+  right: -72px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(124, 170, 255, 0.2), rgba(124, 170, 255, 0));
+  filter: blur(10px);
+}
+
+.governor-letter-card-media {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 0.8rem;
+  border-radius: 28px;
+  background:
+    linear-gradient(160deg, rgba(240, 245, 255, 0.78), rgba(210, 223, 248, 0.48)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.48), transparent 36%);
+  border: 1px solid rgba(203, 217, 242, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.66),
+    0 22px 46px rgba(15, 23, 42, 0.16);
+}
+
+.governor-letter-card-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: 0 16px 32px rgba(20, 34, 68, 0.16);
+}
+
+.governor-letter-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0.8rem;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 34%, rgba(255, 255, 255, 0.08));
+  pointer-events: none;
+}
+
+.governor-letter-card-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: clamp(1rem, 1.8vw, 1.45rem);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(231, 239, 252, 0.72), rgba(210, 223, 245, 0.42));
+  border: 1px solid rgba(197, 214, 243, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.governor-letter-card-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0;
+  padding: 0.72rem 1.05rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(244, 238, 240, 0.9), rgba(233, 214, 216, 0.74));
+  color: #a34a44;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 24px rgba(206, 32, 38, 0.08);
+}
+
+.governor-letter-card-copy h3 {
+  margin: 0;
+  font-size: clamp(2rem, 3.3vw, 3.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  color: #20314d;
+  text-wrap: balance;
+}
+
+.governor-letter-card-copy p:last-of-type {
+  margin: 0;
+  max-width: 60ch;
+  color: #52647f;
+  font-size: 1.06rem;
+  line-height: 1.75;
+}
+
+.governor-letter-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.governor-letter-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(231, 239, 252, 0.76);
+  border: 1px solid rgba(199, 214, 241, 0.82);
+  color: #2f4a76;
+  font-size: 0.86rem;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+.governor-letter-card-actions {
+  margin-top: 0.45rem;
+}
+
+.governor-letter-card-actions .button {
+  min-height: 54px;
+  padding-inline: 1.25rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(53, 91, 188, 0.96), rgba(76, 117, 224, 0.92));
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 18px 34px rgba(42, 78, 171, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+.governor-letter-card-actions .button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 24px 38px rgba(42, 78, 171, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
 @media (max-width: 960px) {
+  .governor-message-page-card {
+    grid-template-columns: 1fr;
+    padding: 1.2rem;
+  }
+
+  .governor-message-hero-visual-media {
+    max-width: 100%;
+  }
+
+  .governor-message-page-media {
+    max-width: min(100%, 340px);
+    margin: 0 auto;
+  }
+
+  .governor-message-page-copy {
+    padding: 1rem;
+  }
+
+  .governor-message-page-media img,
+  .governor-message-page-media-placeholder {
+    min-height: 360px;
+  }
+
+  .governor-letter-card {
+    grid-template-columns: 1fr;
+    padding: 1.2rem;
+  }
+
+  .governor-letter-card-copy {
+    padding: 1rem;
+  }
+
+  .governor-letter-card-copy h3 {
+    font-size: clamp(1.85rem, 8vw, 2.45rem);
+  }
+}
+
+@media (max-width: 960px) {
+  .leadership-messages-section {
+    padding: 1.15rem;
+    border-radius: 28px;
+  }
+
+  .leadership-messages-section .section-heading {
+    margin-bottom: 1.3rem;
+  }
+
+  .leadership-messages-section .section-heading h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
   .pillar-message-featured .pillar-message-card {
     grid-template-columns: 1fr;
     text-align: center;
@@ -2778,6 +3555,40 @@ textarea:focus-visible {
 .stacked-list {
   display: grid;
   gap: 1rem;
+}
+
+.contact-location-link {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-location-link:hover {
+  color: var(--primary-deep);
+}
+
+.contact-location-link h3 {
+  margin-bottom: 0;
+}
+
+.contact-location-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0.08rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  color: var(--primary-deep);
+  background: rgba(47, 97, 200, 0.1);
+}
+
+.contact-location-icon svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .gallery-image-grid {
@@ -3884,6 +4695,35 @@ textarea:focus-visible {
   color: var(--primary-deep);
 }
 
+.footer-map-link {
+  display: inline-block;
+  max-width: 100%;
+  margin-inline: auto;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.footer-map-text {
+  display: inline;
+}
+
+.footer-map-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-left: 0.18rem;
+  color: #d64545;
+  vertical-align: text-top;
+}
+
+.footer-map-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .footer-bottom {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -4177,9 +5017,15 @@ textarea:focus-visible {
   gap: 1rem;
 }
 
+.page-hero-panel-admin-governor {
+  grid-template-columns: repeat(2, minmax(180px, 240px)) minmax(0, 1fr);
+  gap: 1rem 1.25rem;
+}
+
 .page-hero-panel-admin-visual {
   display: grid;
   gap: 0.6rem;
+  align-content: start;
 }
 
 .page-hero-panel-admin-preview {
@@ -4489,48 +5335,6 @@ textarea:focus-visible {
   }
 }
 
-@keyframes rocketLaunch {
-  0% {
-    transform: translate3d(24px, 96px, 0) rotate(10deg) scale(0.82);
-    opacity: 0;
-  }
-
-  12% {
-    opacity: 0.94;
-  }
-
-  56% {
-    transform: translate3d(-22px, -126px, 0) rotate(-12deg) scale(1);
-    opacity: 0.98;
-  }
-
-  100% {
-    transform: translate3d(-58px, -232px, 0) rotate(-17deg) scale(0.92);
-    opacity: 0;
-  }
-}
-
-@keyframes rocketTrail {
-  0% {
-    transform: translate3d(24px, 88px, 0) rotate(16deg) scaleY(0.35);
-    opacity: 0;
-  }
-
-  12% {
-    opacity: 0.7;
-  }
-
-  56% {
-    transform: translate3d(-20px, -118px, 0) rotate(6deg) scaleY(1);
-    opacity: 0.82;
-  }
-
-  100% {
-    transform: translate3d(-56px, -226px, 0) rotate(-4deg) scaleY(0.6);
-    opacity: 0;
-  }
-}
-
 @keyframes twinkleStar {
   0%,
   100% {
@@ -4616,6 +5420,20 @@ textarea:focus-visible {
 
   .page-hero-panel-admin {
     grid-template-columns: minmax(190px, 240px) minmax(0, 1fr);
+  }
+
+  .page-hero-panel-admin-governor {
+    grid-template-columns: repeat(2, minmax(170px, 220px)) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1240px) {
+  .page-hero-panel-admin-governor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-hero-panel-admin-governor .admin-section-stack {
+    grid-column: 1 / -1;
   }
 }
 
@@ -4743,14 +5561,13 @@ textarea:focus-visible {
     flex-direction: column;
   }
 
-  .home-copy-launch-rocket {
-    right: 5%;
-    width: min(28%, 150px);
+  .home-copy-glow-one {
+    width: 190px;
+    height: 190px;
   }
 
-  .home-copy-launch-trail {
-    right: 13%;
-    height: 48%;
+  .home-copy-glow-two {
+    right: 14%;
   }
 
   .footer-top-grid,
@@ -5011,19 +5828,18 @@ textarea:focus-visible {
 
   .home-slider-media {
     min-height: 360px;
-    border-radius: 32px;
+    border-radius: 20px;
   }
 
-  .home-copy-launch-rocket {
-    right: 4%;
-    width: 124px;
-    opacity: 0.72;
+  .home-copy-glow-one {
+    right: 2%;
+    width: 150px;
+    height: 150px;
   }
 
-  .home-copy-launch-trail {
-    right: 10%;
-    width: 12px;
-    height: 42%;
+  .home-copy-glow-two {
+    width: 96px;
+    height: 96px;
   }
 
   .home-copy-cloud-three,

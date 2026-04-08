@@ -23,6 +23,7 @@ export const navigation = [
         to: "/team/core-team",
         children: [
           { label: "Core Team", to: "/team/core-team" },
+          { label: "Faculty Members", to: "/faculty-members" },
           { label: "Mentors' Profiles", to: "/mentors" },
           { label: "Incubatees' Profiles", to: "/incubatees" }
         ]

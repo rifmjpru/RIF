@@ -11,6 +11,7 @@ const editableSections = new Set([
   "legalPages",
   "team",
   "incubatees",
+  "facultyMembers",
   "mentors",
   "services",
   "membershipPlans",
@@ -53,6 +54,35 @@ const defaultHomepageCta = {
   qrAssetId: ""
 };
 
+const createDefaultLeadershipMessage = ({
+  eyebrow,
+  name,
+  buttonLabel,
+  buttonLink,
+  pageTitle,
+  imageAlt,
+  letterSectionTitle,
+  letterImageAlt,
+  message
+}) => ({
+  eyebrow,
+  name,
+  buttonLabel,
+  buttonLink,
+  pageEyebrow: "Leadership Message",
+  pageTitle,
+  imageUrl: "",
+  imageAssetId: "",
+  imageAlt,
+  letterSectionLabel: "Official Letter",
+  letterSectionTitle,
+  letterSectionDescription: "Upload the scanned hard-copy letter here so visitors can preview it in full screen or download it directly.",
+  letterImageUrl: "",
+  letterImageAssetId: "",
+  letterImageAlt,
+  message
+});
+
 const defaultLeadershipContent = {
   eyebrow: "Leadership",
   title: "Leadership that guides governance, direction, and founder confidence.",
@@ -63,7 +93,43 @@ const defaultLeadershipContent = {
   secondaryCtaLink: "/enquiry",
   pillarsEyebrow: "Leadership Pillars",
   pillarsTitle: "The principles guiding how RIF builds trust and momentum.",
-  pillarsDescription: "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together."
+  pillarsDescription: "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together.",
+  governorMessage: createDefaultLeadershipMessage({
+    eyebrow: "Governor, Uttar Pradesh",
+    name: "Anandiben Patel",
+    buttonLabel: "Message from Governor",
+    buttonLink: "/leadership/message-from-governor",
+    pageTitle: "Message from Governor",
+    imageAlt: "Governor of Uttar Pradesh",
+    letterSectionTitle: "View the signed governor message",
+    letterImageAlt: "Signed governor message letter",
+    message:
+      "I feel extremely proud to know that Mahatma Jyotiba Phule Rohilkhand University, Bareilly, is sharing the promotional brochure of the Rohilkhand Incubation Foundation, established under the State Government of Uttar Pradesh to promote entrepreneurship."
+  }),
+  chiefMinisterMessage: createDefaultLeadershipMessage({
+    eyebrow: "Chief Minister, Uttar Pradesh",
+    name: "Yogi Adityanath",
+    buttonLabel: "Message from Chief Minister",
+    buttonLink: "/leadership/message-from-chief-minister",
+    pageTitle: "Message from Chief Minister",
+    imageAlt: "Chief Minister of Uttar Pradesh",
+    letterSectionTitle: "View the signed chief minister message",
+    letterImageAlt: "Signed chief minister message letter",
+    message:
+      "Innovation, entrepreneurship, and institutional collaboration can create transformative opportunities for young founders across Uttar Pradesh. Initiatives that connect education, incubation, and industry help build a stronger startup ecosystem for the state."
+  }),
+  viceChancellorMessage: createDefaultLeadershipMessage({
+    eyebrow: "Vice Chancellor",
+    name: "Vice Chancellor",
+    buttonLabel: "Message from Vice Chancellor",
+    buttonLink: "/leadership/message-from-vice-chancellor",
+    pageTitle: "Message from Vice Chancellor",
+    imageAlt: "Vice Chancellor message",
+    letterSectionTitle: "View the signed vice chancellor message",
+    letterImageAlt: "Signed vice chancellor message letter",
+    message:
+      "Rohilkhand Incubation Foundation reflects our commitment to nurture research, innovation, and entrepreneurship together. We aim to support students, researchers, and founders with an ecosystem that helps promising ideas become impactful ventures."
+  })
 };
 
 const defaultFormsMeta = {
@@ -182,6 +248,14 @@ const defaultPageHeroPanels = {
     imageAlt: ""
   },
   mentors: {
+    eyebrow: "",
+    title: "",
+    description: "",
+    imageUrl: "",
+    imageAssetId: "",
+    imageAlt: ""
+  },
+  facultyMembers: {
     eyebrow: "",
     title: "",
     description: "",
@@ -347,7 +421,19 @@ const normalizeSection = (section, value) => {
       ...value,
       leadershipContent: {
         ...defaultLeadershipContent,
-        ...(value.leadershipContent || {})
+        ...(value.leadershipContent || {}),
+        governorMessage: {
+          ...defaultLeadershipContent.governorMessage,
+          ...(value.leadershipContent?.governorMessage || {})
+        },
+        chiefMinisterMessage: {
+          ...defaultLeadershipContent.chiefMinisterMessage,
+          ...(value.leadershipContent?.chiefMinisterMessage || {})
+        },
+        viceChancellorMessage: {
+          ...defaultLeadershipContent.viceChancellorMessage,
+          ...(value.leadershipContent?.viceChancellorMessage || {})
+        }
       },
       boardOfDirectors: ensureIds(value.boardOfDirectors, "board"),
       advisoryBoard: ensureIds(value.advisoryBoard, "advisor"),
@@ -356,7 +442,7 @@ const normalizeSection = (section, value) => {
   }
 
   if (
-    ["incubatees", "mentors", "services", "membershipPlans", "news", "events", "heroSlider", "gallery", "mediaCoverage"].includes(
+    ["incubatees", "facultyMembers", "mentors", "services", "membershipPlans", "news", "events", "heroSlider", "gallery", "mediaCoverage"].includes(
       section
     )
   ) {

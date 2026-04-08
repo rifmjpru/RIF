@@ -33,10 +33,15 @@ export default function TestimonialsPage() {
       <section className="section">
         <div className="card-grid card-grid-3">
           {testimonials.map((testimonial) => (
-            <article className="content-card testimonial-card" key={testimonial.id || testimonial.name}>
-              <p className="testimonial-quote">"{testimonial.quote}"</p>
-              <h3>{testimonial.name}</h3>
-              <p className="detail-line">{testimonial.role}</p>
+            <article className="content-card content-card-dark testimonial-card" key={testimonial.id || testimonial.name}>
+              <div className="testimonial-head">
+                <span aria-hidden="true" className="testimonial-accent" />
+              </div>
+              <p className="testimonial-quote">{testimonial.quote}</p>
+              <div className="testimonial-meta">
+                <h3>{testimonial.name}</h3>
+                <p className="detail-line">{testimonial.role}</p>
+              </div>
             </article>
           ))}
         </div>

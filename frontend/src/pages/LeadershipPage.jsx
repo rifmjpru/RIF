@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageHero } from "../components/PageHero.jsx";
 import { SectionHeading } from "../components/SectionHeading.jsx";
@@ -14,6 +14,43 @@ export default function LeadershipPage() {
   const { about, team } = useSiteData().siteData || {};
   const [expanded, setExpanded] = useState(new Set());
   const leadershipContent = team?.leadershipContent || {};
+  const leadershipMessages = useMemo(
+    () => [
+      {
+        key: "chiefMinisterMessage",
+        fallbackEyebrow: "Chief Minister, Uttar Pradesh",
+        fallbackName: "Yogi Adityanath",
+        fallbackButtonLabel: "Message from Chief Minister",
+        fallbackButtonLink: "/leadership/message-from-chief-minister",
+        fallbackImageAlt: "Chief Minister message"
+      },
+      {
+        key: "governorMessage",
+        fallbackEyebrow: "Governor, Uttar Pradesh",
+        fallbackName: "Anandiben Patel",
+        fallbackButtonLabel: "Message from Governor",
+        fallbackButtonLink: "/leadership/message-from-governor",
+        fallbackImageAlt: "Governor message"
+      },
+      {
+        key: "viceChancellorMessage",
+        fallbackEyebrow: "Vice Chancellor",
+        fallbackName: "Vice Chancellor",
+        fallbackButtonLabel: "Message from Vice Chancellor",
+        fallbackButtonLink: "/leadership/message-from-vice-chancellor",
+        fallbackImageAlt: "Vice Chancellor message"
+      }
+    ].map((item) => {
+      const message = leadershipContent?.[item.key] || {};
+
+      return {
+        ...item,
+        ...message,
+        preview: truncateText(message.message, 360)
+      };
+    }),
+    [leadershipContent]
+  );
 
   const toggleExpand = (key) => {
     setExpanded((current) => {
@@ -47,6 +84,41 @@ export default function LeadershipPage() {
         }}
       />
 
+      <section className="section leadership-messages-section">
+        <SectionHeading
+          eyebrow="Leadership Messages"
+          title="Guidance from the leaders shaping RIF's direction and momentum."
+          description="Read the featured messages from the Governor, Chief Minister, and Vice Chancellor in one polished leadership space."
+        />
+        <div className="pillar-message-list pillar-message-featured">
+          {leadershipMessages.map((message) => (
+            <article className="pillar-message-card governor-message-card" key={message.key}>
+              {message?.imageUrl ? (
+                <div className="pillar-feature-media governor-message-media">
+                  <img
+                    alt={message.imageAlt || message.name || message.fallbackImageAlt}
+                    src={resolveMediaUrl(message.imageUrl, message.imageAlt || message.name || message.fallbackImageAlt)}
+                  />
+                </div>
+              ) : (
+                <div className="pillar-feature-placeholder governor-message-placeholder" aria-hidden>
+                  {(message?.name || "L").charAt(0).toUpperCase()}
+                </div>
+              )}
+              <div className="pillar-message-copy pillar-feature-copy">
+                <p className="pillar-message-role">{message?.eyebrow || message.fallbackEyebrow}</p>
+                <h3>{message?.name || message.fallbackName}</h3>
+                <p className="pillar-feature-body">{message.preview}</p>
+                <Link className="message-link-button" to={message?.buttonLink || message.fallbackButtonLink}>
+                  <span>{message?.buttonLabel || message.fallbackButtonLabel}</span>
+                  <span aria-hidden>&rarr;</span>
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="section">
         <SectionHeading
           eyebrow={leadershipContent.pillarsEyebrow || "Leadership Pillars"}
@@ -56,7 +128,7 @@ export default function LeadershipPage() {
             "These pillars now sit within Leadership so governance, advisory support, and strategic direction are presented together."
           }
         />
-        <div className="pillar-message-list pillar-message-featured">
+        <div className="pillar-message-list">
           {about?.pillars?.map((pillar, index) => (
             <article className="pillar-message-card" key={pillar.id || pillar.title || index}>
               {pillar?.imageUrl ? (

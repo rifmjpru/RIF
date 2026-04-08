@@ -5,6 +5,7 @@ export default function ContactPage() {
   const siteSettings = useSiteData().siteData?.siteSettings;
   const mapAddress = siteSettings?.location || "MJP Rohilkhand University, Pilibhit Bypass Road, Bareilly, Uttar Pradesh 243006";
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapAddress)}&output=embed`;
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapAddress)}`;
 
   return (
     <>
@@ -42,7 +43,21 @@ export default function ContactPage() {
         <div className="split-grid">
           <article className="content-card">
             <p className="section-eyebrow">Location</p>
-            <h3>{siteSettings?.location}</h3>
+            <a className="contact-location-link" href={mapLink} rel="noreferrer" target="_blank">
+              <span aria-hidden="true" className="contact-location-icon">
+                <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.8"
+                  />
+                  <circle cx="12" cy="10" fill="currentColor" r="2.2" />
+                </svg>
+              </span>
+              <h3>{siteSettings?.location}</h3>
+            </a>
             <p>This route gives the navigation a dedicated contact destination like the reference screenshots.</p>
           </article>
           <article className="content-card">

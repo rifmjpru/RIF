@@ -16,7 +16,7 @@ const defaultPanel = {
 
 const qrConnectUrl = "https://forms.gle/XTdecnwMjBqfrEvHA";
 
-export const PageHero = ({ eyebrow, title, description, primaryAction, secondaryAction, panelKey = "" }) => {
+export const PageHero = ({ eyebrow, title, description, primaryAction, secondaryAction, panelKey = "", children }) => {
   const pageHeroPanels = useSiteData().siteData?.pageHeroPanels || {};
   const panel = panelKey && pageHeroPanels?.[panelKey] ? { ...defaultPanel, ...pageHeroPanels[panelKey] } : defaultPanel;
   const hasImage = Boolean(panel.imageUrl);
@@ -32,7 +32,7 @@ export const PageHero = ({ eyebrow, title, description, primaryAction, secondary
       <div>
         <p className="section-eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
-        <p className="section-description">{description}</p>
+        {description ? <p className="section-description">{description}</p> : null}
         <div className="hero-actions">
           {primaryAction ? (
             <Link className="button" to={primaryAction.to}>
@@ -45,6 +45,7 @@ export const PageHero = ({ eyebrow, title, description, primaryAction, secondary
             </Link>
           ) : null}
         </div>
+        {children}
         {hasQrBlock ? (
           <div className="page-hero-qr-card">
             <div className="page-hero-qr-copy">
