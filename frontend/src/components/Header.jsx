@@ -91,7 +91,7 @@ export const Header = () => {
     <>
       <header className="site-header">
         <Link className="brand-mark" to="/">
-          <img className="brand-badge" src="/images/partners/logo.jpg" alt="rif logo" />
+          <img className="brand-badge" src="/images/logo.jpg" alt="rif logo" />
           <span />
         </Link>
         <nav className="site-nav desktop-nav" aria-label="Primary">

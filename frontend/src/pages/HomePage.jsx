@@ -11,8 +11,7 @@ const spotlightPartners = [
   { label: "Startup India", src: "/images/partners/startinup.webp" },
   { label: "Udyam", src: "/images/partners/PngItem_2411963.webp" },
   { label: "12A / 80G", src: "/images/partners/12a-80G-1.webp" },
-  { label: "Partner Mark", src: "/images/partners/Captur11e.webp" },
-  { label: "RIF", src: "/images/partners/logo.jpg" }
+  { label: "Partner Mark", src: "/images/partners/Captur11e.webp" }
 ];
 
 const qrConnectUrl = "https://forms.gle/XTdecnwMjBqfrEvHA";
