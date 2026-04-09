@@ -8,7 +8,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="About"
+        eyebrow="About RIF"
         panelKey="about"
         title={about?.overview?.title || "About RIF"}
         description={about?.overview?.body || ""}
@@ -19,11 +19,11 @@ export default function AboutPage() {
       <section className="section">
         <div className="split-grid">
           <article className="content-card">
-            <p className="section-eyebrow">Mission</p>
+            <p className="section-eyebrow about-highlight-eyebrow">Mission</p>
             <h3>{about?.overview?.mission}</h3>
           </article>
           <article className="content-card">
-            <p className="section-eyebrow">Vision</p>
+            <p className="section-eyebrow about-highlight-eyebrow">Vision</p>
             <h3>{about?.overview?.vision}</h3>
           </article>
         </div>

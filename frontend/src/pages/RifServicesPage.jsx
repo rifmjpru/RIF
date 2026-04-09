@@ -95,20 +95,26 @@ export default function RifServicesPage() {
         </div>
 
         <div className="rif-service-tiles-grid">
-          {content.serviceTiles.map((tile) => (
+          {content.serviceTiles.map((tile, index) => (
             <article className="rif-service-tile" key={tile.id || tile.title}>
-              <div className="rif-service-icon">
-                {tile.iconUrl ? (
-                  <img alt={tile.iconAlt || tile.title} src={resolveMediaUrl(tile.iconUrl, tile.iconAlt || tile.title)} />
-                ) : (
-                  <span>{getInitials(tile.title)}</span>
-                )}
+              <div className="rif-service-tile-top">
+                <span className="rif-service-index">{String(index + 1).padStart(2, "0")}</span>
+                <div className="rif-service-icon-shell">
+                  <div className="rif-service-icon">
+                    {tile.iconUrl ? (
+                      <img alt={tile.iconAlt || tile.title} src={resolveMediaUrl(tile.iconUrl, tile.iconAlt || tile.title)} />
+                    ) : (
+                      <span>{getInitials(tile.title)}</span>
+                    )}
+                  </div>
+                </div>
               </div>
               <h4>{tile.title}</h4>
               <p>{tile.description}</p>
             </article>
           ))}
           <article className="rif-service-tile rif-service-tile-callout">
+            <p className="rif-service-callout-label">Support Desk</p>
             <h4>{content.supportCardTitle}</h4>
             <p>{content.supportCardDescription}</p>
             <a className="text-link" href={`tel:${content.supportPhone}`}>

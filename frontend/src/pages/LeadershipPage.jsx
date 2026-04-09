@@ -17,20 +17,20 @@ export default function LeadershipPage() {
   const leadershipMessages = useMemo(
     () => [
       {
-        key: "chiefMinisterMessage",
-        fallbackEyebrow: "Chief Minister, Uttar Pradesh",
-        fallbackName: "Yogi Adityanath",
-        fallbackButtonLabel: "Message from Chief Minister",
-        fallbackButtonLink: "/leadership/message-from-chief-minister",
-        fallbackImageAlt: "Chief Minister message"
-      },
-      {
         key: "governorMessage",
         fallbackEyebrow: "Governor, Uttar Pradesh",
         fallbackName: "Anandiben Patel",
         fallbackButtonLabel: "Message from Governor",
         fallbackButtonLink: "/leadership/message-from-governor",
         fallbackImageAlt: "Governor message"
+      },
+      {
+        key: "chiefMinisterMessage",
+        fallbackEyebrow: "Chief Minister, Uttar Pradesh",
+        fallbackName: "Yogi Adityanath",
+        fallbackButtonLabel: "Message from Chief Minister",
+        fallbackButtonLink: "/leadership/message-from-chief-minister",
+        fallbackImageAlt: "Chief Minister message"
       },
       {
         key: "viceChancellorMessage",
@@ -51,6 +51,8 @@ export default function LeadershipPage() {
     }),
     [leadershipContent]
   );
+  const featuredLeadershipMessages = leadershipMessages.filter((message) => message.key !== "viceChancellorMessage");
+  const viceChancellorMessage = leadershipMessages.find((message) => message.key === "viceChancellorMessage");
 
   const toggleExpand = (key) => {
     setExpanded((current) => {
@@ -88,10 +90,10 @@ export default function LeadershipPage() {
         <SectionHeading
           eyebrow="Leadership Messages"
           title="Guidance from the leaders shaping RIF's direction and momentum."
-          description="Read the featured messages from the Governor, Chief Minister, and Vice Chancellor in one polished leadership space."
+          description="Read the featured messages from the Governor and Chief Minister in one polished leadership space."
         />
         <div className="pillar-message-list pillar-message-featured">
-          {leadershipMessages.map((message) => (
+          {featuredLeadershipMessages.map((message) => (
             <article className="pillar-message-card governor-message-card" key={message.key}>
               {message?.imageUrl ? (
                 <div className="pillar-feature-media governor-message-media">
@@ -106,8 +108,8 @@ export default function LeadershipPage() {
                 </div>
               )}
               <div className="pillar-message-copy pillar-feature-copy">
-                <p className="pillar-message-role">{message?.eyebrow || message.fallbackEyebrow}</p>
-                <h3>{message?.name || message.fallbackName}</h3>
+                <p className="pillar-message-role leadership-card-eyebrow">{message?.eyebrow || message.fallbackEyebrow}</p>
+                <h3 className="leadership-card-name">{message?.name || message.fallbackName}</h3>
                 <p className="pillar-feature-body">{message.preview}</p>
                 <Link className="message-link-button" to={message?.buttonLink || message.fallbackButtonLink}>
                   <span>{message?.buttonLabel || message.fallbackButtonLabel}</span>
@@ -141,8 +143,8 @@ export default function LeadershipPage() {
                 </div>
               )}
               <div className="pillar-message-copy pillar-feature-copy">
-                <p className="pillar-message-role">{pillar?.eyebrow || "RIF Strategic Pillar"}</p>
-                <h3>{pillar.title}</h3>
+                <p className="pillar-message-role leadership-card-eyebrow">{pillar?.eyebrow || "RIF Strategic Pillar"}</p>
+                <h3 className="leadership-card-name">{pillar.title}</h3>
                 <p className="pillar-feature-body">
                   {expanded.has(index) ? pillar.description : truncateText(pillar.description, 360)}
                 </p>
@@ -156,6 +158,50 @@ export default function LeadershipPage() {
           ))}
         </div>
       </section>
+
+      {viceChancellorMessage ? (
+        <section className="section leadership-vice-section">
+          <div className="pillar-message-list pillar-message-featured leadership-vice-list">
+            <article className="pillar-message-card governor-message-card" key={viceChancellorMessage.key}>
+              {viceChancellorMessage?.imageUrl ? (
+                <div className="pillar-feature-media governor-message-media">
+                  <img
+                    alt={
+                      viceChancellorMessage.imageAlt ||
+                      viceChancellorMessage.name ||
+                      viceChancellorMessage.fallbackImageAlt
+                    }
+                    src={resolveMediaUrl(
+                      viceChancellorMessage.imageUrl,
+                      viceChancellorMessage.imageAlt || viceChancellorMessage.name || viceChancellorMessage.fallbackImageAlt
+                    )}
+                  />
+                </div>
+              ) : (
+                <div className="pillar-feature-placeholder governor-message-placeholder" aria-hidden>
+                  {(viceChancellorMessage?.name || "L").charAt(0).toUpperCase()}
+                </div>
+              )}
+              <div className="pillar-message-copy pillar-feature-copy">
+                <p className="pillar-message-role leadership-card-eyebrow">
+                  {viceChancellorMessage?.eyebrow || viceChancellorMessage.fallbackEyebrow}
+                </p>
+                <h3 className="leadership-card-name">
+                  {viceChancellorMessage?.name || viceChancellorMessage.fallbackName}
+                </h3>
+                <p className="pillar-feature-body">{viceChancellorMessage.preview}</p>
+                <Link
+                  className="message-link-button"
+                  to={viceChancellorMessage?.buttonLink || viceChancellorMessage.fallbackButtonLink}
+                >
+                  <span>{viceChancellorMessage?.buttonLabel || viceChancellorMessage.fallbackButtonLabel}</span>
+                  <span aria-hidden>&rarr;</span>
+                </Link>
+              </div>
+            </article>
+          </div>
+        </section>
+      ) : null}
 
       <section className="section">
         <div className="split-grid">

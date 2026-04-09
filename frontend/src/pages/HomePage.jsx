@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SectionHeading } from "../components/SectionHeading.jsx";
 import { useSiteData } from "../components/SiteDataProvider.jsx";
@@ -18,7 +18,20 @@ const spotlightPartners = [
 const qrConnectUrl = "https://forms.gle/XTdecnwMjBqfrEvHA";
 const heroVideoSrc = "/videos/rif-hero-logo.mp4";
 const miniVideoSrc = "/videos/Video_Generation_With_Logo.mp4";
+const focusAreasTitle = "Built for founders solving hard, relevant problems.";
+const focusAreasDescription =
+  "The visual language takes cues from leading incubator platforms while keeping the content tailored to RIF's regional and institutional mission.";
+const affiliationsTitle = "Recognized across institutional, startup, and compliance networks.";
+const affiliationsDescription =
+  "A moving view of the ecosystem logos, registrations, and standards connected to RIF.";
 
+const getInitials = (name = "") =>
+  name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("") || "RF";
 
 export default function HomePage() {
   const { siteData } = useSiteData();
@@ -53,6 +66,7 @@ export default function HomePage() {
     ...imageSlides
   ];
   const [activeSlide, setActiveSlide] = useState(0);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
   const sanitizePublicLink = (value, fallback) => {
     if (!value) {
       return fallback;
@@ -69,6 +83,47 @@ export default function HomePage() {
     const focusX = Number.isFinite(Number(slide?.focusX)) ? Math.min(Math.max(Number(slide.focusX), 0), 100) : 50;
     const focusY = Number.isFinite(Number(slide?.focusY)) ? Math.min(Math.max(Number(slide.focusY), 0), 100) : 50;
     return `${focusX}% ${focusY}%`;
+  };
+
+  useEffect(() => {
+    if (!previewTestimonials.length) {
+      setActiveTestimonial(0);
+      return undefined;
+    }
+
+    setActiveTestimonial((current) => current % previewTestimonials.length);
+
+    if (previewTestimonials.length === 1) {
+      return undefined;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveTestimonial((current) => (current + 1) % previewTestimonials.length);
+    }, 4500);
+
+    return () => window.clearInterval(intervalId);
+  }, [previewTestimonials.length]);
+
+  const getTestimonialCardState = (index) => {
+    if (previewTestimonials.length <= 1) {
+      return "active";
+    }
+
+    const offset = (index - activeTestimonial + previewTestimonials.length) % previewTestimonials.length;
+
+    if (offset === 0) {
+      return "active";
+    }
+
+    if (offset === 1) {
+      return "next";
+    }
+
+    if (offset === previewTestimonials.length - 1) {
+      return "prev";
+    }
+
+    return "hidden";
   };
 
   return (
@@ -184,19 +239,15 @@ export default function HomePage() {
               <source src={miniVideoSrc} type="video/mp4" />
             </video>
           </div>
-          <div className="spotlight-partner-wrap">
-            <p className="hero-spotlight-title">Affiliations and Standards</p>
-            <div className="spotlight-partner-strip">
-              {spotlightPartners.map((partner) => (
-                <div className="spotlight-partner-item" key={partner.label}>
-                  <div className="spotlight-partner-card spotlight-partner-image">
-                    {partner.src ? (
-                      <img alt={partner.label} src={partner.src} />
-                    ) : (
-                      <span className="spotlight-partner-fallback">{partner.label}</span>
-                    )}
-                  </div>
-                </div>
+          <div className="spotlight-focus-wrap">
+            <p className="hero-spotlight-title">Focus Areas</p>
+            <h3>{focusAreasTitle}</h3>
+            <p className="spotlight-focus-copy">{focusAreasDescription}</p>
+            <div className="chip-grid spotlight-focus-grid">
+              {homepage?.focusAreas?.map((item) => (
+                <span className="focus-chip spotlight-focus-chip" key={item}>
+                  {item}
+                </span>
               ))}
             </div>
           </div>
@@ -216,38 +267,96 @@ export default function HomePage() {
 
       <section className="section">
         <SectionHeading
-          eyebrow="Focus Areas"
-          title="Built for founders solving hard, relevant problems."
-          description="The visual language takes cues from leading incubator platforms while keeping the content tailored to RIF's regional and institutional mission."
+          eyebrow="Affiliations and Standards"
+          title={affiliationsTitle}
+          description={affiliationsDescription}
         />
-        <div className="chip-grid">
-          {homepage?.focusAreas?.map((item) => (
-            <span className="focus-chip" key={item}>
-              {item}
-            </span>
-          ))}
+        <div
+          aria-label="Affiliations and standards logo slider"
+          className="affiliations-marquee"
+          role="region"
+        >
+          <div className="affiliations-marquee-track">
+            {[0, 1].map((copyIndex) => (
+              <div
+                aria-hidden={copyIndex === 1}
+                className="affiliations-marquee-group"
+                key={`affiliations-group-${copyIndex}`}
+              >
+                {spotlightPartners.map((partner, partnerIndex) => (
+                  <div className="spotlight-partner-item" key={`${partner.label}-${copyIndex}-${partnerIndex}`}>
+                    <div className="spotlight-partner-card spotlight-partner-image">
+                      {partner.src ? (
+                        <img alt={copyIndex === 0 ? partner.label : ""} src={partner.src} />
+                      ) : (
+                        <span className="spotlight-partner-fallback">{partner.label}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section section-dark">
+      <section className="section section-dark testimonials-showcase">
         <SectionHeading
           eyebrow={testimonialsSection.eyebrow || "Testimonials"}
           title={testimonialsSection.title || "What founders, members, and ecosystem partners say about working with RIF."}
           description={testimonialsSection.description || ""}
         />
-        <div className="card-grid card-grid-3">
-          {previewTestimonials.map((testimonial) => (
-            <article className="content-card content-card-dark testimonial-card" key={testimonial.id || testimonial.name}>
+        <div className="testimonial-carousel">
+          <div
+            aria-label="Testimonials carousel"
+            className="testimonial-carousel-stage"
+            role="region"
+          >
+          {previewTestimonials.map((testimonial, index) => {
+            const cardState = getTestimonialCardState(index);
+
+            return (
+            <article
+              aria-hidden={cardState !== "active"}
+              className={`content-card content-card-dark testimonial-card testimonial-card-${cardState}`}
+              key={testimonial.id || testimonial.name}
+            >
               <div className="testimonial-head">
+                <div className="testimonial-kicker-wrap">
+                  <span className="testimonial-kicker">Founder Voice</span>
+                  <span className="testimonial-index">{String(index + 1).padStart(2, "0")}</span>
+                </div>
                 <span aria-hidden="true" className="testimonial-accent" />
               </div>
               <p className="testimonial-quote">{testimonial.quote}</p>
               <div className="testimonial-meta">
-                <h3>{testimonial.name}</h3>
-                <p className="detail-line">{testimonial.role}</p>
+                <div className="testimonial-person">
+                  <span aria-hidden="true" className="testimonial-avatar">
+                    {getInitials(testimonial.name)}
+                  </span>
+                  <div className="testimonial-person-copy">
+                    <h3>{testimonial.name}</h3>
+                    <p className="detail-line">{testimonial.role}</p>
+                  </div>
+                </div>
               </div>
             </article>
-          ))}
+            );
+          })}
+          </div>
+          {previewTestimonials.length > 1 ? (
+            <div className="testimonial-carousel-controls">
+              {previewTestimonials.map((testimonial, index) => (
+                <button
+                  aria-label={`Show testimonial ${index + 1}`}
+                  className={index === activeTestimonial ? "slider-dot slider-dot-active" : "slider-dot"}
+                  key={testimonial.id || testimonial.name || index}
+                  onClick={() => setActiveTestimonial(index)}
+                  type="button"
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
         {testimonials.length > previewCount ? (
           <div className="hero-actions">
@@ -287,7 +396,7 @@ export default function HomePage() {
             ))}
           </div>
           <div className="cta-panel">
-            <p className="section-eyebrow">CMS and Admin</p>
+            <p className="section-eyebrow">FOUNDER SUPPORT</p>
             <h3>{homepage?.cta?.title}</h3>
             <p>{homepage?.cta?.description}</p>
             {homepage?.cta?.qrTitle || homepage?.cta?.qrImageUrl ? (
