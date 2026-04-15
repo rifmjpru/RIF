@@ -2143,6 +2143,9 @@ textarea:focus-visible {
   color: #5f7792;
   line-height: 1.68;
   font-size: 0.98rem;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .rif-service-tile-callout {
@@ -3502,9 +3505,53 @@ textarea:focus-visible {
   line-height: 1.32;
 }
 
+.profile-bio {
+  position: relative;
+  margin: 0;
+  padding-left: 1.35rem;
+  padding-right: 0.7rem;
+  color: #5e6b80;
+  line-height: 1.7;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.profile-bio::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.22rem;
+  left: 0;
+  color: rgba(31, 77, 167, 0.78);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.profile-bio::after {
+  content: "\201D";
+  color: rgba(31, 77, 167, 0.78);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-left: 0.16rem;
+  vertical-align: -0.18em;
+}
+
 .profile-content-card {
   display: grid;
+  align-content: start;
+  align-items: start;
   gap: 0.55rem;
+  height: 100%;
+}
+
+.profile-content-card .meta-line {
+  align-items: center;
+}
+
+.profile-content-card .meta-line span {
+  align-self: flex-start;
 }
 
 .profile-image-shell {

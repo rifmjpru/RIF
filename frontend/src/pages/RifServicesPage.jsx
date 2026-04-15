@@ -82,6 +82,16 @@ const getInitials = (value = "") =>
     .join("")
     .toUpperCase();
 
+const ensureSentencePeriod = (value = "") => {
+  const trimmed = value.trim();
+
+  if (!trimmed) {
+    return "";
+  }
+
+  return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
+};
+
 export default function RifServicesPage() {
   const content = normalizeRifServices(useSiteData().siteData?.rifServices);
 
@@ -110,13 +120,13 @@ export default function RifServicesPage() {
                 </div>
               </div>
               <h4>{tile.title}</h4>
-              <p>{tile.description}</p>
+              <p>{ensureSentencePeriod(tile.description)}</p>
             </article>
           ))}
           <article className="rif-service-tile rif-service-tile-callout">
             <p className="rif-service-callout-label">Support Desk</p>
             <h4>{content.supportCardTitle}</h4>
-            <p>{content.supportCardDescription}</p>
+            <p>{ensureSentencePeriod(content.supportCardDescription)}</p>
             <a className="text-link" href={`tel:${content.supportPhone}`}>
               {content.supportPhone}
             </a>

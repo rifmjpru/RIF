@@ -12,7 +12,7 @@ export default function MembershipPage() {
       <section className="section membership-offer-section">
         <div className="membership-offer-heading">
           <p className="section-eyebrow">Membership</p>
-          <h2>We are offering competitive prices for our clients</h2>
+          <h2>We are offering vast facilities under one roof</h2>
         </div>
         <div className="membership-offer-grid">
           {plans.map((plan, index) => (

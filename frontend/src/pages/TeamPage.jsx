@@ -12,6 +12,26 @@ const getInitials = (name = "") =>
     .join("")
     .toUpperCase();
 
+const stripWrappingQuotes = (value) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  let nextValue = value.trim();
+
+  while (
+    nextValue.length >= 2 &&
+    ((nextValue.startsWith('"') && nextValue.endsWith('"')) ||
+      (nextValue.startsWith("'") && nextValue.endsWith("'")) ||
+      (nextValue.startsWith("“") && nextValue.endsWith("”")) ||
+      (nextValue.startsWith("‘") && nextValue.endsWith("’")))
+  ) {
+    nextValue = nextValue.slice(1, -1).trim();
+  }
+
+  return nextValue;
+};
+
 const sectionConfig = {
   boardOfDirectors: {
     id: "board-of-directors",
@@ -66,7 +86,7 @@ const TeamSection = ({ id, title, items, style }) => (
             <>
               <h3>{member.name}</h3>
               <p>{member.role}</p>
-              {member.bio ? <p>{member.bio}</p> : null}
+              {member.bio ? <p className="profile-bio">{stripWrappingQuotes(member.bio)}</p> : null}
             </>
           ) : (
             <>
@@ -74,7 +94,7 @@ const TeamSection = ({ id, title, items, style }) => (
                 <span>{member.role}</span>
               </p>
               <h3>{member.name}</h3>
-              <p>{member.bio}</p>
+              <p className="profile-bio">{stripWrappingQuotes(member.bio)}</p>
             </>
           )}
         </article>
@@ -87,6 +107,7 @@ export default function TeamPage({ sectionKey = "coreTeam" }) {
   const team = useSiteData().siteData?.team;
   const activeSection = sectionConfig[sectionKey] || sectionConfig.coreTeam;
   const sectionItems = team?.[sectionKey] || team?.coreTeam || [];
+  const additionalDirectors = team?.additionalDirectors || [];
 
   return (
     <>
@@ -99,6 +120,9 @@ export default function TeamPage({ sectionKey = "coreTeam" }) {
         secondaryAction={activeSection.secondaryAction}
       />
       <TeamSection id={activeSection.id} items={sectionItems} style={activeSection.style} title={activeSection.title} />
+      {sectionKey === "boardOfDirectors" && additionalDirectors.length ? (
+        <TeamSection id="additional-directors" items={additionalDirectors} style={activeSection.style} title="Additional Directors" />
+      ) : null}
     </>
   );
 }

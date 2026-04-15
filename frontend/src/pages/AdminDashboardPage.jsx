@@ -64,6 +64,36 @@ const ensureItemsHaveIds = (items = [], baseKey = "item") =>
       : item
   );
 
+const stripWrappingQuotes = (value) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  let nextValue = value.trim();
+
+  while (
+    nextValue.length >= 2 &&
+    ((nextValue.startsWith('"') && nextValue.endsWith('"')) ||
+      (nextValue.startsWith("'") && nextValue.endsWith("'")) ||
+      (nextValue.startsWith("“") && nextValue.endsWith("”")) ||
+      (nextValue.startsWith("‘") && nextValue.endsWith("’")))
+  ) {
+    nextValue = nextValue.slice(1, -1).trim();
+  }
+
+  return nextValue;
+};
+
+const normalizeProfileCollection = (items = [], baseKey = "item") =>
+  ensureItemsHaveIds(items, baseKey).map((item) =>
+    item && typeof item === "object"
+      ? {
+          ...item,
+          bio: stripWrappingQuotes(item.bio || "")
+        }
+      : item
+  );
+
 const buildBlankItem = (fields) =>
   fields.reduce(
     (draft, field) => ({
@@ -323,9 +353,10 @@ const normalizeTeamData = (value) => ({
       ...(value?.leadershipContent?.viceChancellorMessage || {})
     }
   },
-  boardOfDirectors: ensureItemsHaveIds(value?.boardOfDirectors, "board"),
-  advisoryBoard: ensureItemsHaveIds(value?.advisoryBoard, "advisor"),
-  coreTeam: ensureItemsHaveIds(value?.coreTeam, "core")
+  boardOfDirectors: normalizeProfileCollection(value?.boardOfDirectors, "board"),
+  additionalDirectors: normalizeProfileCollection(value?.additionalDirectors, "additional-director"),
+  advisoryBoard: normalizeProfileCollection(value?.advisoryBoard, "advisor"),
+  coreTeam: normalizeProfileCollection(value?.coreTeam, "core")
 });
 
 const normalizeRifServicesData = (value) => {
@@ -3323,6 +3354,40 @@ export default function AdminDashboardPage() {
                       uploadingKey={
                         uploadingTarget.startsWith("profile:team.boardOfDirectors:")
                           ? uploadingTarget.replace("profile:team.boardOfDirectors:", "")
+                          : ""
+                      }
+                    />
+                  )
+                },
+                {
+                  id: "additional-directors",
+                  label: "Additional Directors",
+                  content: (
+                    <ProfileCollectionEditor
+                      fields={[
+                        { key: "name", label: "Name" },
+                        { key: "role", label: "Role" },
+                        { key: "bio", label: "Bio", type: "textarea", span: 2, rows: 4 }
+                      ]}
+                      helper="Add any extra directors you want to show as a separate subsection on the board page."
+                      items={(draftData.team.additionalDirectors || []).map(withProfileImageDefaults)}
+                      onSelectImage={(itemId, file) =>
+                        openCropDialog({
+                          mode: "profile",
+                          sectionPath: ["team", "additionalDirectors"],
+                          itemId,
+                          file,
+                          aspectRatio: 1,
+                          outputWidth: 800,
+                          outputHeight: 800,
+                          helperText: "Adjust zoom and position, then upload a square profile image."
+                        })
+                      }
+                      onChange={(nextValue) => updatePath(["team", "additionalDirectors"], nextValue)}
+                      title="Additional Directors"
+                      uploadingKey={
+                        uploadingTarget.startsWith("profile:team.additionalDirectors:")
+                          ? uploadingTarget.replace("profile:team.additionalDirectors:", "")
                           : ""
                       }
                     />

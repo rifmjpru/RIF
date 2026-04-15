@@ -341,6 +341,45 @@ const ensureIds = (value, baseKey = "item") => {
   });
 };
 
+const stripWrappingQuotes = (value) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  let nextValue = value.trim();
+
+  while (
+    nextValue.length >= 2 &&
+    ((nextValue.startsWith('"') && nextValue.endsWith('"')) ||
+      (nextValue.startsWith("'") && nextValue.endsWith("'")) ||
+      (nextValue.startsWith("“") && nextValue.endsWith("”")) ||
+      (nextValue.startsWith("‘") && nextValue.endsWith("’")))
+  ) {
+    nextValue = nextValue.slice(1, -1).trim();
+  }
+
+  return nextValue;
+};
+
+const normalizeProfileCollection = (value, baseKey) => {
+  const items = ensureIds(value, baseKey);
+
+  if (!Array.isArray(items)) {
+    return items;
+  }
+
+  return items.map((item) => {
+    if (!item || typeof item !== "object") {
+      return item;
+    }
+
+    return {
+      ...item,
+      bio: stripWrappingQuotes(item.bio)
+    };
+  });
+};
+
 const normalizeHomepageSection = (value) => {
   if (!value || typeof value !== "object") {
     return value;
@@ -435,9 +474,10 @@ const normalizeSection = (section, value) => {
           ...(value.leadershipContent?.viceChancellorMessage || {})
         }
       },
-      boardOfDirectors: ensureIds(value.boardOfDirectors, "board"),
-      advisoryBoard: ensureIds(value.advisoryBoard, "advisor"),
-      coreTeam: ensureIds(value.coreTeam, "core")
+      boardOfDirectors: normalizeProfileCollection(value.boardOfDirectors, "board"),
+      additionalDirectors: normalizeProfileCollection(value.additionalDirectors, "additional-director"),
+      advisoryBoard: normalizeProfileCollection(value.advisoryBoard, "advisor"),
+      coreTeam: normalizeProfileCollection(value.coreTeam, "core")
     };
   }
 
